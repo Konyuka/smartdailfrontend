@@ -437,23 +437,41 @@
                 Demo Campaign
                 </p> 
 
-            <div class="flex justify-between px-2">
+            <div class="flex justify-evenly px-2 pt-3 ">
 
-            <button @click="sideG = true" type="button" class="rounded-lg py-2 inline-flex items-center px-1.5  border border-transparent text-xs font-medium border-gray-300 shadow-sm text-black bg-white hover:bg-indigo-800  hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <span class="relative z-0 inline-flex shadow-sm rounded-md">
+              <button @click="sideG = true" type="button" class="relative inline-flex items-center font-semibold px-3 py-2 rounded-l-md border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                Ingroups
+              </button>
+              <button @click="sideP = true" type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                PCode
+              </button>
+              <button type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                Dnext
+              </button>
+              <button @click="side = true" type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 rounded-r-md border border-gray-300 bg-white text-xs text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                Mdial
+              </button>
+
+              
+            </span>
+
+
+            <!-- <button @click="sideG = true" type="button" class="rounded-lg py-2 inline-flex items-center px-1.5  border border-transparent text-xs font-medium border-gray-300 shadow-sm text-black bg-white hover:bg-gray-800  hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Ingroups
             </button>
 
-            <button @click="sideP = true" type="button" class="rounded-lg inline-flex items-center px-1.5  border border-transparent text-xs font-medium rounded border-gray-300 shadow-sm text-black bg-white hover:bg-indigo-800  hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button @click="sideP = true" type="button" class="rounded-lg inline-flex items-center px-1.5  border border-transparent text-xs font-medium rounded border-gray-300 shadow-sm text-black bg-white hover:bg-gray-800  hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               P - Code
             </button>
 
-            <button @click="side = true" type="button" class="rounded-lg py-2 inline-flex items-center px-1.5  border border-transparent text-xs font-medium rounded border-gray-300 shadow-sm text-black bg-white hover:bg-indigo-800  hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button @click="side = true" type="button" class="rounded-lg py-2 inline-flex items-center px-1.5  border border-transparent text-xs font-medium rounded border-gray-300 shadow-sm text-black bg-gray-300 hover:bg-gray-800  hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               M - Dial
             </button>
 
-            <button type="button" class="rounded-lg py-2 inline-flex items-center px-1.5  border border-transparent text-xs font-medium rounded border-gray-300 shadow-sm text-black bg-white hover:bg-indigo-800  hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button type="button" class="rounded-lg py-2 inline-flex items-center px-1.5  border border-transparent text-xs font-medium rounded border-gray-300 shadow-sm text-black bg-gray-300 hover:bg-gray-800  hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               D - Next
-            </button>
+            </button> -->
 
             </div>
 
@@ -472,16 +490,16 @@
               <div class="hidden sm:block mt-4 px-2">
                 <div class="border-b border-black">
                   <nav class="-mb-px flex justify-between" aria-label="Tabs">
-                    <a v-on:click="toggleTabs(1)" v-bind:class="{'text-black': openTab !== 1, 'text-black border-indigo-700': openTab === 1}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-md hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTabs(1)" v-bind:class="{'text-black': openTab !== 1, 'text-black border-indigo-700': openTab === 1}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Queue
                     </a>
-                    <a v-on:click="toggleTabs(2)" v-bind:class="{'text-black': openTab !== 2, 'text-black border-indigo-700': openTab === 2}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-md hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTabs(2)" v-bind:class="{'text-black': openTab !== 2, 'text-black border-indigo-700': openTab === 2}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Logs
                     </a>
-                    <a v-on:click="toggleTabs(3)" v-bind:class="{'text-black': openTab !== 3, 'text-black border-indigo-700': openTab === 3}" class="whitespace-nowrap py-2 px-1 border-b-4   border-transparent font-medium text-md hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTabs(3)" v-bind:class="{'text-black': openTab !== 3, 'text-black border-indigo-700': openTab === 3}" class="whitespace-nowrap py-2 px-1 border-b-4   border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Agents
                     </a>
-                    <a v-on:click="toggleTabs(4)" v-bind:class="{'text-black': openTab !== 4, 'text-black border-indigo-700': openTab === 4}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-md hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTabs(4)" v-bind:class="{'text-black': openTab !== 4, 'text-black border-indigo-700': openTab === 4}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Backs
                     </a>
                   </nav>
@@ -712,9 +730,9 @@
 
                         </table>
                         <!-- Pagination -->
-                        <nav class="px-4 pt-2 flex items-center justify-between sm:px-0">
+                        <nav class="px-4 flex items-center justify-between sm:px-0">
                           <div class="-mt-px w-0 flex-1 flex">
-                            <a href="#" class="border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
+                            <a href="#" class="border-t-2 border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
                               <!-- Heroicon name: arrow-narrow-left -->
                               <svg class="mr-3 h-5 w-5 text-indigo-400 hover:text-indigo-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -726,7 +744,7 @@
                             
                           </div>
                           <div class="-mt-px w-0 flex-1 flex justify-end">
-                            <a href="#" class="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
+                            <a href="#" class="border-t-2 border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
                               Next
                               <!-- Heroicon name: arrow-narrow-right -->
                               <svg class="ml-3 h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -928,9 +946,9 @@
                           </tbody>
                         </table>
                         <!-- Pagination -->
-                        <nav class="px-4 pt-2 flex items-center justify-between sm:px-0">
+                        <nav class="px-4 flex items-center justify-between sm:px-0">
                           <div class="-mt-px w-0 flex-1 flex">
-                            <a href="#" class="border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
+                            <a href="#" class="border-t-2 border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
                               <!-- Heroicon name: arrow-narrow-left -->
                               <svg class="mr-3 h-5 w-5 text-indigo-400 hover:text-indigo-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -942,7 +960,7 @@
                             
                           </div>
                           <div class="-mt-px w-0 flex-1 flex justify-end">
-                            <a href="#" class="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
+                            <a href="#" class="border-t-2 border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
                               Next
                               <!-- Heroicon name: arrow-narrow-right -->
                               <svg class="ml-3 h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1243,9 +1261,9 @@
                           </tbody>
                         </table>
                         <!-- Pagination -->
-                        <nav class="px-4 pt-2 flex items-center justify-between sm:px-0">
+                        <nav class="px-4 flex items-center justify-between sm:px-0">
                           <div class="-mt-px w-0 flex-1 flex">
-                            <a href="#" class="border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
+                            <a href="#" class="border-t-2 border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
                               <!-- Heroicon name: arrow-narrow-left -->
                               <svg class="mr-3 h-5 w-5 text-indigo-400 hover:text-indigo-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -1257,7 +1275,7 @@
                             
                           </div>
                           <div class="-mt-px w-0 flex-1 flex justify-end">
-                            <a href="#" class="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
+                            <a href="#" class="border-t-2 border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
                               Next
                               <!-- Heroicon name: arrow-narrow-right -->
                               <svg class="ml-3 h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1282,12 +1300,12 @@
         </div>
 
         <!-- Sidebar Footer -->
-        <div class="flex-shrink-0 flex p-2 bg-indigo-900">
+        <div class="flex-shrink-0 flex">
           <a href="#" class="flex-shrink-0 w-full group block">
             <div class="items-center">
               <div class="">
 
-                <div class="px-2 text-center flex justify-between">
+                <div class="bg-indigo-900 px-2 text-center flex justify-between">
                 <p class="text-md font-medium text-white pb-1">
                   Status: Lunch Break
                 </p>
@@ -1295,35 +1313,44 @@
                   Leads: 177 
                 </p>
                 </div>
-                <hr class="mb-2 border-b border-black">
-                <div @click="paused = !paused" class="text-md font-medium text-gray-400 group-hover:text-white flex">  
 
-                  <span class="ml-1 flex text-white hover:text-gray-400">  
-                     <svg v-if="paused" class="mr-1 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                     </svg>
-                     <svg v-if="!paused" class="mr-1 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                     <div class="flex">
-                     <span v-if="paused">
-                       Paused 
-                     </span>
-                     <span  v-if="!paused">
-                       Active 
-                     </span>
-                     </div>
-                  </span> 
+                <div class="bg-indigo-600 text-md font-medium text-gray-400 group-hover:text-white flex justify-between px-2 py-2">  
+
+                    <button @click="paused = !paused" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-black bg-blue-400 hover:text-black hover:bg-white focus:outline-none">
+                      <span class="flex">  
+                        <svg v-if="paused" class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <svg v-if="!paused" class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div class="flex">
+                        <span v-if="paused">
+                          Paused 
+                        </span>
+                        <span  v-if="!paused">
+                          Active 
+                        </span>
+                        </div>
+                      </span>
+
+                    </button>
+
+                    <button  type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-black bg-blue-400 hover:text-black hover:bg-white focus:outline-none">
+                      
+                      <span class="flex">
+                        <svg  class="mr-1 h-4 w-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
+                      </span>
+
+                    </button>
+
+                   
                   
-                  <span class="ml-24 hover:text-gray-400 text-white flex">
-                     <svg  class="mr-1 h-6 w-6 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                     </svg>
-                     Logout
-                  </span>
                 </div>
-
 
               </div>
             </div>
@@ -1373,14 +1400,14 @@
             </h3>  
             <div class="flex justify-between mt-5">
 
-              <button v-if="transfer" @click="transfer = !transfer" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button v-if="!transfer" @click="transfer = !transfer" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <!-- Heroicon name: mail -->
               <svg class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
               </svg>
               Transfer
             </button>
-            <button v-if="!transfer" @click="transfer = !transfer" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-black bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button v-if="transfer" @click="transfer = !transfer" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-black bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <svg class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
               </svg>
@@ -1416,7 +1443,7 @@
           </div>
 
           <!-- During Transfer -->
-          <div v-if="!transfer && call">
+          <div v-if="transfer">
           <div class="hidden sm:block mt-8">
             <div class="border-b border-white">
               <nav class="-mb-px flex justify-between" aria-label="Tabs">
@@ -1529,12 +1556,14 @@
           <!--Call & Hang-Up  Button -->
           <div class="mt-5 sm:mt-6 text-center absolute bottom-52 left-24">
             <div class="">
-            <button v-if="!call" @click='call = !call' type="button" class="inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-4 bg-green-500 text-base font-medium text-black hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
+             <!-- Dial  -->
+            <button v-if="!call" @click='called' type="button" class="inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-4 bg-green-500 text-base font-medium text-black hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
               <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
               </svg>
             </button>
-            <button v-if="call" @click='call = !call' type="button" class="inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-4 bg-red-500 text-base font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
+            <!-- hang -->
+            <button v-if="call" @click='hangUp' type="button" class="inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-4 bg-red-500 text-base font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
               <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                <path d="M16.707 3.293a1 1 0 010 1.414L15.414 6l1.293 1.293a1 1 0 01-1.414 1.414L14 7.414l-1.293 1.293a1 1 0 11-1.414-1.414L12.586 6l-1.293-1.293a1 1 0 011.414-1.414L14 4.586l1.293-1.293a1 1 0 011.414 0z" />
@@ -1597,9 +1626,14 @@
               <label class="inline-flex items-center mt-3">
                   <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"><span class="ml-2 text-white text-sm">IT</span>
               </label>
-
-              
             </div>
+
+            <div class="py-14 ml-14">
+              <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Submit
+              </button>
+            </div>
+
         </div>
 
         </nav>
@@ -1637,6 +1671,13 @@
                 </label>
               </div>
             </div>
+
+            <div class="py-14 ml-14">
+              <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Submit
+              </button>
+            </div>
+
           </div>
 
         </nav>
@@ -1644,394 +1685,495 @@
     </div>
 
   </div>
-<!-- Test Toggle  -->
-  <div class="flex flex-col w-0 flex-1 overflow-hidden">
-    <div class="md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3">
-      <button @click='toggle = !toggle' class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-        <span class="sr-only">Open sidebar</span>
-        <!-- Heroicon name: menu -->
-        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-<!--End Test Toggle  -->
-    <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none" tabindex="0">
 
-      <div class="py-0">
+  <!-- Test Toggle  -->
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+      <div class="md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3">
+        <button @click='toggle = !toggle' class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+          <span class="sr-only">Open sidebar</span>
+          <!-- Heroicon name: menu -->
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+  <!--End Test Toggle  -->
+      <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none" tabindex="0">
 
-        <div class="max-w-7xl mx-auto px-0 sm:px-0 md:px-0">
-          <!-- Replace with your content -->
-            <div class="rounded-lg h-96">
-              <iframe src = "https://www.youtube.com/embed/cC9r0jHF-Fw" width="1003" height="665" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-          <!-- /End replace -->
+        <div class="py-0">
 
-        </div>
+          <div class="max-w-7xl mx-auto px-0 sm:px-0 md:px-0">
+            <!-- Replace with your content -->
+              <div class="rounded-lg h-96">
+                <iframe src = "http://172.16.10.202" width="1003" height="665" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            <!-- /End replace -->
 
-        <!-- Campaign Modal -->
-        <div  class="fixed z-10 inset-0 overflow-y-auto">
-          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          </div>
+
+          <!-- Campaign Modal -->
+          <div v-if="campaign" class="fixed z-10 inset-0 overflow-y-auto">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              
+              <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+              </div>
+
+              <!-- This element is to trick the browser into centering the modal contents. -->
+              <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
+              <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                
+                <div>
+                  <label id="listbox-label" class="block text-sm font-medium text-gray-700">
+                    Assigned to
+                  </label>
+                  <div class="mt-1 relative">
+                    <button @click="camp = !camp" type="button" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label" class="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                      <span class="block truncate">
+                        Choose Campaign
+                      </span>
+                      <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                        <!-- Heroicon name: selector -->
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                      </span>
+                    </button>
 
-            <!-- This element is to trick the browser into centering the modal contents. -->
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-          
-            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-             
-              <div>
-                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                  <!-- Heroicon name: check -->
-                  <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-                  </svg>
+                  
+                    <div v-if="camp" class="absolute mt-1 w-full rounded-md bg-white shadow-lg">
+                      <ul tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-item-3" class="max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                        <!--
+                          Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
+
+                          Highlighted: "text-white bg-indigo-600", Not Highlighted: "text-gray-900"
+                        -->
+                        <li @click="camp = !true" id="listbox-option-0" role="option" class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9">
+                          <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
+                          <span class="font-normal block truncate">
+                            Test Campaign
+                          </span>
+
+                          <!--
+                            Checkmark, only display for selected option.
+
+                            Highlighted: "text-white", Not Highlighted: "text-indigo-600"
+                          -->
+                          
+                        </li>
+
+                        <li @click="camp = !true" id="listbox-option-0" role="option" class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9">
+                          <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
+                          <span class="font-normal block truncate">
+                            Demo Campaign
+                          </span>
+
+                          <!--
+                            Checkmark, only display for selected option.
+
+                            Highlighted: "text-white", Not Highlighted: "text-indigo-600"
+                          -->
+                          <!-- <span class="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                          </span> -->
+                        </li>
+
+
+                        <!-- More options... -->
+                      </ul>
+                    </div>
+
+                  </div>
                 </div>
-                <div class="mt-3 text-center sm:mt-5">
-                  <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                    Choose Campaign
-                  </h3>
-                  <div class="mt-2">
-                    <div class="px-8">
-                      <fieldset class="mt-6 bg-white">
-                        <div class="mt-1 rounded-md shadow-sm -space-y-px">
-                          <div>
-                            <label for="country" class="sr-only">Country</label>
-                            <select id="country" name="country" class="focus:ring-indigo-500 focus:border-indigo-500 relative block w-full rounded-none rounded-t-md bg-transparent focus:z-10 sm:text-sm border-gray-300">
-                              <option class="text-gray-200">Campaign List</option>
-                              <option>Demo Campaign</option>
-                              <option>Test Campaign</option>
-                            </select>
+  
+                <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                  <button @click="modal = !modal" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-900 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
+                    Submit
+                  </button>
+                  <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
+                    Logout
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Disposition Modal  -->
+          <div v-if="disposition" class="fixed z-10 inset-0 overflow-y-auto">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+              </div>
+
+              <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+              
+              <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                <div>
+                  <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+                      <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+                    </svg>
+                  </div>
+
+
+                  <div v-if="!callback" class="mt-3 text-center sm:mt-5">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                      Disposition
+                    </h3>
+                    <div class="mt-2">
+                      <fieldset>
+                      
+
+                      <div class="bg-white rounded-md -space-y-px">
+                        <div class="grid grid-cols-3 gap-3">
+
+                          
+                          <div class="relative border border-gray-200 p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-1" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-1" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Do Not Call
+                              </span>
+                            </label>
                           </div>
+
+                          <div class="relative border rounded-tl-md rounded-tr-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input v-on:change="callMe" id="settings-option-0" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-0" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Call Back
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Sale Made
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-3" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-3" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Decline Sale 
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-4" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-4" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                              No Answer 
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-5" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-5" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Phone Off 
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-6" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-6" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                              No Pitch 
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-7" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-7" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Call Tranfer
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-7" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-7" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Call Tranfer
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-7" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-7" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Call Tranfer
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-7" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-7" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Call Tranfer
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-7" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-7" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Call Tranfer
+                              </span>
+                            </label>
+                          </div>
+
                         </div>
+
+                      </div>
                       </fieldset>
                     </div>
-
                   </div>
+
+                  <!-- Call Back Modal -->
+                  <div v-if="callback" class="mt-3 text-center sm:mt-5">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                      Call Back
+                    </h3>
+                    <div class="mt-2 py-10">
+                    
+                      <Date />
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                  <button @click="dispose" type="button" class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
+                    Submit & Resume
+                  </button>
+                  <button @click="disposition = false" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
+                    Submit & Pause
+                  </button>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- Ingroup Modal  -->
+          <div v-if="modalD" class="fixed z-10 inset-0 overflow-y-auto">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+              </div>
+
+              <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
               
-              <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-                <button @click="modal = !modal" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-                  Submit
-                </button>
-                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
-                  Logout
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+              <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                <div>
+                  <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                    </svg>
+                  </div>
+                  <div class="mt-3 text-center sm:mt-5">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                      Ingroups
+                    </h3>
+                    <div class="mt-2">
+                      <fieldset>
+                      
 
-        <!-- Disposition Modal  -->
-        <div v-if="modalD" class="fixed z-10 inset-0 overflow-y-auto">
-          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
+                      <div class="bg-white rounded-md -space-y-px">
+                        <div class="grid grid-cols-3 gap-6">
 
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            
-            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-              <div>
-                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                  <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                    <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
-                  </svg>
-                </div>
-                <div class="mt-3 text-center sm:mt-5">
-                  <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                    Disposition
-                  </h3>
-                  <div class="mt-2">
-                    <fieldset>
-                    
-
-                    <div class="bg-white rounded-md -space-y-px">
-                      <div class="grid grid-cols-2 gap-6">
-
-                        <div class="relative border rounded-tl-md rounded-tr-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-0" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300" checked>
+                          <div class="relative border rounded-tl-md rounded-tr-md p-4 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-0" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300" checked>
+                            </div>
+                            <label for="settings-option-0" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Care
+                              </span>
+                            </label>
                           </div>
-                          <label for="settings-option-0" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Call Back
-                            </span>
-                          </label>
-                        </div>
 
-                        <div class="relative border border-gray-200 p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-1" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                          <div class="relative border border-gray-200 p-4 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-1" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-1" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Reception
+                              </span>
+                            </label>
                           </div>
-                          <label for="settings-option-1" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Do Not Call
-                            </span>
-                          </label>
-                        </div>
 
-                        <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-4 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Finance
+                              </span>
+                            </label>
                           </div>
-                          <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Sale Made
-                            </span>
-                          </label>
-                        </div>
 
-                        <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                          </div>
-                          <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Decline Sale 
-                            </span>
-                          </label>
-                        </div>
-
-                        <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                          </div>
-                          <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                             No Answer 
-                            </span>
-                          </label>
-                        </div>
-
-                        <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                          </div>
-                          <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Phone Off 
-                            </span>
-                          </label>
-                        </div>
-
-                        <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                          </div>
-                          <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                             No Pitch 
-                            </span>
-                          </label>
-                        </div>
-
-                        <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                          </div>
-                          <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Call Tranfer
-                            </span>
-                          </label>
                         </div>
 
                       </div>
-
+                      </fieldset>
                     </div>
-                    </fieldset>
                   </div>
                 </div>
-              </div>
-              <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-                <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-                  Submit Only
-                </button>
-                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
-                  Submit & Pause
-                </button>
+                <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                  <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
+                    Submit
+                  </button>
+                  <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
+                    Cancel
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Ingroup Modal  -->
-        <div v-if="modalD" class="fixed z-10 inset-0 overflow-y-auto">
-          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
+          <!-- Pause Modal  -->
+          <div v-if="modalP" class="fixed z-10 inset-0 overflow-y-auto">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+              </div>
 
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            
-            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-              <div>
-                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                  <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-                  </svg>
-                </div>
-                <div class="mt-3 text-center sm:mt-5">
-                  <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                    Ingroups
-                  </h3>
-                  <div class="mt-2">
-                    <fieldset>
-                    
+              <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+              
+              <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                <div>
+                  <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                    </svg>
+                  </div>
+                  <div class="mt-3 text-center sm:mt-5">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                      Pause Code
+                    </h3>
+                    <div class="mt-2">
+                      <fieldset>
+                      
 
-                    <div class="bg-white rounded-md -space-y-px">
-                      <div class="grid grid-cols-3 gap-6">
+                      <div class="bg-white rounded-md -space-y-px">
+                        <div class="grid grid-cols-3 gap-6">
 
-                        <div class="relative border rounded-tl-md rounded-tr-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-0" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300" checked>
+                          <div class="relative border rounded-tl-md rounded-tr-md p-4 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-0" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300" checked>
+                            </div>
+                            <label for="settings-option-0" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Lunch
+                              </span>
+                            </label>
                           </div>
-                          <label for="settings-option-0" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Care
-                            </span>
-                          </label>
-                        </div>
 
-                        <div class="relative border border-gray-200 p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-1" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                          <div class="relative border border-gray-200 p-4 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-1" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-1" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Tea
+                              </span>
+                            </label>
                           </div>
-                          <label for="settings-option-1" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Reception
-                            </span>
-                          </label>
-                        </div>
 
-                        <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-4 flex">
+                            <div class="flex items-center h-5">
+                              <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
+                            </div>
+                            <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
+                              <span class="block text-sm font-medium">
+                                Reviews
+                              </span>
+                            </label>
                           </div>
-                          <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Finance
-                            </span>
-                          </label>
+
                         </div>
 
                       </div>
-
+                      </fieldset>
                     </div>
-                    </fieldset>
                   </div>
                 </div>
-              </div>
-              <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-                <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-                  Submit
-                </button>
-                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
-                  Cancel
-                </button>
+                <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                  <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
+                    Submit
+                  </button>
+                  <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
+                    Cancel
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+
+
+
         </div>
+      </main>
 
-        <!-- Pause Modal  -->
-        <div v-if="modalP" class="fixed z-10 inset-0 overflow-y-auto">
-          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            
-            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-              <div>
-                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                  <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-                  </svg>
-                </div>
-                <div class="mt-3 text-center sm:mt-5">
-                  <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                    Pause Code
-                  </h3>
-                  <div class="mt-2">
-                    <fieldset>
-                    
-
-                    <div class="bg-white rounded-md -space-y-px">
-                      <div class="grid grid-cols-3 gap-6">
-
-                        <div class="relative border rounded-tl-md rounded-tr-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-0" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300" checked>
-                          </div>
-                          <label for="settings-option-0" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Lunch
-                            </span>
-                          </label>
-                        </div>
-
-                        <div class="relative border border-gray-200 p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-1" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                          </div>
-                          <label for="settings-option-1" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Tea
-                            </span>
-                          </label>
-                        </div>
-
-                        <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-4 flex">
-                          <div class="flex items-center h-5">
-                            <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                          </div>
-                          <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
-                            <span class="block text-sm font-medium">
-                              Reviews
-                            </span>
-                          </label>
-                        </div>
-
-                      </div>
-
-                    </div>
-                    </fieldset>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-                <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-                  Submit
-                </button>
-                <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-
-      </div>
-    </main>
-
+    </div>
   </div>
-</div>
 
 </template>
 
 <script>
+import Date from '@/components/devComps/Date.vue';
+
 export default {
   name: 'Dashboard',
   props: {
+  },
+  components: {
+    Date,
   },
   data() {
     return{
@@ -2045,6 +2187,9 @@ export default {
       paused: false,
       sideG: false, 
       sideP: false, 
+      camp: false,
+      callback: false,
+      disposition: false,
     }
   },
   methods: {
@@ -2054,6 +2199,21 @@ export default {
     toggleTab: function(tabNumber){
       this.openTabs = tabNumber
     },
+    hangUp(){
+      this.call = false,
+      this.disposition = true
+    },
+    callMe(){
+      this.callback = true
+    },
+    dispose(){
+      this.disposition = false,
+      this.callback = false
+    },
+    called(){
+      this.call = true,
+      this.transfer = false
+    }
     
   }
 }

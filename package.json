@@ -8,12 +8,21 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@livelybone/vue-datepicker": "^4.0.2",
     "@tailwindcss/forms": "^0.2.1",
     "autoprefixer": "^9.8.6",
+    "bootstrap": "^4.5.3",
     "core-js": "^3.6.5",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "jquery": "^3.5.1",
+    "luxon": "^1.25.0",
+    "popper.js": "^1.16.1",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-datetime": "^1.0.0-beta.14",
+    "weekstart": "^1.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -22,6 +31,8 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
