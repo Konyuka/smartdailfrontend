@@ -10,11 +10,6 @@
       </div>
     </div>
 
-
-   
-   
-
-
   </div>
 </template>
 
