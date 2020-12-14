@@ -96,7 +96,7 @@ const mutations = {
 
         if (data.agents != null || data.agents != undefined) {
             state.activeAgents = data.agents
-            //console.log(data.agents)
+            console.log(data.agents)
         }
 
         if (queue != null || queue != undefined) {

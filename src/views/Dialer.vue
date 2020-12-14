@@ -8,7 +8,7 @@
       <div class="fixed inset-0" aria-hidden="true">
         <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
       </div>
-      
+      <!-- Responsive Menu -->
       <div class="relative flex-1 flex flex-col max-w-xs w-full bg-white">
         <div class="absolute top-0 right-0 -mr-12 pt-2">
           <button  @click="toggles = false" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -417,6 +417,7 @@
         </div>
 
       </div>
+
       <div class="flex-shrink-0 w-14" aria-hidden="true">
         <!-- Force sidebar to shrink to fit close icon -->
       </div>
@@ -433,8 +434,8 @@
         <div class="flex-1 flex flex-col pb-4 overflow-y-auto overflow-x-hidden">
           <nav class=" flex-1 space-y-1 relative">
            
-             <p class="bg-indigo-900 text-md font-medium text-white pb-1 pt-1 text-center">
-              Demo Campaign
+             <p v-for="item in activeAgents" :key="item.user" class="bg-indigo-900 text-md font-medium text-white pb-1 pt-1 text-center">
+              {{ item.campaign }} CAMPAIGN
              </p> 
 
             <div class="flex justify-evenly px-2 pt-3 ">
@@ -449,7 +450,7 @@
               <button type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                 Dnext
               </button>
-              <button @click="side = true" type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 rounded-r-md border border-gray-300 bg-white text-xs text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+              <button @click="manualDial" type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 rounded-r-md border border-gray-300 bg-white text-xs text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                 Mdial
               </button>
 
@@ -473,16 +474,16 @@
               <div class="hidden sm:block mt-4 px-2">
                 <div class="border-b border-black">
                   <nav class="-mb-px flex justify-between" aria-label="Tabs">
-                    <a v-on:click="toggleTabs(1)" v-bind:class="{'text-black': openTab !== 1, 'text-black border-indigo-700': openTab === 1}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTab(1)" v-bind:class="{'text-black': openTab !== 1, 'text-black border-indigo-700': openTab === 1}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Queue
                     </a>
-                    <a v-on:click="toggleTabs(2)" v-bind:class="{'text-black': openTab !== 2, 'text-black border-indigo-700': openTab === 2}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTab(2)" v-bind:class="{'text-black': openTab !== 2, 'text-black border-indigo-700': openTab === 2}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Logs
                     </a>
-                    <a v-on:click="toggleTabs(3)" v-bind:class="{'text-black': openTab !== 3, 'text-black border-indigo-700': openTab === 3}" class="whitespace-nowrap py-2 px-1 border-b-4   border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTab(3)" v-bind:class="{'text-black': openTab !== 3, 'text-black border-indigo-700': openTab === 3}" class="whitespace-nowrap py-2 px-1 border-b-4   border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Agents
                     </a>
-                    <a v-on:click="toggleTabs(4)" v-bind:class="{'text-black': openTab !== 4, 'text-black border-indigo-700': openTab === 4}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTab(4)" v-bind:class="{'text-black': openTab !== 4, 'text-black border-indigo-700': openTab === 4}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Backs
                     </a>
                   </nav>
@@ -518,6 +519,7 @@
                           </thead>
 
                           <tbody>
+
                             <!-- Even row -->
                             <tr class="bg-indigo-100">
                               <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
@@ -528,167 +530,16 @@
                                 </router-link>
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                254716202298
+                                number
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                14:41
+                                time
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
                                 Finance
                               </td>
                             </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                254716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                14:41
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                Finance
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                254716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                14:41
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                Finance
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                254716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                14:41
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                Finance
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                254716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                14:41
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                Finance
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                254716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                14:41
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                Finance
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                254716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                14:41
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                Finance
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                254716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                14:41
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                Finance
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                254716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                14:41
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                Finance
-                              </td>
-                            </tr>
+
                             <!-- Odd row -->
                             <tr class="bg-white">
                               <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
@@ -749,6 +600,7 @@
                   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-8 lg:px-8">
                       <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <div v-if="showLogTable" >
                         <table class="min-w-full divide-y divide-blue-200">
 
                           <thead>
@@ -767,7 +619,7 @@
 
                           <tbody>
                             <!-- Even row -->
-                            <tr class="bg-indigo-100">
+                            <tr v-for="log in callLogs" :key="log.call_log_id" class="bg-indigo-100">
                               <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                                 <router-link to="/details">
                                    <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -776,12 +628,13 @@
                                 </router-link>
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
+                                {{ stripNumber(log.phone_number) }}
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
+                                {{  getHumanDate(log.call_date) }}
                               </td>
                             </tr>
+
                             <!-- Odd row -->
                             <tr class="bg-white">
                               <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -792,140 +645,13 @@
                                 </router-link>
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
+                                sample no
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
                                 14:41
                               </td>
                             </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
+                            
                           </tbody>
                         </table>
                         <!-- Pagination -->
@@ -952,6 +678,8 @@
                             </a>
                           </div>
                         </nav>
+                        </div>
+                        <p v-else class="text-gray-800 font-semibold tx-xs py-44 px-7">You have made no calls today</p>
                       </div>
                     </div>
                   </div>
@@ -982,19 +710,19 @@
                       <ul tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-item-3" class="max-h-96 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                         
                         <!-- Ready Status -->
-                        <li id="listbox-item-0" role="option" class="py-1 bg-indigo-100 px-4 text-black cursor-default select-none relative">
+                        <li v-for="item in activeAgents" :key="item.user" id="listbox-item-0" role="option" class="py-1 bg-indigo-100 px-4 text-black cursor-default select-none relative">
                           <div class="flex items-center">
                             <!-- Online: "bg-green-400", Not Online: "bg-gray-200" -->
                             <span class="bg-green-400 flex-shrink-0 inline-block h-3 w-3 rounded-full " aria-hidden="true"></span>
                             <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
                             <span class="ml-3 font-normal block truncate pl-1">
-                              Wade Cooper
+                              {{ item.user}} ( {{ item.campaign }} )
                               <span class="sr-only"> is online</span>
                             </span>
                           </div>
 
                           <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                            <span class="ml-2"> 00:45 </span>
+                            <span class="ml-2"> {{ item.status }} 00:45  </span>
                           </span>
                         </li>
 
@@ -1344,220 +1072,7 @@
     </div>
 
       <!-- Manual Dial Side Bar -->
-    <div v-if="side" class="absolute md:flex flex-col md:flex-row md:min-h-screen w-full">
-      <div class="flex flex-col w-full md:w-84 text-gray-700 bg-indigo-900 dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" x-data="{ open: false }">
-        <div class="flex-shrink-0 px-2 py-2 flex flex-row-reverse">
-          <button  @click="side = false" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-            <span class="sr-only">Close sidebar</span>
-            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <nav  class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto static">
-
-          <!-- Dial Input   -->
-          <div v-if="!call" class="pt-8 text-center sm:mt-5">
-            <h3 class="text-lg leading-6 font-medium text-white" id="modal-headline">
-              Enter the Phone Number
-            </h3>
-            <div class="pt-5">
-              <div class="px-2">
-                <div class="mt-1 relative rounded-md shadow-sm">
-                  <div class="absolute inset-y-0 left-0 flex items-center">
-                    <label for="country" class="sr-only">Country</label>
-                    <select disabled id="country" name="country" class="focus:ring-gray-500 focus:border-gray-500 h-full py-0 pl-3 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
-                      <option>🇰🇪</option>
-                    </select>
-                  </div>
-                  <input type="number" name="phone_number" id="phone_number" class="focus:ring-gray-500 focus:border-gray-500 block w-full pl-16 sm:text-sm border-gray-300 rounded-md" placeholder="722 200 200">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- During Call   -->
-          <div v-if="call" class="mt-3 text-center sm:mt-5">
-              <h3 class="text-sm italic leading-6 font-medium text-white" id="modal-headline">
-              Ringing 0716202298
-            </h3>  
-            <div class="flex justify-between mt-5">
-
-              <button v-if="!transfer" @click="transfer = !transfer" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <!-- Heroicon name: mail -->
-              <svg class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
-              </svg>
-              Transfer
-            </button>
-            <button v-if="transfer" @click="transfer = !transfer" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-black bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <svg class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
-              </svg>
-              Transfer
-            </button>
-
-            <button v-if="!park" @click="park = !park" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <svg v-if="!park" class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-              </svg>
-              <svg v-if="park" class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-              </svg>
-              Park
-            </button>
-            <button v-if="park" @click="park = !park" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <svg v-if="!park" class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-              </svg>
-              <svg v-if="park" class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-              </svg>
-              Park
-            </button>
-
-            <button type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <svg class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
-              DTMF
-            </button> 
-            </div>                    
-          </div>
-
-          <!-- During Transfer -->
-          <div v-if="transfer">
-          <div class="hidden sm:block mt-8">
-            <div class="border-b border-white">
-              <nav class="-mb-px flex justify-between" aria-label="Tabs">
-                <a v-on:click="toggleTab(1)" v-bind:class="{'text-white': openTabs !== 1, 'text-white border-indigo-600': openTabs === 1}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-gray-300 hover:border-indigo-400">
-                  Ingroup
-                </a>
-                <a v-on:click="toggleTab(2)" v-bind:class="{'text-white': openTabs !== 2, 'text-white border-indigo-600': openTabs === 2}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm  hover:text-gray-300 hover:border-indigo-400">
-                  Agent
-                </a>
-                <a v-on:click="toggleTab(3)" v-bind:class="{'text-white': openTabs !== 3, 'text-white border-indigo-600': openTabs === 3}" class="whitespace-nowrap py-2 px-1 border-b-4   border-transparent font-medium text-sm hover:text-gray-300 hover:border-indigo-400">
-                  External 
-                </a>
-              </nav>
-            </div>
-          </div> 
-          
-          <div v-bind:class="{'hidden': openTabs !== 1, 'block': openTabs === 1}">
-            
-            <div>
-              <fieldset class="mt-5 bg-indigo-900">
-                <legend class="block text-sm font-medium text-white text-center">Ingroup Transfer To:</legend>
-
-                <div class="flex justify-center">
-
-                <div class="mt-1 rounded-md shadow-sm px-1">
-                  <div>
-                    <label for="country" class="sr-only">Country</label>
-                    <select id="country" name="country" class="bg-white text-black font-medium text-xs focus:ring-black focus:border-black relative block w-full rounded-none  bg-transparent focus:z-10  border-white">
-                      <option>Choose User From List</option>
-                      <option>Milly Gakii</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="mt-1">
-                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
-                  Go
-                </button>  
-                </div>
-                </div>
-
-              </fieldset>
-            </div>
-
-          </div>
-
-          <div v-bind:class="{'hidden': openTabs !== 2, 'block': openTabs === 2}">
-            
-            <div>
-              <fieldset class="mt-5 bg-indigo-900">
-                <legend class="block text-sm font-medium text-white text-center">Agent Transfer To:</legend>
-
-                <div class="flex justify-center">
-
-                <div class="mt-1 rounded-md shadow-sm px-1">
-                  <div>
-                    <label for="country" class="sr-only">Country</label>
-                    <select id="country" name="country" class="bg-white text-black font-medium text-xs focus:ring-black focus:border-black relative block w-full rounded-none  bg-transparent focus:z-10  border-white">
-                      <option>Choose User From List</option>
-                      <option>Milly Gakii</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="mt-1">
-                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
-                  Go
-                </button>  
-                </div>
-                </div>
-
-              </fieldset>
-            </div>
-
-          </div>
-
-          <div v-bind:class="{'hidden': openTabs !== 3, 'block': openTabs === 3}">
-            
-            <div>
-              <fieldset class="mt-5 bg-indigo-900">
-                <legend class="block text-sm font-medium text-white text-center">External Transfer To:</legend>
-                <div class="mt-1 relative rounded-md shadow-sm">
-                  <div class="absolute inset-y-0 left-0 flex items-center">
-                    <label for="country" class="sr-only">Country</label>
-                    <select disabled id="country" name="country" class="focus:ring-gray-500 focus:border-gray-500 h-full py-0 pl-3 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
-                      <option>KE</option>
-                    </select>
-                  </div>
-                  <input type="number" name="phone_number" id="phone_number" class="focus:ring-gray-500 focus:border-gray-500 block w-full pl-16 sm:text-sm border-gray-300" placeholder="722 200 200">
-                </div>
-
-                <div class="mt-2 text-center flex justify-between">
-                  <button type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Blind Dial
-                </button>  
-                <button type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Dial With
-                </button> 
-                <button type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Park Line
-                </button> 
-                </div>
-
-              </fieldset>
-            </div>
-
-          </div>
-          </div>
-
-          <!--Call & Hang-Up  Button -->
-          <div class="mt-5 sm:mt-6 text-center absolute bottom-52 left-24">
-            <div class="">
-             <!-- Dial  -->
-            <button v-if="!call" @click='called' type="button" class="inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-4 bg-green-500 text-base font-medium text-black hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-              <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-              </svg>
-            </button>
-            <!-- hang -->
-            <button v-if="call" @click='hangUp' type="button" class="inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-4 bg-red-500 text-base font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-              <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-               <path d="M16.707 3.293a1 1 0 010 1.414L15.414 6l1.293 1.293a1 1 0 01-1.414 1.414L14 7.414l-1.293 1.293a1 1 0 11-1.414-1.414L12.586 6l-1.293-1.293a1 1 0 011.414-1.414L14 4.586l1.293-1.293a1 1 0 011.414 0z" />
-              </svg>
-            </button>
-            </div>
-          </div>
-
-        </nav>
-      </div>
-    </div>
+      <ManualDial v-if="side" class="absolute w-full"/>
 
     <!-- Ingroup Side Bar -->
     <div v-if="sideG" class="absolute md:flex flex-col md:flex-row md:min-h-screen w-full">
@@ -1694,202 +1209,8 @@
           </div>
 
           <!-- Modals -->
-          <CampaignModal  v-if="showcampaignModal"    @close="showcampaignModal   = false" />
-
-          <!-- Disposition Modal  -->
-          <div v-if="dispositions" class="fixed z-10 inset-0 overflow-y-auto">
-            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-              <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-              </div>
-
-              <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-              
-              <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-                <div>
-                  <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                    <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                      <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
-                    </svg>
-                  </div>
-
-
-                  <div v-if="!callback" class="mt-3 text-center sm:mt-5">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                      Disposition
-                    </h3>
-                    <div class="mt-2">
-                      <fieldset>
-                      
-
-                      <div class="bg-white rounded-md -space-y-px">
-                        <div class="grid grid-cols-3 gap-3">
-
-                          
-                          <div class="relative border border-gray-200 p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-1" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-1" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                                Do Not Call
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border rounded-tl-md rounded-tr-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input v-on:change="callMe" id="settings-option-0" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-0" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                                Call Back
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-2" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-2" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                                Sale Made
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-3" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-3" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                                Decline Sale 
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-4" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-4" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                              No Answer 
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-5" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-5" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                                Phone Off 
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-6" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-6" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                              No Pitch 
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-7" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-7" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                                Call Tranfer
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-7" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-7" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                                Call Tranfer
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-7" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-7" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                                Call Tranfer
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-7" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-7" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                                Call Tranfer
-                              </span>
-                            </label>
-                          </div>
-
-                          <div class="relative border border-gray-200 rounded-bl-md rounded-br-md p-2 flex">
-                            <div class="flex items-center h-5">
-                              <input id="settings-option-7" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                            </div>
-                            <label for="settings-option-7" class="ml-3 flex flex-col cursor-pointer">
-                              <span class="block text-sm font-medium">
-                                Call Tranfer
-                              </span>
-                            </label>
-                          </div>
-
-                        </div>
-
-                      </div>
-                      </fieldset>
-                    </div>
-                  </div>
-
-                  <!-- Call Back Modal -->
-                  <div v-if="callback" class="mt-3 text-center sm:mt-5">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                      Call Back
-                    </h3>
-                    <div class="mt-2 py-10">
-                    
-                      <Date />
-
-                    </div>
-                  </div>
-
-                </div>
-                <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-                  <button @click="dispose" type="button" class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-                    Submit & Resume
-                  </button>
-                  <button @click="dispositions = false" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
-                    Submit & Pause
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <CampaignModal    v-if="showcampaignModal"  @close="showcampaignModal   = false" />
+          <DispositionModal v-if="dispositionModal"   @close="dispositionModal    = false" />
 
         </div>
       </main>
@@ -1902,8 +1223,9 @@
 
 <script>
 import moment from 'moment';
-import Date from '@/components/others/Date.vue';
 import CampaignModal from '@/components/modals/CampaignModal.vue';
+import DispositionModal from '@/components/modals/DispositionModal.vue';
+import ManualDial from '@/components/sidebars/ManualDial.vue';
 
 export default {
   name: 'Dashboard',
@@ -1911,7 +1233,8 @@ export default {
   },
   components: {
     CampaignModal,
-    Date
+    DispositionModal,
+    ManualDial,
   },
   data() {
     return{
@@ -1924,7 +1247,7 @@ export default {
       InfoModal: false,
       errorModal: false,
       successnotification: false,
-      dialTrue: false,
+      //dialTrue: false,
       ingroupShow: false,
       onCallTrue: false,
       transferTrue: false,
@@ -1950,18 +1273,18 @@ export default {
       count : false,
 
       openTab: 1,
-      openTabs: 1,
+    //  openTabs: 1,
       toggles: false,
-      call: false,
-      transfer: false,
-      park: false,
+     // call: false,
+    //  transfer: false,
+    //  park: false,
       side: false,
       pausedd: false,
       sideG: false, 
       sideP: false, 
       camp: false,
-      callback: false,
-      dispositions: false,
+    //  callback: false,
+    //  dispositions: false,
     }
   },
   mounted () {
@@ -2008,30 +1331,30 @@ export default {
     iframe(){
       return  this.$store.state.iframe
     },
-      showQueueTable () {
-    return (this.$store.state.callQueue.length == 0 ) ? false : true       
-  },
-      showAgentTable () {
-    return   this.activeAgents.length>0
-  },
-      showLogTable () {
-    return   this.callLogs.length>0
-  },
-      showCallBackTable(){
-    return this.callbacks.length>0
-  },
-      activeAgents(){
-    return this.$store.state.activeAgents
-  },
-      callLogs() {
-    return this.$store.state.callLogs
-  },
-  callbacks(){
-    return this.$store.state.callbacks
-  },
-      queue(){
-    return  this.$store.state.callQueue
-  }
+    showQueueTable () {
+     return (this.$store.state.callQueue.length == 0 ) ? false : true       
+    },
+    showAgentTable () {
+     return   this.activeAgents.length>0
+    },
+    showLogTable () {
+      return   this.callLogs.length>0
+    },
+    showCallBackTable(){
+      return this.callbacks.length>0
+    },
+    activeAgents(){
+      return this.$store.state.activeAgents
+    },
+    callLogs() {
+     return this.$store.state.callLogs
+    },
+    callbacks(){
+      return this.$store.state.callbacks
+    },
+    queue(){
+      return  this.$store.state.callQueue
+    }
   },
   watch:{
     disposition (newCount) {
@@ -2116,9 +1439,10 @@ export default {
 
       manualDial() {
         if(!this.ready){
-          this.dialTrue = true
+         // this.dialTrue = true
+          this.side = true
         }else{
-          this.$vs.notification({progress: 'auto', duration : 6000,color : "danger",position : 'top-center',title: 'Pause first!',text: "Yo must be paused to do a manual dial.Kindly pause first"})
+          //this.$vs.notification({progress: 'auto', duration : 6000,color : "danger",position : 'top-center',title: 'Pause first!',text: "Yo must be paused to do a manual dial.Kindly pause first"})
         }
 
       },
@@ -2268,27 +1592,23 @@ export default {
         })
       },
 
-    toggleTabs: function(tabNumber){
+    toggleTab: function(tabNumber){
       this.openTab = tabNumber
     },
-    toggleTab: function(tabNumber){
-      this.openTabs = tabNumber
-    },
-    hangUp(){
-      this.call = false,
-      this.disposition = true
-    },
-    callMe(){
-      this.callback = true
-    },
-    dispose(){
-      this.disposition = false,
-      this.callback = false
-    },
-    called(){
-      this.call = true,
-      this.transfer = false
-    }
+    // toggleTabs: function(tabNumber){
+    //   this.openTabs = tabNumber
+    // },
+    // hangUp(){
+    //   this.call = false,
+    //   this.disposition = true
+    // },
+    // callMe(){
+    //   this.callback = true
+    // },
+    // dispose(){
+    //   this.disposition = false,
+    //   this.callback = false
+    // },
     
   }
 }
@@ -2296,9 +1616,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
+
 </style>

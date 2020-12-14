@@ -25,7 +25,7 @@ export default {
       }
 
       connection.onopen = () => {
-
+        
           connection.send(JSON.stringify({ "username": localStorage.getItem('user'), "phone": localStorage.getItem('phone') ,"campaign": localStorage.getItem('campaign')}))
           console.log(JSON.stringify(    { "username": localStorage.getItem('user'), "phone": localStorage.getItem('phone') ,"campaign": localStorage.getItem('campaign')}))
           store.dispatch("websocket", 'ON');
