@@ -434,8 +434,8 @@
         <div class="flex-1 flex flex-col pb-4 overflow-y-auto overflow-x-hidden">
           <nav class=" flex-1 space-y-1 relative">
            
-             <p v-for="item in activeAgents" :key="item.user" class="bg-indigo-900 text-md font-medium text-white pb-1 pt-1 text-center">
-              {{ item.campaign }} CAMPAIGN
+             <p  class="bg-indigo-900 text-md uppercase font-medium text-white pb-1 pt-1 text-center">
+              {{ activecampaign }} campaign
              </p> 
 
             <div class="flex justify-evenly px-2 pt-3 ">

@@ -53,7 +53,7 @@
                 </h3>   
                 </div>
             <div class="flex mt-5 justify-between">
-              <button v-if="!transfer" @click="transfer = !transfer" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button v-if="!transfer" @click="transferCall" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 <!-- Heroicon name: mail -->
                 <svg class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
@@ -67,26 +67,28 @@
                 Transfer
               </button>
 
-              <button v-if="!park" @click="park = !park" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                <svg v-if="!park" class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                </svg>
-                <svg v-if="park" class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+               <!-- Park Call v-if="!park" -->
+              <button v-if="!callParked"  @click="parkCall" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <svg v-if="callParked" class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>
+                <svg v-else class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                 </svg>
                 Park
               </button>
-              <button v-if="park" @click="park = !park" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                <svg v-if="!park" class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                </svg>
-                <svg v-if="park" class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <!-- Grab Call v-if="park" -->
+              <button v-else @click="grabCall" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <svg v-if="callParked" class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>
+                <svg v-else class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                 </svg>
                 Park
               </button>
 
-              <button type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button @click="addDTMF" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 <svg class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
@@ -98,118 +100,10 @@
           </div>
 
           <!-- During Transfer -->
-          <div v-if="transfer">
-          <div class="hidden sm:block mt-8">
-            <div class="border-b border-white">
-              <nav class="-mb-px flex justify-between" aria-label="Tabs">
-                <a v-on:click="toggleTabs(1)" v-bind:class="{'text-white': openTabs !== 1, 'text-white border-indigo-600': openTabs === 1}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-gray-300 hover:border-indigo-400">
-                  Ingroup
-                </a>
-                <a v-on:click="toggleTabs(2)" v-bind:class="{'text-white': openTabs !== 2, 'text-white border-indigo-600': openTabs === 2}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm  hover:text-gray-300 hover:border-indigo-400">
-                  Agent
-                </a>
-                <a v-on:click="toggleTabs(3)" v-bind:class="{'text-white': openTabs !== 3, 'text-white border-indigo-600': openTabs === 3}" class="whitespace-nowrap py-2 px-1 border-b-4   border-transparent font-medium text-sm hover:text-gray-300 hover:border-indigo-400">
-                  External 
-                </a>
-              </nav>
-            </div>
-          </div> 
-          
-          <div v-bind:class="{'hidden': openTabs !== 1, 'block': openTabs === 1}">
-            
-            <div>
-              <fieldset class="mt-5 bg-indigo-900">
-                <legend class="block text-sm font-medium text-white text-center">Ingroup Transfer To:</legend>
-
-                <div class="flex justify-center">
-
-                <div class="mt-1 rounded-md shadow-sm px-1">
-                  <div>
-                    <label for="country" class="sr-only">Country</label>
-                    <select id="country" name="country" class="bg-white text-black font-medium text-xs focus:ring-black focus:border-black relative block w-full rounded-none  bg-transparent focus:z-10  border-white">
-                      <option>Choose User From List</option>
-                      <option>Milly Gakii</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="mt-1">
-                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
-                  Go
-                </button>  
-                </div>
-                </div>
-
-              </fieldset>
-            </div>
-
-          </div>
-
-          <div v-bind:class="{'hidden': openTabs !== 2, 'block': openTabs === 2}">
-            
-            <div>
-              <fieldset class="mt-5 bg-indigo-900">
-                <legend class="block text-sm font-medium text-white text-center">Agent Transfer To:</legend>
-
-                <div class="flex justify-center">
-
-                <div class="mt-1 rounded-md shadow-sm px-1">
-                  <div>
-                    <label for="country" class="sr-only">Country</label>
-                    <select id="country" name="country" class="bg-white text-black font-medium text-xs focus:ring-black focus:border-black relative block w-full rounded-none  bg-transparent focus:z-10  border-white">
-                      <option>Choose User From List</option>
-                      <option>Milly Gakii</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="mt-1">
-                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
-                  Go
-                </button>  
-                </div>
-                </div>
-
-              </fieldset>
-            </div>
-
-          </div>
-
-          <div v-bind:class="{'hidden': openTabs !== 3, 'block': openTabs === 3}">
-            
-            <div>
-              <fieldset class="mt-5 bg-indigo-900">
-                <legend class="block text-sm font-medium text-white text-center">External Transfer To:</legend>
-                <div class="mt-1 relative rounded-md shadow-sm">
-                  <div class="absolute inset-y-0 left-0 flex items-center">
-                    <label for="country" class="sr-only">Country</label>
-                    <select disabled id="country" name="country" class="focus:ring-gray-500 focus:border-gray-500 h-full py-0 pl-3 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
-                      <option>KE</option>
-                    </select>
-                  </div>
-                  <input type="number" name="phone_number" id="phone_number" class="focus:ring-gray-500 focus:border-gray-500 block w-full pl-16 sm:text-sm border-gray-300" placeholder="722 200 200">
-                </div>
-
-                <div class="mt-2 text-center flex justify-between">
-                  <button type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Blind Dial
-                </button>  
-                <button type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Dial With
-                </button> 
-                <button type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Park Line
-                </button> 
-                </div>
-
-              </fieldset>
-            </div>
-
-          </div>
-          </div>
+          <TransferCall v-if="transfer"  class="absolute" />
 
           <!--Call & Hang-Up  Button -->
-          <div class="mt-5 sm:mt-6 text-center absolute bottom-52 left-24">
+          <div class="mt-5 sm:mt-6 text-center absolute bottom-36 left-24">
             <div class="">
              <!-- Dial  -->
             <button v-if="!call" @click='dial' type="button" class="inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-4 bg-green-500 text-base font-medium text-black hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
@@ -235,9 +129,13 @@
 </template>
 
 <script>
+import TransferCall from '@/components/others/TransferCall.vue';
+
+
 export default {
   name: 'ManualDial',
-  props: {
+  components: {
+    TransferCall,
   },
   data() {
       return {
@@ -248,9 +146,10 @@ export default {
           isPanelOpen: true,
           call: false,
           transfer: false,
-          park: false,
+         // park: false,
           openTabs: 1,
           disposition: false,
+
       }
     },
     created () {
@@ -466,6 +365,7 @@ export default {
           })
       },
       transferCall() {
+        this.transfer = !this.transfer
         this.$parent.transferTrue = true
         //this.$parent.onCallTrue = false
         console.log('Transfer call')
