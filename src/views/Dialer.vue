@@ -447,7 +447,7 @@
               <button @click="sideP = true" type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                 PCode
               </button>
-              <button type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+              <button @click="dialNext" v-if="!ratio" type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                 Dnext
               </button>
               <button @click="manualDial" type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 rounded-r-md border border-gray-300 bg-white text-xs text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
@@ -499,12 +499,12 @@
                   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                       <div class="shadow overflow-hidden border-b border-transparent sm:rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-200">
+                        <table v-if="showQueueTable" class="min-w-full divide-y divide-gray-200">
 
                           <thead>
                             <tr>
                               <th scope="col" class="px-2 py-1 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Call
+                                Take
                               </th>
                               <th scope="col" class="px-2 py-1 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Number
@@ -521,72 +521,30 @@
                           <tbody>
 
                             <!-- Even row -->
-                            <tr class="bg-indigo-100">
+                            <tr v-for="item in queue" :key="item.caller" class="bg-indigo-100">
                               <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
+                              <a  @click="takeCall(stripNumber(item.caller))">
+                                <svg class="mr-1 w-5 h-5 text-black hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 3l-6 6m0 0V4m0 5h5M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"></path></svg>
+                              </a>
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
                                 number
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                time
+                                {{ item.queue_time }}
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                Finance
+                                {{ item.ingroup }}
                               </td>
                             </tr>
 
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                254716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                14:41
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                Finance
-                              </td>
-                            </tr>
                            
                           </tbody>
 
                         </table>
+                        <p v-else class="text-gray-800 font-semibold tx-xs py-44 px-7">You have no calls in queue</p>
                         <!-- Pagination -->
-                        <nav class="px-4 flex items-center justify-between sm:px-0">
-                          <div class="-mt-px w-0 flex-1 flex">
-                            <a href="#" class="border-t-2 border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
-                              <!-- Heroicon name: arrow-narrow-left -->
-                              <svg class="mr-3 h-5 w-5 text-indigo-400 hover:text-indigo-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                              </svg>
-                              Previous
-                            </a>
-                          </div>
-                          <div class="hidden md:-mt-px md:flex">
-                            
-                          </div>
-                          <div class="-mt-px w-0 flex-1 flex justify-end">
-                            <a href="#" class="border-t-2 border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
-                              Next
-                              <!-- Heroicon name: arrow-narrow-right -->
-                              <svg class="ml-3 h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                              </svg>
-                            </a>
-                          </div>
-                        </nav>
+                        
                       </div>
                     </div>
                   </div>
@@ -600,7 +558,7 @@
                   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-8 lg:px-8">
                       <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                        <div v-if="showLogTable" >
+                        <div class="static" v-if="showLogTable" >
                         <table class="min-w-full divide-y divide-blue-200">
 
                           <thead>
@@ -655,7 +613,9 @@
                           </tbody>
                         </table>
                         <!-- Pagination -->
-                        <nav class="px-4 flex items-center justify-between sm:px-0">
+                        <nav class="absolute bottom-0 px-4 flex items-center justify-between sm:px-0">
+                        <div class="relative flex justify-between">
+
                           <div class="-mt-px w-0 flex-1 flex">
                             <a href="#" class="border-t-2 border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
                               <!-- Heroicon name: arrow-narrow-left -->
@@ -665,10 +625,8 @@
                               Previous
                             </a>
                           </div>
-                          <div class="hidden md:-mt-px md:flex">
-                            
-                          </div>
-                          <div class="-mt-px w-0 flex-1 flex justify-end">
+                          
+                          <div class="r -mt-px w-0 flex-1 flex">
                             <a href="#" class="border-t-2 border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
                               Next
                               <!-- Heroicon name: arrow-narrow-right -->
@@ -677,6 +635,9 @@
                               </svg>
                             </a>
                           </div>
+
+                        </div>
+
                         </nav>
                         </div>
                         <p v-else class="text-gray-800 font-semibold tx-xs py-44 px-7">You have made no calls today</p>
@@ -712,71 +673,22 @@
                         <!-- Ready Status -->
                         <li v-for="item in activeAgents" :key="item.user" id="listbox-item-0" role="option" class="py-1 bg-indigo-100 px-4 text-black cursor-default select-none relative">
                           <div class="flex items-center">
-                            <!-- Online: "bg-green-400", Not Online: "bg-gray-200" -->
-                            <span class="bg-green-400 flex-shrink-0 inline-block h-3 w-3 rounded-full " aria-hidden="true"></span>
-                            <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
+                            <!-- Status Color -->
+                            <span v-bind:class="userStatus(item.status)" class="flex-shrink-0 inline-block h-3 w-3 rounded-full" aria-hidden="true"></span>
+                            
                             <span class="ml-3 font-normal block truncate pl-1">
-                              {{ item.user}} ( {{ item.campaign }} )
+                              <span class="capitalize">
+                              {{ item.user}} 
+                              <!-- ( {{ item.campaign }} ) -->
+                              </span>
                               <span class="sr-only"> is online</span>
                             </span>
                           </div>
 
                           <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                            <span class="ml-2"> {{ item.status }} 00:45  </span>
+                            <span class="ml-2"> 00:45  </span>
                           </span>
                         </li>
-
-                        <!-- Paused Status -->
-                        <li id="listbox-item-0" role="option" class="py-1 px-4 bg-white text-black cursor-default select-none relative">
-                          <div class="flex items-center">
-                            <!-- Online: "bg-green-400", Not Online: "bg-gray-200" -->
-                            <span class="bg-yellow-400 flex-shrink-0 inline-block h-3 w-3 rounded-full " aria-hidden="true"></span>
-                            <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
-                            <span class="ml-3 font-normal block truncate pl-1">
-                              Wade Cooper
-                              <span class="sr-only"> is online</span>
-                            </span>
-                          </div>
-
-                          <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                            <span class="ml-2"> 02:45 </span>
-                          </span>
-                        </li>
-
-                        <!-- Incall Status -->
-                        <li id="listbox-item-0" role="option" class="py-1 bg-indigo-100 px-4 text-black cursor-default select-none relative">
-                          <div class="flex items-center">
-                            <!-- Online: "bg-green-400", Not Online: "bg-gray-200" -->
-                            <span class="bg-blue-400 flex-shrink-0 inline-block h-3 w-3 rounded-full " aria-hidden="true"></span>
-                            <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
-                            <span class="ml-3 font-normal block truncate pl-1">
-                              Wade Cooper
-                              <span class="sr-only"> is online</span>
-                            </span>
-                          </div>
-
-                          <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                            <span class="ml-2"> 01:25 </span>
-                          </span>
-                        </li>
-
-                        <!-- Ready Status -->
-                        <li id="listbox-item-0" role="option" class="py-1 bg-white px-4 text-black cursor-default select-none relative">
-                          <div class="flex items-center">
-                            <!-- Online: "bg-green-400", Not Online: "bg-gray-200" -->
-                            <span class="bg-green-400 flex-shrink-0 inline-block h-3 w-3 rounded-full " aria-hidden="true"></span>
-                            <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
-                            <span class="ml-3 font-normal block truncate pl-1">
-                              Wade Cooper
-                              <span class="sr-only"> is online</span>
-                            </span>
-                          </div>
-
-                          <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                            <span class="ml-2"> 00:45 </span>
-                          </span>
-                        </li>
-
                       
                       </ul>
                     </div>
@@ -1018,34 +930,40 @@
 
                 <div class="bg-indigo-900 px-2 text-center flex justify-between">
                 <p class="text-md font-medium text-white pb-1">
-                  Status: Lunch Break
+                  Status: {{ activepausecode }}
                 </p>
                 <p class="text-md font-medium text-white pb-1">
-                  Leads: 177 
+                  Leads: {{ dialable_leads }} 
                 </p>
                 </div>
 
                 <div class="bg-indigo-600 text-md font-medium text-gray-400 group-hover:text-white flex justify-between px-2 py-2">  
 
-                    <button @click="pausedd = !pausedd" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-black bg-blue-400 hover:text-black hover:bg-white focus:outline-none">
+                    <button v-if="ready" @click="toggle('PAUSED')" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-black bg-blue-400 hover:text-black hover:bg-white focus:outline-none">
                       <span class="flex">  
-                        <svg v-if="pausedd" class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <svg v-if="!pausedd" class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg  class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <div class="flex">
-                        <span v-if="pausedd">
-                          Paused 
-                        </span>
-                        <span  v-if="!pausedd">
+                        <span>
                           Active 
                         </span>
                         </div>
                       </span>
+                    </button>
 
+                    <button v-else @click="toggle('Ready')" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-black bg-blue-400 hover:text-black hover:bg-white focus:outline-none">
+                      <span class="flex">  
+                        <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div class="flex">
+                        <span>
+                          Paused 
+                        </span>
+                        </div>
+                      </span>
                     </button>
 
                     <button @click="logout" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-black bg-blue-400 hover:text-black hover:bg-white focus:outline-none">
@@ -1074,113 +992,14 @@
       <!-- Manual Dial Side Bar -->
       <ManualDial v-if="side" class="absolute w-full"/>
 
-    <!-- Ingroup Side Bar -->
-    <div v-if="sideG" class="absolute md:flex flex-col md:flex-row md:min-h-screen w-full">
-      <div class="flex flex-col w-full md:w-84 text-gray-700 bg-indigo-900 dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" x-data="{ open: false }">
-        <div class="flex-shrink-0 px-2 py-2 flex flex-row-reverse">
-          <button  @click="sideG = false" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-            <span class="sr-only">Close sidebar</span>
-            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <nav  class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
-          <div class="">
-            
-          </div>
-          <h4 class="text-xl tracking-tight font-bold text-white sm:text-xl ml-10 pb-5">
-            Ingroup Selection
-          </h4>  
-          <div class="ml-4">
-            <div class="grid grid-cols-2 gap-6 text-center">
-              <label class="inline-flex items-center mt-3">
-                  <input disabled type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span class="ml-2 text-white text-sm">Agent Direct</span>
-              </label>
-              <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span class="ml-2 text-white text-sm">Care</span>
-              </label>
-              <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span class="ml-2 text-white text-sm">Reception</span>
-              </label>
-              <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span class="ml-2 text-white text-sm">Finance</span>
-              </label>
-              <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"><span class="ml-2 text-white text-sm">Procurement</span>
-              </label>
-              <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"><span class="ml-2 text-white text-sm">Marketing</span>
-              </label>
-              <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"><span class="ml-2 text-white text-sm">Strategy</span>
-              </label>
-              <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"><span class="ml-2 text-white text-sm">Logistics</span>
-              </label>
-              <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"><span class="ml-2 text-white text-sm">HR</span>
-              </label>
-              <label class="inline-flex items-center mt-3">
-                  <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"><span class="ml-2 text-white text-sm">IT</span>
-              </label>
-            </div>
+      <!-- Ingroup Side Bar -->
+      <Ingroup v-if="sideG" class="absolute w-full"/>
 
-            <div class="py-14 ml-14">
-              <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Submit
-              </button>
-            </div>
+      <DialNext v-if="sideD" class="absolute w-full" />
 
-        </div>
-
-        </nav>
-      </div>
-    </div>
-
-    <!-- Pause Side Bar -->
-    <div v-if="sideP" class="absolute md:flex flex-col md:flex-row md:min-h-screen w-full">
-      <div class="flex flex-col w-full md:w-84 text-gray-700 bg-indigo-900 dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" x-data="{ open: false }">
-        <div class="flex-shrink-0 px-2 py-2 flex flex-row-reverse">
-          <button  @click="sideP = false" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-            <span class="sr-only">Close sidebar</span>
-            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <nav  class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
-          <div class="">
-            
-          </div>
-          <h4 class="text-xl tracking-tight font-bold text-white sm:text-xl ml-6 pb-5">
-            Pause Code Selection
-          </h4>  
-          <div class="ml-4">
-            <div class="mt-4">
-              <div class="mt-2">
-                <label class="inline-flex items-center">
-                  <input type="radio" class="form-radio text-indigo-600" name="accountType" value="personal">
-                  <span class="ml-2 text-white text-sm">Tea Break</span>
-                </label>
-                <label class="inline-flex items-center ml-6">
-                  <input type="radio" class="form-radio text-indigo-600" name="accountType" value="busines">
-                  <span class="ml-2 text-white text-sm">Lunch Break</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="py-14 ml-14">
-              <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Submit
-              </button>
-            </div>
-
-          </div>
-
-        </nav>
-      </div>
-    </div>
+      <!-- Pause Side Bar -->
+      <PauseCode v-if="sideP" class="absolute w-full"/>
+    
 
   </div>
   
@@ -1200,10 +1019,11 @@
 
         <div class="py-0">
 
-          <div class="max-w-7xl mx-auto px-0 sm:px-0 md:px-0">
+          <div class=" mx-auto px-0 sm:px-0 md:px-0">
             <!-- IFRAME -->
-              <div class="rounded-lg h-96">
-                <iframe src = "http://172.16.10.202" width="1003" height="665" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="h-screen">
+                <iframe :src='iframe' id="iframe" width="100%" height="100%"  title="File details"></iframe>
+                <!-- <iframe src = "http://172.16.10.202" width="1003" height="665" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
               </div>
             <!-- /IFRAME-->
           </div>
@@ -1226,6 +1046,24 @@ import moment from 'moment';
 import CampaignModal from '@/components/modals/CampaignModal.vue';
 import DispositionModal from '@/components/modals/DispositionModal.vue';
 import ManualDial from '@/components/sidebars/ManualDial.vue';
+import PauseCode from '@/components/sidebars/PauseCode.vue';
+import Ingroup from '@/components/sidebars/Ingroup.vue';
+import DialNext from '@/components/sidebars/DialNext.vue';
+
+import Swal from 'sweetalert2';
+window.Swal = Swal;
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+window.Toast = Toast;
 
 export default {
   name: 'Dashboard',
@@ -1235,9 +1073,13 @@ export default {
     CampaignModal,
     DispositionModal,
     ManualDial,
+    PauseCode,
+    Ingroup,
+    DialNext,
   },
   data() {
     return{
+      //statusColorCode: null,
       show: true, 
       user: null,
       ingroupModal: false,
@@ -1282,6 +1124,7 @@ export default {
       pausedd: false,
       sideG: false, 
       sideP: false, 
+      sideD: false,
       camp: false,
     //  callback: false,
     //  dispositions: false,
@@ -1380,8 +1223,6 @@ export default {
     }
   },
   methods: {
-   
-
     getHumanDate(date) {
         return moment(date).format('h:mm a');
       },
@@ -1397,12 +1238,17 @@ export default {
       toggle(event){
         if(event == 'PAUSED'){
           let payload = { "username":localStorage.getItem('user'),"phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign,"state": 'PAUSED', "pause_code" : 'BREAK'};
-          //console.log(payload)
+          console.log(payload)
           return this.$http
             .post("/api/v1/dial/status",payload, { headers: { "Content-Type": "application/json", "Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}`} })
             .then((response) => {
                 if(response){
                   this.$store.dispatch('userState', 'PAUSED')
+                  Toast.fire({
+                    type: 'success',
+                    title: 'You are now Paused',
+                    icon: 'success',
+                  });
                 }
               })
             .catch(error => {
@@ -1416,6 +1262,11 @@ export default {
             .then((response) => {
                 if(response){
                   this.$store.dispatch('userState', 'READY') //payload.state
+                  Toast.fire({
+                    type: 'success',
+                    title: 'You are now Active',
+                    icon: 'success',
+                  });
                 }
               })
             .catch(error => { 
@@ -1423,25 +1274,28 @@ export default {
               })     
         }
       },
-
       userStatus(item){
-        if(item === "READY"){
-          return 'text-green-400' 
+        if(item === "CLOSER"){
+          return 'bg-green-400' 
         }else if(item === "PAUSED"){
-          return 'text-orange-400' 
-        }else if(item === "CLOSER"){
-          return 'text-green-400' 
+          return 'bg-yellow-400' 
+        }else if(item === "INCALL"){
+          return 'bg-blue-400' 
         }
         else{
           return 'text-orange-400' 
         }
       },
-
       manualDial() {
-        if(!this.ready){
+        if(this.ready){
          // this.dialTrue = true
           this.side = true
         }else{
+          Toast.fire({
+            type: 'success',
+            title: 'Switch to active to Dial',
+            icon: 'warning',
+          });
           //this.$vs.notification({progress: 'auto', duration : 6000,color : "danger",position : 'top-center',title: 'Pause first!',text: "Yo must be paused to do a manual dial.Kindly pause first"})
         }
 
@@ -1511,13 +1365,19 @@ export default {
                 localStorage.setItem('numberCalled', response.data.phone_number)
                 console.log(response.data)
                 this.beforeCall(response)
-                this.onCallTrue = true;
+                this.sideD = true;
               })
             .catch(error => {
               let payload = { title:   error.response.data.error , text: 'There are no dialable leads in your Campaign. Kindly consult your Team leader'}
               this.$store.dispatch("resetError",payload);
               this.tryAgain = false
-              this.errorModal = true
+              //this.errorModal = true
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You have no Dialable Leads',
+                footer: 'The team leader can be able to help'
+              })
               this.isDisable = false
              })
       },
@@ -1592,23 +1452,9 @@ export default {
         })
       },
 
-    toggleTab: function(tabNumber){
-      this.openTab = tabNumber
-    },
-    // toggleTabs: function(tabNumber){
-    //   this.openTabs = tabNumber
-    // },
-    // hangUp(){
-    //   this.call = false,
-    //   this.disposition = true
-    // },
-    // callMe(){
-    //   this.callback = true
-    // },
-    // dispose(){
-    //   this.disposition = false,
-    //   this.callback = false
-    // },
+      toggleTab: function(tabNumber){
+        this.openTab = tabNumber
+      },
     
   }
 }
@@ -1616,5 +1462,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.iframe {
+   overflow: scroll;
+ }
 </style>

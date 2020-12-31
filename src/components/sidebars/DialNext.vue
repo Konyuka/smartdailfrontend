@@ -13,28 +13,8 @@
         </div>
         <nav  class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto static">
 
-          <!-- Dial Input   -->
-          <div v-if="!call" class="pt-8 text-center sm:mt-5">
-            <h3 class="text-lg leading-6 font-medium text-white" id="modal-headline">
-              Enter the Phone Number
-            </h3>
-            <div class="pt-5">
-              <div class="px-2">
-                <div class="mt-1 relative rounded-md shadow-sm">
-                  <div class="absolute inset-y-0 left-0 flex items-center">
-                    <label for="country" class="sr-only">Country</label>
-                    <select disabled id="country" name="country" class="focus:ring-gray-500 focus:border-gray-500 h-full py-0 pl-3 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
-                      <option>🇰🇪</option>
-                    </select>
-                  </div>
-                  <input v-model="number" type="number" name="phone_number" id="phone_number" class="focus:ring-gray-500 focus:border-gray-500 block w-full pl-16 sm:text-sm border-gray-300 rounded-md" placeholder="722 200 200">
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- During Call   -->
-          <div v-if="call" class="mt-3 text-center sm:mt-5">
+          <div class="mt-3 text-center sm:mt-5">
               <h3 v-if="callWaiting" class="text-sm italic leading-6 font-medium text-white" id="modal-headline">
                 Dialing {{  numberCalled  }}
               </h3>  
@@ -105,14 +85,8 @@
           <!--Call & Hang-Up  Button -->
           <div class="mt-5 sm:mt-6 text-center absolute bottom-24 left-24">
             <div class="">
-             <!-- Dial  -->
-            <button v-if="!call" @click='dial' type="button" class="inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-4 bg-green-500 text-base font-medium text-black hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-              <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-              </svg>
-            </button>
             <!-- hang -->
-            <button v-if="call" @click='hangUp' type="button" class="inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-4 bg-red-500 text-base font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
+            <button @click='hangUp' type="button" class="inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-4 bg-red-500 text-base font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
               <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                <path d="M16.707 3.293a1 1 0 010 1.414L15.414 6l1.293 1.293a1 1 0 01-1.414 1.414L14 7.414l-1.293 1.293a1 1 0 11-1.414-1.414L12.586 6l-1.293-1.293a1 1 0 011.414-1.414L14 4.586l1.293-1.293a1 1 0 011.414 0z" />

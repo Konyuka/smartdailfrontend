@@ -39,8 +39,6 @@ Vue.prototype.$http = axios;
 let iframeUrl = "http://172.16.10.202/login"; // Pick the variable from the .env(production)
 store.dispatch("iframe", iframeUrl);
 
-
-
 Vue.use(Vuex);
 Vue.use(Datetime);
 Vue.config.productionTip = false

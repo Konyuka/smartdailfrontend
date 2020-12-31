@@ -56,6 +56,21 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+window.Swal = Swal;
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 5000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+window.Toast = Toast;
+
 export default {
   name: 'CampaignModal',
   data(){
@@ -114,6 +129,7 @@ export default {
     afterLogin(){
       this.$parent.select = false
       this.webSocket()
+      
     },
     webSocket(){
       let connection = new WebSocket("ws://" + this.$socket +"/api/v1/ws")
@@ -121,6 +137,11 @@ export default {
         console.log("Successfully connected to the  websocket server")
         let payload = {"username": localStorage.getItem('user'),"phone":localStorage.getItem('phone'), "campaign": localStorage.getItem('campaign')}
         connection.send(JSON.stringify(payload))
+        Toast.fire({
+            type: 'success',
+            title: 'Successful Login',
+            icon: 'success',
+          });
       };
       connection.onmessage = (message) => {
         let data = JSON.parse(message.data);
@@ -171,5 +192,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
- @click="modal = !modal"
+
 </style>
