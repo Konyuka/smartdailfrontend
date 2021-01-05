@@ -86,7 +86,7 @@
             <button :disabled="disabled" @click="submit" type="button" class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
               Submit & Resume
             </button>
-            <button @click="dispositions = false" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
+            <button @click="pauseAfter" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
               Submit & Pause
             </button>
           </div>
@@ -112,7 +112,7 @@ export default {
       callback: false,
       selectDisposition: null,
       pauseInready : false,
-      mineOnly : false
+      mineOnly : false,
     }
   },
   methods: {
@@ -120,6 +120,53 @@ export default {
     //  this.$parent.dispositionModal = false
     // this.callback = false
     // },
+    pauseAfter(){
+      this.pauseInready = true
+     // this.dispositions = false
+      let payload = { 
+        "username":localStorage.getItem('user'),
+        "phone":localStorage.getItem('phone'),
+        "campaign":this.$store.state.campaign, 
+        "lead_id": localStorage.getItem('lead_id'),
+        "status":this.selectDisposition
+      }
+      localStorage.setItem('disposition' , this.selectDisposition)
+
+      if(this.pauseInready){
+        payload["pause_code"]  =  this.$store.state.pause_code
+      }
+
+      if(this.selectDisposition  == "CALLBK"){
+        // payload["recipient"]  =  (this.mineOnly) ? "USERONLY" : "ANYONE"
+        // payload["callback_time"]  =  this.$store.state.pause_code
+        // payload["comment"]  =  this.$store.state.pause_code
+        // this.$parent.showcalendarModal = true
+        // this.$parent.dispositionModal = false
+        this.callMe()
+      }else{
+        return this.$http
+          .post("/api/v1/dial/dispose",payload, { headers:  {  "Content-Type": "application/json", "Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` } })
+          .then(response => {
+              if(response){
+                //this.$store.dispatch('userState', 'PAUSED')
+                true
+              }
+              localStorage.removeItem('disposition')
+              this.$parent.logs()
+              this.$parent.isDisable = false
+              this.$parent.dispositionModal = false
+              //this.callback = false
+              this.$store.dispatch('resetDisposition')
+    
+            })
+          .catch(error => {
+              let payload = { title:  'Disposition Failed'  , text: error.response.data.error,}
+              this.$store.dispatch("resetError",payload);
+              this.$parent.tryAgain = false
+              this.$parent.errorModal = true
+            })
+      }
+    },
     callMe(){
       this.callback = true
     },

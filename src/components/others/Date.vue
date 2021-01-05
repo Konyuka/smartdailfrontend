@@ -78,7 +78,8 @@ export default {
                 localStorage.removeItem('disposition')
               }
               this.$parent.isDisable = false
-              this.$parent.dispositionModal = false
+              this.$parent.callback = false
+              this.$parent.$parent.dispositionModal = false
               this.$store.dispatch('resetDisposition')
     
             })

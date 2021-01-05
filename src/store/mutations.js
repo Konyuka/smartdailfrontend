@@ -72,7 +72,7 @@ const mutations = {
     let callbacks = data.callbacks;
     let userState = data.user_status;
 
-    //console.log(callbacks)
+    //console.log(data)
     //console.log(callLogs)
 
     if (users != null || users != undefined) {
@@ -90,12 +90,12 @@ const mutations = {
 
     if (data.agents != null || data.agents != undefined) {
       state.activeAgents = data.agents;
-      console.log(data.agents);
+     // console.log(data.agents);
     }
 
     if (queue != null || queue != undefined) {
       if (queue.length > 0) {
-        console.log(queue);
+        //console.log(queue);
         state.callQueue = queue;
       } else {
         state.callQueue = [];
@@ -123,17 +123,17 @@ const mutations = {
     if (status == "calling") {
       state.callStatus = status;
       state.ongoingCall = false;
-      console.log("calling");
+     // console.log("calling");
     }
 
     if (status == "livecall") {
       state.callStatus = status;
-      console.log("livecall");
-      console.log(call_details);
+     // console.log("livecall");
+     // console.log(call_details);
       localStorage.setItem("lead_id", call_details.lead_id),
         localStorage.setItem("callerid", call_details.callerid),
         localStorage.setItem("numberCalled", call_details.phone_number);
-      console.log(call_details);
+     // console.log(call_details);
       if (call_details.url == undefined || call_details.url == null) {
         true;
       } else {
@@ -154,7 +154,7 @@ const mutations = {
 
     if (status == "hangup") {
       //state.ongoingCall = false
-      console.log("hangup");
+     // console.log("hangup");
 
       //if(state.callParked == true)
       if (reason != "OK") {
@@ -175,7 +175,7 @@ const mutations = {
     if (status == "transfer") {
       state.transfer = "transfer";
       state.hangupReason = code;
-      console.log("transfer");
+     // console.log("transfer");
     }
   },
   resetonCall(state) {
@@ -219,7 +219,7 @@ const mutations = {
   },
   liveCall(state) {
     state.callWaiting = false;
-    console.log("state.transferedCall?", state.transferedCall);
+  //  console.log("state.transferedCall?", state.transferedCall);
     state.ongoingCall = false;
   },
 

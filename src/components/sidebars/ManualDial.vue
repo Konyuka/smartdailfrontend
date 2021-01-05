@@ -169,7 +169,8 @@ export default {
       },
       numberCalled(){
         //let number = localStorage.getItem('numberCalled')
-        return  localStorage.getItem('numberCalled') //this.$store.state.numberCalled
+        //return  localStorage.getItem('numberCalled') 
+        return this.$store.state.numberCalled
       },
       callType () {
         let calltype = localStorage.getItem('type')
@@ -236,7 +237,6 @@ export default {
         this.isPanelOpen = false
       },
       dial() {
-
         this.call = true,
         this.transfer = false,
 
@@ -251,6 +251,7 @@ export default {
               localStorage.setItem('lead_id',response.data.lead_id)   
               localStorage.setItem('callerid', response.data.callerid)
               localStorage.setItem('numberCalled', this.number)
+              this.$store.dispatch('numberCalled', this.number)
               localStorage.setItem('type', 'Outgoing')
               console.log(response.data.url)
               this.$store.dispatch('iframe',response.data.url)
@@ -395,7 +396,7 @@ export default {
       hangUp() {
           this.call = false,
           this.transfer = false,
-          this.$parent.dispositionModal = true
+
           //Create the payload to be sent
           this.$parent.clicked = true
           let payload = {"campaign": this.$store.state.campaign,"username":localStorage.getItem('user'), "phone": localStorage.getItem('phone'),"lead_id" : localStorage.getItem('lead_id'),"callerid":localStorage.getItem('callerid'),"phone_number":localStorage.getItem('numberCalled') };
@@ -411,9 +412,11 @@ export default {
                 //this.manualDial = false
                 this.$parent.dialTrue = false
                 this.$parent.transferTrue = false
+                
 
                 //this.$parent.transferred = false
                 localStorage.removeItem('calledPhone')
+                localStorage.removeItem('numberCalled')
                 localStorage.removeItem('type')
                 //let phone = null
                 this.$store.dispatch('numberCalled', null )

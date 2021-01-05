@@ -542,7 +542,7 @@
                           </tbody>
 
                         </table>
-                        <p v-else class="text-gray-800 font-semibold tx-xs py-44 px-7">You have no calls in queue</p>
+                        <p v-else class="text-gray-800 font-semibold text-sm py-44 px-14">You have no calls in queue</p>
                         <!-- Pagination -->
                         
                       </div>
@@ -556,9 +556,9 @@
 
                 <div class="flex flex-col pt-2">
                   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-8 lg:px-8">
-                      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                        <div class="static" v-if="showLogTable" >
+                    <div class="relative py-2 align-middle inline-block min-w-full sm:px-8 lg:px-8">
+                      <div class="shadow overflow-hidden border-b h-96 border-gray-200 sm:rounded-lg">
+                        <div class="" v-if="showLogTable" >
                         <table class="min-w-full divide-y divide-blue-200">
 
                           <thead>
@@ -576,14 +576,14 @@
                           </thead>
 
                           <tbody>
-                            <!-- Even row -->
-                            <tr v-for="log in callLogs" :key="log.call_log_id" class="bg-indigo-100">
+
+                            <tr v-for="(log, index) in callLogs" :key="log.call_log_id" v-bind:class="tableStrip(index)">
                               <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
+                                <a @click="dial(stripNumber(log.phone_number))">
                                    <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
                                   </svg>
-                                </router-link>
+                                </a>
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
                                 {{ stripNumber(log.phone_number) }}
@@ -592,42 +592,44 @@
                                 {{  getHumanDate(log.call_date) }}
                               </td>
                             </tr>
-
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                sample no
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
                             
                           </tbody>
                         </table>
-                        <!-- Pagination -->
-                        <nav class="absolute bottom-0 px-4 flex items-center justify-between sm:px-0">
-                        <div class="relative flex justify-between">
+                         
+                        </div>
+                        <p v-else class="text-gray-800 font-semibold tx-xs py-44 px-7">You have made no calls today</p>
+                      </div>
 
-                          <div class="-mt-px w-0 flex-1 flex">
-                            <a href="#" class="border-t-2 border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
+                      <!-- Pagination -->
+                      <div class="static bottom-0 pt-2">
+                        <nav id="pagination-app" class="px-4 flex items-center justify-between sm:px-0">
+                          <div v-if="page != 1" class="-mt-px w-0 flex-1 flex">
+                            <a @click="page--" href="#" class="border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
                               <!-- Heroicon name: arrow-narrow-left -->
-                              <svg class="mr-3 h-5 w-5 text-indigo-400 hover:text-indigo-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <svg  class="mr-3 h-5 w-5 text-indigo-400 hover:text-indigo-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
                               </svg>
                               Previous
                             </a>
                           </div>
+<!-- 
+                          <div class="flex flex-row w-full rounded-lg relative justify-center bg-transparent mt-3 mr-8">
+                            <button data-action="decrement" class="bg-white text-gray-600 h-8 w-8 rounded-r cursor-pointer focus:outline-none">
+                              <svg class="w-6 h-6 ml-1 text-indigo-300 hover:text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+                            </button>
+      
+                            <input type="number" class="focus:outline-none text-center w-10 h-7 bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700" name="custom-input-number" value="0">
+                            
+                            <button data-action="increment" class=" bg-white text-gray-600 h-8 w-8 rounded-l cursor-pointer focus:outline-none">
+                              <svg class="w-6 h-6 ml-1 text-indigo-300 hover:text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            </button>
+                          </div> -->
                           
-                          <div class="r -mt-px w-0 flex-1 flex">
-                            <a href="#" class="border-t-2 border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
+                          <!-- <button type="button" class="btn btn-sm btn-outline-secondary" v-for="pageNumber in pages.slice(page-1, page+5)" v-bind:key="pageNumber" @click="page = pageNumber"> {{pageNumber}} </button> -->
+
+
+                          <div  v-if="page < pages.length && page != pages.length"  class="-mt-px w-0 flex-1 flex justify-end">
+                            <a @click="page++" href="#" class="border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
                               Next
                               <!-- Heroicon name: arrow-narrow-right -->
                               <svg class="ml-3 h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -635,13 +637,9 @@
                               </svg>
                             </a>
                           </div>
-
-                        </div>
-
                         </nav>
-                        </div>
-                        <p v-else class="text-gray-800 font-semibold tx-xs py-44 px-7">You have made no calls today</p>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -671,7 +669,7 @@
                       <ul tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-item-3" class="max-h-96 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                         
                         <!-- Ready Status -->
-                        <li v-for="item in activeAgents" :key="item.user" id="listbox-item-0" role="option" class="py-1 bg-indigo-100 px-4 text-black cursor-default select-none relative">
+                        <li v-bind:class="tableStrip(index)" v-for="(item, index) in activeAgents" :key="item.user" id="listbox-item-0" role="option" class="py-1 px-4 text-black cursor-default select-none relative">
                           <div class="flex items-center">
                             <!-- Status Color -->
                             <span v-bind:class="userStatus(item.status)" class="flex-shrink-0 inline-block h-3 w-3 rounded-full" aria-hidden="true"></span>
@@ -702,8 +700,9 @@
 
                  <div class="flex flex-col pt-2">
                   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-8 lg:px-8">
-                      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <div class="relative py-2 align-middle inline-block min-w-full sm:px-8 lg:px-8">
+                      <div class="shadow overflow-hidden border-b h-96 border-gray-200 sm:rounded-lg">
+                        <div v-if="showCallBackTable" class="">
                         <table class="min-w-full divide-y divide-blue-200">
 
                           <thead>
@@ -722,171 +721,33 @@
 
                           <tbody>
                             <!-- Even row -->
-                            <tr class="bg-indigo-100">
+                            <tr v-for="(item,index) in callbacks" :key="index"  v-bind:class="tableStrip(index)">
                               <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
+                                <a @click="dial(stripNumber(item.PhoneNumber))">
                                    <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
                                   </svg>
-                                </router-link>
+                                </a>
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
+                                {{ item.PhoneNumber }}
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
+                                {{ getHumanDate(item.CustomerTime) }}
                               </td>
                             </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Even row -->
-                            <tr class="bg-indigo-100">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
-                            <!-- Odd row -->
-                            <tr class="bg-white">
-                              <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <router-link to="/details">
-                                   <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                  </svg>
-                                </router-link>
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                0716202298
-                              </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                14:41
-                              </td>
-                            </tr>
+
                           </tbody>
                         </table>
-                        <!-- Pagination -->
+                        </div>
+                        <p v-else class="text-gray-800 font-semibold text-sm py-44 px-7">You have made no callbacks today</p>
+                      </div>
+
+                      <!-- Pagination -->
+                      <div class="static bottom-0 pt-2">
                         <nav class="px-4 flex items-center justify-between sm:px-0">
-                          <div class="-mt-px w-0 flex-1 flex">
-                            <a href="#" class="border-t-2 border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
+                          <div v-if="pageCallBack != 1" class="-mt-px w-0 flex-1 flex">
+                            <a @click="pageCallBack--" href="#" class="border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
                               <!-- Heroicon name: arrow-narrow-left -->
                               <svg class="mr-3 h-5 w-5 text-indigo-400 hover:text-indigo-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -897,8 +758,8 @@
                           <div class="hidden md:-mt-px md:flex">
                             
                           </div>
-                          <div class="-mt-px w-0 flex-1 flex justify-end">
-                            <a href="#" class="border-t-2 border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400 hover:border-indigo-300">
+                          <div v-if="pageCallBack < pagesCallBack.length && pageCallBack != pagesCallBack.length" class="-mt-px w-0 flex-1 flex justify-end">
+                            <a @click="pageCallBack++" href="#" class="border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
                               Next
                               <!-- Heroicon name: arrow-narrow-right -->
                               <svg class="ml-3 h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -908,6 +769,7 @@
                           </div>
                         </nav>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -1077,9 +939,20 @@ export default {
     Ingroup,
     DialNext,
   },
+  //el: '#pagination-app',
   data() {
     return{
-      //statusColorCode: null,
+      posts: '',
+      postsCallback: '',
+
+      page: 1,
+      pageCallBack: 1,
+
+      perPage: 10.0,
+
+      pages: [],
+      pagesCallBack: [],
+      
       show: true, 
       user: null,
       ingroupModal: false,
@@ -1190,9 +1063,13 @@ export default {
       return this.$store.state.activeAgents
     },
     callLogs() {
-     return this.$store.state.callLogs
+      return this.paginate(this.$store.state.callLogs);
     },
     callbacks(){
+      return this.paginateCallBack(this.$store.state.callbacks);
+   // return this.$store.state.callbacks
+    },
+    nonPaginatedCallbacks(){
       return this.$store.state.callbacks
     },
     queue(){
@@ -1220,15 +1097,59 @@ export default {
         this.tryAgain = true
         this.errorModal = true
       }  
-    }
+    },
+    callLogs(newCount){
+      if(newCount == true){
+      //  this.posts = this.callLogs.length;
+        //this.setPages();
+        console.log('calls have been added')
+      }
+    },
+    callbacks(newCount){
+      if(newCount == true){
+        this.postsCallback = this.callbacks
+        this.setPagesCallback();
+      }
+    },
+
   },
   methods: {
-    getHumanDate(date) {
-        return moment(date).format('h:mm a');
+      paginate (callLogs) {
+        let page = this.page;
+        let perPage = this.perPage;
+        let from = (page * perPage) - perPage;
+        let to = (page * perPage);
+        return  callLogs.slice(from, to);
       },
-
+      paginateCallBack (callbacks) {
+        //this.postsCallback = this.callbacks
+        let pageCallBack = this.pageCallBack;
+        let perPage = this.perPage;
+        let from = (pageCallBack * perPage) - perPage;
+        let to = (pageCallBack * perPage);
+        return  callbacks.slice(from, to);
+      },
+      setPages () {
+        //this.post = this.callLogs
+        //this.posts = this.callLogs.length
+        let numberOfPages = Math.ceil(this.posts.length / this.perPage);
+        for (let index = 1; index <= numberOfPages; index++) {
+          this.pages.push(index);
+          console.log(this.pages)
+        }
+      },
+      setPagesCallback () {
+        let numberOfPagesCallback = Math.ceil(this.postsCallback.length / this.perPage);
+        for (let index = 1; index <= numberOfPagesCallback; index++) {
+          this.pagesCallBack.push(index);
+          console.log(this.pagesCallBack)
+        }
+      },
+      getHumanDate(date) {
+          return moment(date).format('h:mm a');
+        },
       stripNumber(number) {
-        return number.substring(1)
+        return number.substring(0)
       },
 
       selectIngroup() {
@@ -1286,6 +1207,17 @@ export default {
           return 'text-orange-400' 
         }
       },
+      tableStrip(index){
+        //console.log(index)
+        if( index % 2 === 0){
+          return 'bg-indigo-100'
+        }else if(index % 2 !== 0){
+          return 'bg-white'
+        }
+        else{
+          return 'bg-gray-500'
+        }
+      },
       manualDial() {
         if(this.ready){
          // this.dialTrue = true
@@ -1300,17 +1232,14 @@ export default {
         }
 
       },
-
       ingroup() {
           this.ingroupShow = true
           this.toggleMenu = false
       },
-
       changePausecode() {
         this.pauseCodeTrue = true
         this.toggleMenu = false
       },
-
       beforeCall(response){
         localStorage.setItem('lead_id',response.data.lead_id)   
         localStorage.setItem('callerid', response.data.callerid)
@@ -1319,12 +1248,16 @@ export default {
         this.$store.dispatch('numberCalled', response.data.phone_number )
         //this.onCallTrue = true
       },
-
       logs(){
-        let payload = { "username"     : localStorage.getItem('user'), "phone"        : localStorage.getItem('phone'),"campaign"     : this.$store.state.campaign,};
+        let payload = { "username"     : localStorage.getItem('user'), "phone" : localStorage.getItem('phone'),"campaign" : this.$store.state.campaign,};
+        //console.log(payload)
         this.$http.post("/api/v1/dial/logs",payload, { headers: { "Content-Type": "application/json","Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` } })
           .then((response) => {
               this.$store.dispatch("callLogs", response.data.logs);
+              this.posts = response.data.logs
+              this.postsCallback = this.nonPaginatedCallbacks
+              this.setPages();
+              this.setPagesCallback();
             })
           .catch(error => {
               let payload = { title:  'Getting Logs failed'  , text: error.response.data,}
@@ -1333,7 +1266,6 @@ export default {
               this.errorModal = true
           })
       },
-
       logout() {
         let payload={ username:localStorage.getItem('user')}
         return this.$http
@@ -1350,7 +1282,6 @@ export default {
             this.errorModal = true
             });
       },
-
       dialNext(){
           this.$store.dispatch('beforeCall')
 
@@ -1381,7 +1312,6 @@ export default {
               this.isDisable = false
              })
       },
-
       takeCall(call){
 
       let payload = { 
@@ -1417,10 +1347,10 @@ export default {
             console.log(error)
           })
       },
-
       dial(number) {
       this.onCallTrue = true
       this.dialTrue = false
+      this.sideD = true;
       //console.log(number)
       localStorage.setItem('numberCalled',number)
       localStorage.setItem('type','Outgoing')
@@ -1451,12 +1381,12 @@ export default {
           console.log(error)
         })
       },
-
       toggleTab: function(tabNumber){
         this.openTab = tabNumber
       },
     
-  }
+  },
+  
 }
 </script>
 
@@ -1465,4 +1395,11 @@ export default {
 .iframe {
    overflow: scroll;
  }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 </style>
