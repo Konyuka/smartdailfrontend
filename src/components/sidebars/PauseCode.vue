@@ -22,7 +22,7 @@
               <div class="mt-2 justify-between px-8 grid">
                 <div class="py-2 grid-cols-2 gap-2"  v-for="option in options" :value="option.pause_code" :key="option.pause_code">
                 <label class="inline-flex items-center">
-                  <input  v-model="selectedPauseCode[optionIndex]" :value="option.pause_code" :checked="option == option.pause_code" type="radio" class="form-radio text-indigo-600" name="accountType" >
+                  <input  v-model="selectedPauseCode" :value="option.pause_code" type="radio" class="form-radio text-indigo-600" name="accountType" >
                   <span class="ml-2 text-white text-sm">{{ option.name }}</span>
                 </label>
                 </div>
@@ -51,7 +51,7 @@ const Toast = Swal.mixin({
   position: 'top-end',
   showConfirmButton: false,
   timer: 5000,
-  timerProgressBar: true,
+  timerProgressBar: false,
   didOpen: (toast) => {
     toast.addEventListener("mouseenter", Swal.stopTimer);
     toast.addEventListener("mouseleave", Swal.resumeTimer);
@@ -73,7 +73,7 @@ export default {
       this.$parent.sideP = false
     },
     submitPause(){
-      this.$store.dispatch("setPausecode", String(this.selectedPauseCode));
+      this.$store.dispatch("setPausecode", String(this.checkedOptions));
       let payload = { "username":localStorage.getItem('user'),"phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign,"state": 'PAUSED', "pause_code" :this.selectedPauseCode};
       console.log(payload)
       return this.$http
@@ -97,7 +97,13 @@ export default {
           })
     },
   },
+  watch: {
+
+  },
   computed: {
+    checkedOptions () {
+      return this.options.filter(item => item.checked).map(item => item.name)
+    },
     options(){
       return this.$store.state.codeOptions
     },

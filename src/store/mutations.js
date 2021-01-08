@@ -95,7 +95,7 @@ const mutations = {
 
     if (queue != null || queue != undefined) {
       if (queue.length > 0) {
-        //console.log(queue);
+        console.log(queue);
         state.callQueue = queue;
       } else {
         state.callQueue = [];

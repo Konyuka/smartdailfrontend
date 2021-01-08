@@ -15,11 +15,12 @@
 
           <!-- During Call   -->
           <div class="mt-3 text-center sm:mt-5">
-              <h3 v-if="callOn" class="text-sm italic leading-6 font-medium text-white" id="modal-headline">
+              <h3 v-if="!ongoingCall && callOn" class="text-sm italic leading-6 font-medium text-white" id="modal-headline">
                 Dialing {{  numberCalled  }}
               </h3>  
               <h3 v-if="!callOn" class="text-sm italic leading-6 font-medium text-white" id="modal-headline">
-                Calling {{  numberCalled  }} Ended
+                Call Ended <br>
+              {{  numberCalled  }} 
               </h3> 
             <div v-if="ongoingCall" class="mt-5">
 
@@ -219,6 +220,7 @@ export default {
 
         this.call = true,
         this.transfer = false,
+        this.callOn = false
 
         this.$store.dispatch('resetDisposition')
         this.$store.dispatch('beforeCall')

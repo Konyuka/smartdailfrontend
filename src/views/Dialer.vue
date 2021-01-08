@@ -389,19 +389,7 @@
                   </span>
                 </div>
 
-                <!-- <p class="text-md font-medium text-white group-hover:text-white flex">
-                  <span> 
-                     <svg  class="mr-3 h-6 w-6 text-white hover:text-red-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                     </svg> 
-                     Paused
-                  </span> 
-                  <span>
-                     <svg  class="mr-3 h-6 w-6 text-white hover:text-red-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                     </svg>
-                  </span>
-                </p> -->
+               
 
               </div>
               <div class="ml-14">
@@ -476,6 +464,7 @@
                   <nav class="-mb-px flex justify-between" aria-label="Tabs">
                     <a v-on:click="toggleTab(1)" v-bind:class="{'text-black': openTab !== 1, 'text-black border-indigo-700': openTab === 1}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Queue
+                      <span v-if="queue != 0" class="blink flex-shrink-0 inline-block h-2 w-2 rounded-full ml-1 mb-2" aria-hidden="true"></span>
                     </a>
                     <a v-on:click="toggleTab(2)" v-bind:class="{'text-black': openTab !== 2, 'text-black border-indigo-700': openTab === 2}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Logs
@@ -523,17 +512,17 @@
                             <!-- Even row -->
                             <tr v-for="item in queue" :key="item.caller" class="bg-indigo-100">
                               <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
-                              <a  @click="takeCall(stripNumber(item.caller))">
+                              <a  @click="takeCall(item)">
                                 <svg class="mr-1 w-5 h-5 text-black hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 3l-6 6m0 0V4m0 5h5M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"></path></svg>
                               </a>
                               </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
-                                number
+                              <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-500">
+                                {{ item.caller }}
                               </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
+                              <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-500">
                                 {{ item.queue_time }}
                               </td>
-                              <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
+                              <td class="px-2 py-2 whitespace-nowrap text-xs text-black">
                                 {{ item.ingroup }}
                               </td>
                             </tr>
@@ -597,12 +586,14 @@
                         </table>
                          
                         </div>
-                        <p v-else class="text-gray-800 font-semibold tx-xs py-44 px-7">You have made no calls today</p>
+                        <p v-else class="text-gray-800 font-semibold text-sm py-44 px-10">You have made no calls today</p>
                       </div>
 
                       <!-- Pagination -->
                       <div class="static bottom-0 pt-2">
-                        <nav id="pagination-app" class="px-4 flex items-center justify-between sm:px-0">
+                        <div>
+
+                        <nav id="pagination-app" class="px-4 flex items-center justify-center sm:px-0">
                           <div v-if="page != 1" class="-mt-px w-0 flex-1 flex">
                             <a @click="page--" href="#" class="border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
                               <!-- Heroicon name: arrow-narrow-left -->
@@ -612,8 +603,8 @@
                               Previous
                             </a>
                           </div>
-<!-- 
-                          <div class="flex flex-row w-full rounded-lg relative justify-center bg-transparent mt-3 mr-8">
+
+                          <!-- <div class="flex flex-row w-full rounded-lg relative justify-center bg-transparent mt-3 mr-8">
                             <button data-action="decrement" class="bg-white text-gray-600 h-8 w-8 rounded-r cursor-pointer focus:outline-none">
                               <svg class="w-6 h-6 ml-1 text-indigo-300 hover:text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
                             </button>
@@ -624,8 +615,10 @@
                               <svg class="w-6 h-6 ml-1 text-indigo-300 hover:text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                             </button>
                           </div> -->
-                          
-                          <!-- <button type="button" class="btn btn-sm btn-outline-secondary" v-for="pageNumber in pages.slice(page-1, page+5)" v-bind:key="pageNumber" @click="page = pageNumber"> {{pageNumber}} </button> -->
+                          <div class="flex justify-center">
+                            <!-- <p>page 1 of 5</p> -->
+                          <!-- <button type="button" class="justify-center btn text-sm btn-sm btn-outline-secondary" v-for="pageNumber in pages.slice(page-1, page+5)" v-bind:key="pageNumber" @click="page = pageNumber"> {{pageNumber}} </button> -->
+                          </div>
 
 
                           <div  v-if="page < pages.length && page != pages.length"  class="-mt-px w-0 flex-1 flex justify-end">
@@ -638,6 +631,8 @@
                             </a>
                           </div>
                         </nav>
+
+                        </div>
                       </div>
 
                     </div>
@@ -687,7 +682,7 @@
                             <span class="ml-2"> 00:45  </span>
                           </span>
                         </li>
-                      
+                       
                       </ul>
                     </div>
                   </div>
@@ -740,7 +735,7 @@
                           </tbody>
                         </table>
                         </div>
-                        <p v-else class="text-gray-800 font-semibold text-sm py-44 px-7">You have made no callbacks today</p>
+                        <p v-else class="text-gray-800 font-semibold text-sm py-44 px-12">You have no callbacks today</p>
                       </div>
 
                       <!-- Pagination -->
@@ -919,7 +914,7 @@ const Toast = Swal.mixin({
   position: 'top-end',
   showConfirmButton: false,
   timer: 3000,
-  timerProgressBar: true,
+  timerProgressBar: false,
   didOpen: (toast) => {
     toast.addEventListener("mouseenter", Swal.stopTimer);
     toast.addEventListener("mouseleave", Swal.resumeTimer);
@@ -1077,6 +1072,11 @@ export default {
     }
   },
   watch:{
+    queue(queue){
+      if(queue != 0){
+        this.openTab = 1
+      }
+    },
     disposition (newCount) {
       if(newCount == true){
         this.dispositionModal = true
@@ -1135,14 +1135,17 @@ export default {
         let numberOfPages = Math.ceil(this.posts.length / this.perPage);
         for (let index = 1; index <= numberOfPages; index++) {
           this.pages.push(index);
-          console.log(this.pages)
+          localStorage.removeItem('pages');
+          localStorage.setItem('pages', this.pages)
+
+          //console.log(this.pages)
         }
       },
       setPagesCallback () {
         let numberOfPagesCallback = Math.ceil(this.postsCallback.length / this.perPage);
         for (let index = 1; index <= numberOfPagesCallback; index++) {
           this.pagesCallBack.push(index);
-          console.log(this.pagesCallBack)
+         // console.log(this.pagesCallBack)
         }
       },
       getHumanDate(date) {
@@ -1151,11 +1154,9 @@ export default {
       stripNumber(number) {
         return number.substring(0)
       },
-
       selectIngroup() {
         this.ingroupModal = true
       },
-
       toggle(event){
         if(event == 'PAUSED'){
           let payload = { "username":localStorage.getItem('user'),"phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign,"state": 'PAUSED', "pause_code" : 'BREAK'};
@@ -1256,6 +1257,7 @@ export default {
               this.$store.dispatch("callLogs", response.data.logs);
               this.posts = response.data.logs
               this.postsCallback = this.nonPaginatedCallbacks
+              localStorage.setItem('postsCallback', this.postsCallback)
               this.setPages();
               this.setPagesCallback();
             })
@@ -1313,23 +1315,27 @@ export default {
              })
       },
       takeCall(call){
+        console.log(call)
 
-      let payload = { 
-        "username"     : localStorage.getItem('user'), 
-        "phone"        : localStorage.getItem('phone'),
-        "campaign"     : this.$store.state.campaign,
-        "lead_id"      : call.lead_id,
-        "call_id"      : call.call_id,
-        "phone_number" : call.caller //.substring(1)
+        let payload = { 
+          "username"     : localStorage.getItem('user'), 
+          "phone"        : localStorage.getItem('phone'),
+          "campaign"     : this.$store.state.campaign,
+          "lead_id"      : call.lead_id,
+          "call_id"      : call.call_id,
+          "phone_number" : call.caller //.substring(1)
+        };
 
-      };
-      this.onCallTrue = true
+        this.sideD = true 
+        this.onCallTrue = true
+
         return this.$http
           .post("/api/v1/dial/take",payload, { headers: { "Content-Type": "application/json", "Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}`} })
           .then((response) => {
             if(response){
               true
             }
+            console.log(payload)
             console.log(response)
             this.$store.dispatch('iframe',response.data.url)
             console.log(response.data)
@@ -1392,6 +1398,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.blink{
+  /* animation: blink 0.02s 20 alternate; */
+  animation: blink 1s linear infinite;
+}
+@keyframes blink {
+  from { background-color: #34D399; }
+  to { background-color: #EF4444; }
+}
+
 .iframe {
    overflow: scroll;
  }

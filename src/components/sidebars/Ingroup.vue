@@ -49,7 +49,7 @@ const Toast = Swal.mixin({
   position: 'top-end',
   showConfirmButton: false,
   timer: 3000,
-  timerProgressBar: true,
+  timerProgressBar: false,
   didOpen: (toast) => {
     toast.addEventListener("mouseenter", Swal.stopTimer);
     toast.addEventListener("mouseleave", Swal.resumeTimer);
@@ -98,11 +98,19 @@ export default {
       .post("/api/v1/closer/inbound", payload, { headers: { "Content-Type": "application/json","Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}` },}).then((response) => {
           this.$store.dispatch("setIngroups", response.data.inbound);
           this.$store.dispatch("setSelectedingroups", this.checkedOptions);
-          Toast.fire({
-            type: 'success',
-            title: this.checkedOptions + ' added to Ingroups',
-            icon: 'success',
-          });
+          if(this.$store.state.selectedIngroups.length++){
+            Toast.fire({
+              type: 'success',
+              title: this.checkedOptions + ' added to Ingroups',
+              icon: 'success',
+            });
+          }else{
+            Toast.fire({
+              type: 'success',
+              title: 'Option removed from Ingroups',
+              icon: 'success',
+            });
+          }
           this.close()
           })
       .catch((error) => {

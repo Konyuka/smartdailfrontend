@@ -171,7 +171,7 @@ export default {
         "lead_id":      localStorage.getItem('lead_id'),
         "callerid":     localStorage.getItem('callerid'),
         "phone_number": localStorage.getItem('numberCalled'),
-        "agent":this.agent,
+        "agent":        this.agent,
         "inbound_group":"AGENTDIRECT"
         
       }
@@ -181,7 +181,7 @@ export default {
             if(response){
               true
             }
-
+            console.log(payload)
             this.$root.$children[0].$children[0].transferTrue = false;
             this.$root.$children[0].$children[0].onCallTrue = false
             this.$root.$children[0].$children[0].dispositionModal = true
