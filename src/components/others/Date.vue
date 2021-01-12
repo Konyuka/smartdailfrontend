@@ -8,12 +8,12 @@
           </h2>
           <datetime class="py-8" type="datetime" v-model="callbacktime"></datetime>
           <div class="px-16">
-            <div class="mt-1 sm:mt-0 sm:col-span-3">
+            <!-- <div class="mt-1 sm:mt-0 sm:col-span-3">
                <p class="mb-6 text-xl font-regular text-gray-800">Reference or Guide Notes</p>
               <div class="max-w-lg flex rounded-md shadow-sm pb-4">
                 <textarea v-model="comment" rows="3" class="lowercase form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 focus:outline-none"></textarea>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="callback-check ml-0">
             <input type="checkbox" id="mycallBack" name="mycallBack" v-model="mineOnly">
@@ -45,14 +45,14 @@ export default {
   data(){
     return{
      // date: "",
-      mineOnly : false,
+      mineOnly : true,
       callbacktime : null ,
       comment : null,
     }
   },
   computed:{
       disabled(){
-        return (this.callbacktime == null || this.comment == null ) ? true : false
+        return (this.callbacktime == null ) ? true : false
       }
     },
     methods: {
@@ -66,7 +66,7 @@ export default {
           "lead_id": localStorage.getItem('lead_id'),
           "status":localStorage.getItem('disposition'),
           "recipient" : (this.mineOnly) ? "USERONLY" : "ANYONE" ,
-          "callback_time" :this.callbacktime, 
+          "callback_time": this.callbacktime, 
           "comment": this.comment
         }
         console.log(payload)
@@ -74,6 +74,7 @@ export default {
           .post("/api/v1/dial/dispose",payload, { headers:  {  "Content-Type": "application/json", "Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` } })
           .then(response => {
               if(response){
+                // console.log(response)
                 //this.$store.dispatch('userState', 'PAUSED')
                 localStorage.removeItem('disposition')
               }
@@ -81,7 +82,10 @@ export default {
               this.$parent.callback = false
               this.$parent.$parent.dispositionModal = false
               this.$store.dispatch('resetDisposition')
-    
+              
+              this.$parent.$parent.side = false
+              this.$parent.$parent.sideD = false
+
             })
           .catch(error => {
               console.log(error.response.data)

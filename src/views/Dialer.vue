@@ -430,16 +430,16 @@
 
             <span class="relative z-0 inline-flex shadow-sm rounded-md">
               <button @click="sideG = true" type="button" class="relative inline-flex items-center font-semibold px-3 py-2 rounded-l-md border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                Ingroups
+                InGroups
               </button>
               <button @click="sideP = true" type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                 PCode
               </button>
               <button @click="dialNext" v-if="!ratio" type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                Dnext
+                DNext
               </button>
               <button @click="manualDial" type="button" class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 rounded-r-md border border-gray-300 bg-white text-xs text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                Mdial
+                MDial
               </button>
 
               
@@ -462,9 +462,9 @@
               <div class="hidden sm:block mt-4 px-2">
                 <div class="border-b border-black">
                   <nav class="-mb-px flex justify-between" aria-label="Tabs">
-                    <a v-on:click="toggleTab(1)" v-bind:class="{'text-black': openTab !== 1, 'text-black border-indigo-700': openTab === 1}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTab(1)" v-bind:class="{'text-black': openTab !== 1, 'text-black border-indigo-700': openTab === 1, 'css-selector': queue != 0, 'text-white': queue != 0 }" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Queue
-                      <span v-if="queue != 0" class="blink flex-shrink-0 inline-block h-2 w-2 rounded-full ml-1 mb-2" aria-hidden="true"></span>
+                      <!-- <span class="blink flex-shrink-0 inline-block h-2 w-2 rounded-full ml-1 mb-2" aria-hidden="true"></span> -->
                     </a>
                     <a v-on:click="toggleTab(2)" v-bind:class="{'text-black': openTab !== 2, 'text-black border-indigo-700': openTab === 2}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Logs
@@ -621,7 +621,7 @@
                           </div>
 
 
-                          <div  v-if="page < pages.length && page != pages.length"  class="-mt-px w-0 flex-1 flex justify-end">
+                          <div  v-if="page < pages.length && page != pages"  class="-mt-px w-0 flex-1 flex justify-end">
                             <a @click="page++" href="#" class="border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
                               Next
                               <!-- Heroicon name: arrow-narrow-right -->
@@ -676,8 +676,13 @@
                               </span>
                               <span class="sr-only"> is online</span>
                             </span>
-                          </div>
 
+                            <span class="ml-8 inset-y-0 justify-center uppercase flex items-center pr-6">
+                              <span class="ml-2"> {{ item.campaign }}  </span>
+                            </span>
+
+                          </div>
+                           
                           <span class="absolute inset-y-0 right-0 flex items-center pr-6">
                             <span class="ml-2"> 00:45  </span>
                           </span>
@@ -718,7 +723,7 @@
                             <!-- Even row -->
                             <tr v-for="(item,index) in callbacks" :key="index"  v-bind:class="tableStrip(index)">
                               <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <a @click="dial(stripNumber(item.PhoneNumber))">
+                                <a @click="dial(stripNumber(item.PhoneNumber)) && deleteCallback(index)">
                                    <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
                                   </svg>
@@ -934,7 +939,6 @@ export default {
     Ingroup,
     DialNext,
   },
-  //el: '#pagination-app',
   data() {
     return{
       posts: '',
@@ -1072,11 +1076,6 @@ export default {
     }
   },
   watch:{
-    queue(queue){
-      if(queue != 0){
-        this.openTab = 1
-      }
-    },
     disposition (newCount) {
       if(newCount == true){
         this.dispositionModal = true
@@ -1136,7 +1135,7 @@ export default {
         for (let index = 1; index <= numberOfPages; index++) {
           this.pages.push(index);
           localStorage.removeItem('pages');
-          localStorage.setItem('pages', this.pages)
+          localStorage.setItem('pages', this.index)
 
           //console.log(this.pages)
         }
@@ -1145,6 +1144,8 @@ export default {
         let numberOfPagesCallback = Math.ceil(this.postsCallback.length / this.perPage);
         for (let index = 1; index <= numberOfPagesCallback; index++) {
           this.pagesCallBack.push(index);
+          localStorage.removeItem('pagesCallBack');
+          localStorage.setItem('pagesCallBack', this.index)
          // console.log(this.pagesCallBack)
         }
       },
@@ -1220,18 +1221,17 @@ export default {
         }
       },
       manualDial() {
-        if(this.ready){
+        if(!this.ready){
          // this.dialTrue = true
           this.side = true
         }else{
           Toast.fire({
             type: 'success',
-            title: 'Switch to active to Dial',
+            title: 'Switch to Pause to Dial',
             icon: 'warning',
           });
           //this.$vs.notification({progress: 'auto', duration : 6000,color : "danger",position : 'top-center',title: 'Pause first!',text: "Yo must be paused to do a manual dial.Kindly pause first"})
         }
-
       },
       ingroup() {
           this.ingroupShow = true
@@ -1383,9 +1383,13 @@ export default {
               this.$store.dispatch('numberCalled', payload.phone_number)
               this.onCallTrue = true
               this.dialTrue = false
+              // this.deleteCallback(number)
         }).catch(error => {
           console.log(error)
         })
+      },
+      deleteCallback(index) {
+        this.callbacks.splice(index, 1);
       },
       toggleTab: function(tabNumber){
         this.openTab = tabNumber
@@ -1405,6 +1409,37 @@ export default {
 @keyframes blink {
   from { background-color: #34D399; }
   to { background-color: #EF4444; }
+}
+
+.css-selector {
+    background: linear-gradient(261deg, #2563eb, #dc2626, #6d28d9);
+    background-size: 600% 600%;
+
+    -webkit-animation: AnimationName 3s ease infinite;
+    -moz-animation: AnimationName 3s ease infinite;
+    -o-animation: AnimationName 3s ease infinite;
+    animation: AnimationName 3s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 46%}
+    50%{background-position:100% 55%}
+    100%{background-position:0% 46%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 46%}
+    50%{background-position:100% 55%}
+    100%{background-position:0% 46%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:0% 46%}
+    50%{background-position:100% 55%}
+    100%{background-position:0% 46%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 46%}
+    50%{background-position:100% 55%}
+    100%{background-position:0% 46%}
 }
 
 .iframe {

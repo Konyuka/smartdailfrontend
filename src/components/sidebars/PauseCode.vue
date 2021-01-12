@@ -73,7 +73,7 @@ export default {
       this.$parent.sideP = false
     },
     submitPause(){
-      this.$store.dispatch("setPausecode", String(this.checkedOptions));
+      this.$store.dispatch("setPausecode", String(this.selectedPauseCode));
       let payload = { "username":localStorage.getItem('user'),"phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign,"state": 'PAUSED', "pause_code" :this.selectedPauseCode};
       console.log(payload)
       return this.$http

@@ -85,7 +85,7 @@
                 <svg v-else class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                 </svg>
-                Park
+                Grab
               </button>
 
               <button @click="addDTMF" type="button" class="inline-flex items-center px-2 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -130,6 +130,22 @@
 
 <script>
 import TransferCall from '@/components/others/TransferCall.vue';
+
+
+import Swal from 'sweetalert2';
+window.Swal = Swal;
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: false,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+window.Toast = Toast;
 
 
 export default {
@@ -287,6 +303,11 @@ export default {
         .then((response) => {
             if(response){
               true
+              Toast.fire({
+                    type: 'success',
+                    title: 'You have resumed the call',
+                    icon: 'success',
+                  });
             }})
         .catch(error => {
             console.log(error.response)
@@ -383,6 +404,11 @@ export default {
           .then((response) => {
             if(response){
               true
+              Toast.fire({
+                    type: 'success',
+                    title: 'You have paused the call',
+                    icon: 'success',
+                  });
             }})
           .catch(error => {
             console.log(error)

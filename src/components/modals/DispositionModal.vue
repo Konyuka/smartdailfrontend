@@ -155,6 +155,9 @@ export default {
               this.$parent.logs()
               this.$parent.isDisable = false
               this.$parent.dispositionModal = false
+              this.$parent.side = false
+              this.$parent.sideD = false
+              
               //this.callback = false
               this.$store.dispatch('resetDisposition')
     
@@ -206,6 +209,10 @@ export default {
               this.$parent.logs()
               this.$parent.isDisable = false
               this.$parent.dispositionModal = false
+
+              this.$parent.side = false
+              this.$parent.sideD = false
+
               //this.callback = false
               this.$store.dispatch('resetDisposition')
     
