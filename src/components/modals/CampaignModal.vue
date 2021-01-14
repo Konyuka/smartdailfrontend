@@ -108,6 +108,9 @@ export default {
         response.data.campaign = this.selectedCampaign
         console.log(response.data)
         this.$store.dispatch("setPhoneCamps", response.data); 
+        if( this.$store.state.dial_method == 'RATIO'){
+          this.$parent.blendModal = true
+        }
       } 
       catch (error) {
         console.log(error)

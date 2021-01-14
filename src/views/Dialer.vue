@@ -621,7 +621,7 @@
                           </div>
 
 
-                          <div  v-if="page < pages.length && page != pages"  class="-mt-px w-0 flex-1 flex justify-end">
+                          <div  v-if="page < pages.length && page != pages.length"  class="-mt-px w-0 flex-1 flex justify-end">
                             <a @click="page++" href="#" class="border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
                               Next
                               <!-- Heroicon name: arrow-narrow-right -->
@@ -893,6 +893,7 @@
           <!-- Modals -->
           <CampaignModal    v-if="showcampaignModal"  @close="showcampaignModal   = false" />
           <DispositionModal v-if="dispositionModal"   @close="dispositionModal    = false" />
+          <BlendModal       v-if="blendModal"         @close="blendModal          = false" />
 
         </div>
       </main>
@@ -905,6 +906,7 @@
 
 <script>
 import moment from 'moment';
+import BlendModal from '@/components/modals/BlendModal.vue';
 import CampaignModal from '@/components/modals/CampaignModal.vue';
 import DispositionModal from '@/components/modals/DispositionModal.vue';
 import ManualDial from '@/components/sidebars/ManualDial.vue';
@@ -934,6 +936,7 @@ export default {
   components: {
     CampaignModal,
     DispositionModal,
+    BlendModal,
     ManualDial,
     PauseCode,
     Ingroup,
@@ -954,6 +957,7 @@ export default {
       
       show: true, 
       user: null,
+      blendModal: false,
       ingroupModal: false,
       dispositionModal: false,
       switchCampaignModal:false,
@@ -1007,6 +1011,9 @@ export default {
     //console.log(this.callLogs)
   },
   computed: {
+    autodialValue(){
+        return (this.$store.state.userState == 'READY' && this.$store.state.callStatus == 'livecall'  ) ? '1' : '0'
+    },
     ratio (){
       return (this.$store.state.dial_method == 'RATIO') ? true : false
     },
@@ -1068,6 +1075,9 @@ export default {
       return this.paginateCallBack(this.$store.state.callbacks);
    // return this.$store.state.callbacks
     },
+    nonPaginatedCalllogs(){
+      return this.$store.state.callLogs
+    },
     nonPaginatedCallbacks(){
       return this.$store.state.callbacks
     },
@@ -1076,6 +1086,16 @@ export default {
     }
   },
   watch:{
+    // nonPaginatedCalllogs(newCount){
+    //   if(newCount++){
+    //     this.setPages();
+    //   }
+    // },
+    autodialValue(newCount){
+      if(newCount == true){
+        this.sideD = true 
+      }
+    },
     disposition (newCount) {
       if(newCount == true){
         this.dispositionModal = true
@@ -1131,21 +1151,21 @@ export default {
       setPages () {
         //this.post = this.callLogs
         //this.posts = this.callLogs.length
-        let numberOfPages = Math.ceil(this.posts.length / this.perPage);
+        let numberOfPages = Math.ceil(this.nonPaginatedCalllogs.length / this.perPage);
         for (let index = 1; index <= numberOfPages; index++) {
           this.pages.push(index);
-          localStorage.removeItem('pages');
-          localStorage.setItem('pages', this.index)
+        //  localStorage.removeItem('pages');
+         // localStorage.setItem('pages', this.index)
 
           //console.log(this.pages)
         }
       },
       setPagesCallback () {
-        let numberOfPagesCallback = Math.ceil(this.postsCallback.length / this.perPage);
+        let numberOfPagesCallback = Math.ceil(this.nonPaginatedCallbacks.length / this.perPage);
         for (let index = 1; index <= numberOfPagesCallback; index++) {
           this.pagesCallBack.push(index);
-          localStorage.removeItem('pagesCallBack');
-          localStorage.setItem('pagesCallBack', this.index)
+        //  localStorage.removeItem('pagesCallBack');
+         // localStorage.setItem('pagesCallBack', this.index)
          // console.log(this.pagesCallBack)
         }
       },
@@ -1255,7 +1275,8 @@ export default {
         this.$http.post("/api/v1/dial/logs",payload, { headers: { "Content-Type": "application/json","Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` } })
           .then((response) => {
               this.$store.dispatch("callLogs", response.data.logs);
-              this.posts = response.data.logs
+              console.log(this.nonPaginatedCalllogs.length)
+             // this.posts = response.data.logs
               this.postsCallback = this.nonPaginatedCallbacks
               localStorage.setItem('postsCallback', this.postsCallback)
               this.setPages();

@@ -26,12 +26,6 @@
                   <input  :id="item.name" v-model="item.checked" :value="item" type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span class="ml-2 text-white text-sm">{{ item.name }}</span>
                 </label>
               </div>
-
-              <div class="pt-20 pl-16" v-if="ratio">
-              <label class="inline-flex items-center mt-3">
-                <input v-model="autodial" type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"><span class="ml-2 text-white text-sm">Auto Dial</span>
-              </label>
-              </div>
               
               <div class="py-14 ml-14">
                 <button  @click="submit" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
