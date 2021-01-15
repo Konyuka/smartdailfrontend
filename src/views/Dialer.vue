@@ -1404,11 +1404,33 @@ export default {
           console.log(error)
         })
       },
-      deleteCallback(index) {
-        this.callbacks.splice(index, 1);
-      },
+      // deleteCallback(index) {
+      //   this.callbacks.splice(index, 1);
+      // },
       toggleTab: function(tabNumber){
         this.openTab = tabNumber
+      },
+      deleteCallback(item) {
+
+          let payload = { "username":localStorage.getItem('user'), "phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign,"callbackID" : item.CallbackID};
+          return this.$http
+            .post("/api/v1/dial/deleteCallback",payload, { headers: {  "Content-Type": "application/json","Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}` } })
+            .then((response) => {
+                console.log(response.data)
+
+              })
+            .catch(error => {
+              let payload = { title:   error.response.data.error , text: 'There are no dialable leads in your Campaign. Kindly consult your Team leader'}
+              this.$store.dispatch("resetError",payload);
+              this.tryAgain = false
+              Swal.fire({
+                icon: 'error',
+                title: 'Failed to delete Call Back',
+                text: 'You have no Dialable Leads',
+                footer: 'The team leader can be able to help'
+              })
+              this.isDisable = false
+             })
       },
     
   },
