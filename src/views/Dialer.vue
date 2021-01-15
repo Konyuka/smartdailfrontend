@@ -672,7 +672,6 @@
                             <span class="ml-3 font-normal block truncate pl-1">
                               <span class="capitalize">
                               {{ item.user}} 
-                              <!-- ( {{ item.campaign }} ) -->
                               </span>
                               <span class="sr-only"> is online</span>
                             </span>
@@ -682,10 +681,6 @@
                             </span>
 
                           </div>
-                           
-                          <span class="absolute inset-y-0 right-0 flex items-center pr-6">
-                            <span class="ml-2"> 00:45  </span>
-                          </span>
                         </li>
                        
                       </ul>
@@ -1391,7 +1386,7 @@ export default {
       //console.log(number)
       //console.log(payload)
       this.$store.dispatch('resetDisposition')
-      return this.$http.post("http://172.16.10.209:8080/api/v1/dial/manual",payload, { headers: {  "Content-Type": "application/json", "Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` }  })
+      return this.$http.post("/api/v1/dial/manual",payload, { headers: {  "Content-Type": "application/json", "Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` }  })
          .then(response => {
           //this.beforeCall()
           //console.log(response.data)

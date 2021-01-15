@@ -131,8 +131,8 @@ const mutations = {
      // console.log("livecall");
      // console.log(call_details);
       localStorage.setItem("lead_id", call_details.lead_id),
-        localStorage.setItem("callerid", call_details.callerid),
-        localStorage.setItem("numberCalled", call_details.phone_number);
+      localStorage.setItem("callerid", call_details.callerid),
+      localStorage.setItem("numberCalled", call_details.phone_number);
      // console.log(call_details);
       if (call_details.url == undefined || call_details.url == null) {
         true;
