@@ -4,7 +4,7 @@
   <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
   <div class="md:hidden" v-show="toggles">
     <div class="fixed inset-0 flex z-40">
-      
+
       <div class="fixed inset-0" aria-hidden="true">
         <div class="absolute inset-0 bg-gray-600 opacity-75"></div>
       </div>
@@ -20,11 +20,11 @@
           </button>
         </div>
         <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-          
+
           <nav class="mt-1 flex-1 px-2 space-y-1 relative">
              <p class="text-md font-medium text-black pb-1 text-center">
               ACTIVITIES (Demo Campaign)
-            </p>  
+            </p>
 
             <div class="flex justify-between">
 
@@ -80,14 +80,14 @@
                 </div>
               </div>
 
-              <div class="flex flex-col w-84"> 
+              <div class="flex flex-col w-84">
 
 
               <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
                 <p class="mt-6 ml-20 text-xs font-medium text-black pb-1">
                   You have no calls in Queue
                 </p>
-              </div> 
+              </div>
 
               <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
 
@@ -271,7 +271,7 @@
                                 </router-link>
                               </td>
                             </tr>
-                            
+
                           </tbody>
 
                         </table>
@@ -280,13 +280,13 @@
                   </div>
                 </div>
 
-              </div> 
+              </div>
 
               <div v-bind:class="{'hidden': openTab !== 3, 'block': openTab === 3}">
                 <p class="mt-6 ml-20 text-xs font-medium text-black pb-1">
                   You have no active Agents
                 </p>
-              </div> 
+              </div>
 
               <div v-bind:class="{'hidden': openTab !== 4, 'block': openTab === 4}">
                 <div class="flex flex-col pt-4">
@@ -332,8 +332,8 @@
                                 0716202298
                               </td>
                             </tr>
-                            
-                            
+
+
                           </tbody>
 
                         </table>
@@ -342,7 +342,7 @@
                   </div>
                 </div>
 
-              </div>  
+              </div>
 
               </div>
 
@@ -363,24 +363,24 @@
                   Status: Lunch Break
                 </p>
                 <p class="text-md font-medium text-white pb-1">
-                  Leads: 177 
+                  Leads: 177
                 </p>
                 </div>
                 <hr class="mb-2 border-b border-black">
-                <div class="text-md font-medium text-gray-400 group-hover:text-white flex">  
+                <div class="text-md font-medium text-gray-400 group-hover:text-white flex">
 
-                  <span class="ml-1 flex text-white">  
+                  <span class="ml-1 flex text-white">
                      <svg  class="mr-1 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                      </svg>
                      <div class="flex">
 
                      <span>
-                       Paused 
+                       Paused
                      </span>
                      </div>
-                  </span> 
-                  
+                  </span>
+
                   <span class="ml-24 hover:text-red-500 text-white flex">
                      <svg  class="mr-1 h-6 w-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -389,7 +389,7 @@
                   </span>
                 </div>
 
-               
+
 
               </div>
               <div class="ml-14">
@@ -421,10 +421,10 @@
       <div class="flex flex-col h-0 flex-1">
         <div class="flex-1 flex flex-col pb-4 overflow-y-auto overflow-x-hidden">
           <nav class=" flex-1 space-y-1 relative">
-           
+
              <p  class="bg-indigo-900 text-md uppercase font-medium text-white pb-1 pt-1 text-center">
               {{ activecampaign }} campaign
-             </p> 
+             </p>
 
             <div class="flex justify-evenly px-2 pt-3 ">
 
@@ -479,7 +479,7 @@
                 </div>
               </div>
 
-              <div class="flex flex-col w-84 px-1"> 
+              <div class="flex flex-col w-84 px-1">
 
 
               <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
@@ -527,19 +527,19 @@
                               </td>
                             </tr>
 
-                           
+
                           </tbody>
 
                         </table>
                         <p v-else class="text-gray-800 font-semibold text-sm py-44 px-14">You have no calls in queue</p>
                         <!-- Pagination -->
-                        
+
                       </div>
                     </div>
                   </div>
                 </div>
 
-              </div> 
+              </div>
 
               <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
 
@@ -581,10 +581,10 @@
                                 {{  getHumanDate(log.call_date) }}
                               </td>
                             </tr>
-                            
+
                           </tbody>
                         </table>
-                         
+
                         </div>
                         <p v-else class="text-gray-800 font-semibold text-sm py-44 px-10">You have made no calls today</p>
                       </div>
@@ -608,9 +608,9 @@
                             <button data-action="decrement" class="bg-white text-gray-600 h-8 w-8 rounded-r cursor-pointer focus:outline-none">
                               <svg class="w-6 h-6 ml-1 text-indigo-300 hover:text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
                             </button>
-      
+
                             <input type="number" class="focus:outline-none text-center w-10 h-7 bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700" name="custom-input-number" value="0">
-                            
+
                             <button data-action="increment" class=" bg-white text-gray-600 h-8 w-8 rounded-l cursor-pointer focus:outline-none">
                               <svg class="w-6 h-6 ml-1 text-indigo-300 hover:text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                             </button>
@@ -639,13 +639,13 @@
                   </div>
                 </div>
 
-              </div> 
+              </div>
 
               <div v-bind:class="{'hidden': openTab !== 3, 'block': openTab === 3}">
 
                 <div>
                   <div class="mt-1 relative">
-                   
+
                     <div class="absolute mt-1 w-full rounded-md bg-white">
                       <div class="justify-between flex mb-6 mt-3 px-4">
                         <div class="text-xs">
@@ -662,16 +662,16 @@
                         </div>
                       </div>
                       <ul tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-item-3" class="max-h-96 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                        
+
                         <!-- Ready Status -->
                         <li v-bind:class="tableStrip(index)" v-for="(item, index) in activeAgents" :key="item.user" id="listbox-item-0" role="option" class="py-1 px-4 text-black cursor-default select-none relative">
                           <div class="flex items-center">
                             <!-- Status Color -->
                             <span v-bind:class="userStatus(item.status)" class="flex-shrink-0 inline-block h-3 w-3 rounded-full" aria-hidden="true"></span>
-                            
+
                             <span class="ml-3 font-normal block truncate pl-1">
                               <span class="capitalize">
-                              {{ item.user}} 
+                              {{ item.user}}
                               </span>
                               <span class="sr-only"> is online</span>
                             </span>
@@ -682,14 +682,14 @@
 
                           </div>
                         </li>
-                       
+
                       </ul>
                     </div>
                   </div>
                 </div>
-  
 
-              </div> 
+
+              </div>
 
               <div v-bind:class="{'hidden': openTab !== 4, 'block': openTab === 4}">
 
@@ -718,7 +718,7 @@
                             <!-- Even row -->
                             <tr v-for="(item,index) in callbacks" :key="index"  v-bind:class="tableStrip(index)">
                               <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                                <a @click="dial(stripNumber(item.PhoneNumber)) && deleteCallback(index)">
+                                <a @click="dial(stripNumber(item.PhoneNumber)) && deleteCallback(item)">
                                    <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
                                   </svg>
@@ -728,7 +728,7 @@
                                 {{ item.PhoneNumber }}
                               </td>
                               <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                {{ getHumanDate(item.CustomerTime) }}
+                                {{ getHumanDate(item.CustomerTime)  }}
                               </td>
                             </tr>
 
@@ -751,7 +751,7 @@
                             </a>
                           </div>
                           <div class="hidden md:-mt-px md:flex">
-                            
+
                           </div>
                           <div v-if="pageCallBack < pagesCallBack.length && pageCallBack != pagesCallBack.length" class="-mt-px w-0 flex-1 flex justify-end">
                             <a @click="pageCallBack++" href="#" class="border-transparent pt-3 pl-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
@@ -769,7 +769,7 @@
                   </div>
                 </div>
 
-              </div>  
+              </div>
 
               </div>
 
@@ -790,41 +790,41 @@
                   Status: {{ activepausecode }}
                 </p>
                 <p class="text-md font-medium text-white pb-1">
-                  Leads: {{ dialable_leads }} 
+                  Leads: {{ dialable_leads }}
                 </p>
                 </div>
 
-                <div class="bg-indigo-600 text-md font-medium text-gray-400 group-hover:text-white flex justify-between px-2 py-2">  
+                <div class="bg-indigo-600 text-md font-medium text-gray-400 group-hover:text-white flex justify-between px-2 py-2">
 
                     <button v-if="ready" @click="toggle('PAUSED')" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-black bg-blue-400 hover:text-black hover:bg-white focus:outline-none">
-                      <span class="flex">  
+                      <span class="flex">
                         <svg  class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <div class="flex">
                         <span>
-                          Active 
+                          Active
                         </span>
                         </div>
                       </span>
                     </button>
 
                     <button v-else @click="toggle('Ready')" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-black bg-blue-400 hover:text-black hover:bg-white focus:outline-none">
-                      <span class="flex">  
+                      <span class="flex">
                         <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <div class="flex">
                         <span>
-                          Paused 
+                          Paused
                         </span>
                         </div>
                       </span>
                     </button>
 
                     <button @click="logout" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-black bg-blue-400 hover:text-black hover:bg-white focus:outline-none">
-                      
+
                       <span class="flex">
                         <svg  class="mr-1 h-4 w-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -834,8 +834,8 @@
 
                     </button>
 
-                   
-                  
+
+
                 </div>
 
               </div>
@@ -856,10 +856,10 @@
 
       <!-- Pause Side Bar -->
       <PauseCode v-if="sideP" class="absolute w-full"/>
-    
+
 
   </div>
-  
+
     <div class="flex flex-col w-0 flex-1 overflow-hidden">
       <!-- Close Toggle Mobile  -->
       <div class="md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3">
@@ -949,8 +949,8 @@ export default {
 
       pages: [],
       pagesCallBack: [],
-      
-      show: true, 
+
+      show: true,
       user: null,
       blendModal: false,
       ingroupModal: false,
@@ -993,17 +993,13 @@ export default {
     //  park: false,
       side: false,
       pausedd: false,
-      sideG: false, 
-      sideP: false, 
+      sideG: false,
+      sideP: false,
       sideD: false,
-      camp: false,
-    //  callback: false,
-    //  dispositions: false,
+      camp: false
     }
   },
   mounted () {
-    //this.offsetWidth = document.getElementById('iframe').offsetWidth
-    //console.log(this.callLogs)
   },
   computed: {
     autodialValue(){
@@ -1014,7 +1010,7 @@ export default {
     },
     showcampaignModal () {
       return (this.$store.state.campaign == null ) ? true : false;
-    },    
+    },
     disposition () {
       return this.$store.state.dispositionModal
     },
@@ -1049,7 +1045,7 @@ export default {
       return  this.$store.state.iframe
     },
     showQueueTable () {
-     return (this.$store.state.callQueue.length == 0 ) ? false : true       
+     return (this.$store.state.callQueue.length == 0 ) ? false : true
     },
     showAgentTable () {
      return   this.activeAgents.length>0
@@ -1088,7 +1084,7 @@ export default {
     // },
     autodialValue(newCount){
       if(newCount == true){
-        this.sideD = true 
+        this.sideD = true
       }
     },
     disposition (newCount) {
@@ -1110,7 +1106,7 @@ export default {
         this.$store.dispatch("resetError",payload);
         this.tryAgain = true
         this.errorModal = true
-      }  
+      }
     },
     callLogs(newCount){
       if(newCount == true){
@@ -1136,7 +1132,6 @@ export default {
         return  callLogs.slice(from, to);
       },
       paginateCallBack (callbacks) {
-        //this.postsCallback = this.callbacks
         let pageCallBack = this.pageCallBack;
         let perPage = this.perPage;
         let from = (pageCallBack * perPage) - perPage;
@@ -1144,24 +1139,15 @@ export default {
         return  callbacks.slice(from, to);
       },
       setPages () {
-        //this.post = this.callLogs
-        //this.posts = this.callLogs.length
         let numberOfPages = Math.ceil(this.nonPaginatedCalllogs.length / this.perPage);
         for (let index = 1; index <= numberOfPages; index++) {
           this.pages.push(index);
-        //  localStorage.removeItem('pages');
-         // localStorage.setItem('pages', this.index)
-
-          //console.log(this.pages)
         }
       },
       setPagesCallback () {
         let numberOfPagesCallback = Math.ceil(this.nonPaginatedCallbacks.length / this.perPage);
         for (let index = 1; index <= numberOfPagesCallback; index++) {
           this.pagesCallBack.push(index);
-        //  localStorage.removeItem('pagesCallBack');
-         // localStorage.setItem('pagesCallBack', this.index)
-         // console.log(this.pagesCallBack)
         }
       },
       getHumanDate(date) {
@@ -1207,21 +1193,21 @@ export default {
                   });
                 }
               })
-            .catch(error => { 
+            .catch(error => {
                 console.log(error)
-              })     
+              })
         }
       },
       userStatus(item){
         if(item === "CLOSER"){
-          return 'bg-green-400' 
+          return 'bg-green-400'
         }else if(item === "PAUSED"){
-          return 'bg-yellow-400' 
+          return 'bg-yellow-400'
         }else if(item === "INCALL"){
-          return 'bg-blue-400' 
+          return 'bg-blue-400'
         }
         else{
-          return 'text-orange-400' 
+          return 'text-orange-400'
         }
       },
       tableStrip(index){
@@ -1257,7 +1243,7 @@ export default {
         this.toggleMenu = false
       },
       beforeCall(response){
-        localStorage.setItem('lead_id',response.data.lead_id)   
+        localStorage.setItem('lead_id',response.data.lead_id)
         localStorage.setItem('callerid', response.data.callerid)
         localStorage.setItem('numberCalled',response.data.phone_number)
         localStorage.setItem('type', 'Outgoing')
@@ -1270,7 +1256,7 @@ export default {
         this.$http.post("/api/v1/dial/logs",payload, { headers: { "Content-Type": "application/json","Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` } })
           .then((response) => {
               this.$store.dispatch("callLogs", response.data.logs);
-              console.log(this.nonPaginatedCalllogs.length)
+              //console.log(this.nonPaginatedCalllogs.length)
              // this.posts = response.data.logs
               this.postsCallback = this.nonPaginatedCallbacks
               localStorage.setItem('postsCallback', this.postsCallback)
@@ -1287,7 +1273,7 @@ export default {
       logout() {
         let payload={ username:localStorage.getItem('user')}
         return this.$http
-          .post("/api/v1/logout", payload, { headers: {  "Content-Type": "application/json","Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}` }  }) 
+          .post("/api/v1/logout", payload, { headers: {  "Content-Type": "application/json","Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}` }  })
           .then((response) => {
             if(response){
               this.$store.dispatch("logout");
@@ -1333,8 +1319,8 @@ export default {
       takeCall(call){
         console.log(call)
 
-        let payload = { 
-          "username"     : localStorage.getItem('user'), 
+        let payload = {
+          "username"     : localStorage.getItem('user'),
           "phone"        : localStorage.getItem('phone'),
           "campaign"     : this.$store.state.campaign,
           "lead_id"      : call.lead_id,
@@ -1342,7 +1328,7 @@ export default {
           "phone_number" : call.caller //.substring(1)
         };
 
-        this.sideD = true 
+        this.sideD = true
         this.onCallTrue = true
 
         return this.$http
@@ -1356,12 +1342,12 @@ export default {
             this.$store.dispatch('iframe',response.data.url)
             console.log(response.data)
             localStorage.setItem('lead_id',payload.lead_id)
-            localStorage.setItem('type', 'Incoming')   
+            localStorage.setItem('type', 'Incoming')
             localStorage.setItem('callerid', payload.call_id)
             localStorage.setItem('numberCalled',payload.phone_number)
             this.$store.dispatch('numberCalled', payload.phone_number )
 
-  
+
             this.$store.dispatch('remove',call )
             this.ongoingCall = true
             })
@@ -1370,53 +1356,54 @@ export default {
           })
       },
       dial(number) {
-      this.onCallTrue = true
-      this.dialTrue = false
-      this.sideD = true;
-      //console.log(number)
-      localStorage.setItem('numberCalled',number)
-      localStorage.setItem('type','Outgoing')
-      let payload = {
-          "phone_number": number, //number,//"0729309658",
-          "username":localStorage.getItem('user'), //"duser", 
-          "phone": localStorage.getItem('phone'), //"100",
-          "campaign": this.$store.state.campaign,//localStorage.getItem('campaign'),  //"dcamp", 
-          "list_id": String(998)//"998"
-        };
-      //console.log(number)
-      //console.log(payload)
-      this.$store.dispatch('resetDisposition')
-      return this.$http.post("/api/v1/dial/manual",payload, { headers: {  "Content-Type": "application/json", "Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` }  })
-         .then(response => {
-          //this.beforeCall()
-          //console.log(response.data)
-              localStorage.setItem('lead_id',response.data.lead_id)
-              localStorage.setItem('lead_id',response.data.lead_id)   
-              localStorage.setItem('callerid', response.data.callerid)
-              localStorage.setItem('numberCalled',payload.phone_number)
-              localStorage.getItem('type', 'Outgoing')
+        this.onCallTrue = true
+        this.dialTrue = false
+        this.sideD = true;
+        //console.log(number)
+        localStorage.setItem('numberCalled',number)
+        localStorage.setItem('type','Outgoing')
+        let payload = {
+            "phone_number": number, //number,//"0729309658",
+            "username":localStorage.getItem('user'), //"duser",
+            "phone": localStorage.getItem('phone'), //"100",
+            "campaign": this.$store.state.campaign,//localStorage.getItem('campaign'),  //"dcamp",
+            "list_id": String(998)//"998"
+          };
+        //console.log(number)
+        //console.log(payload)
+        this.$store.dispatch('resetDisposition')
+        return this.$http.post("/api/v1/dial/manual",payload, { headers: {  "Content-Type": "application/json", "Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` }  })
+          .then(response => {
+            //this.beforeCall()
+            //console.log(response.data)
+                localStorage.setItem('lead_id',response.data.lead_id)
+                localStorage.setItem('lead_id',response.data.lead_id)
+                localStorage.setItem('callerid', response.data.callerid)
+                localStorage.setItem('numberCalled',payload.phone_number)
+                localStorage.getItem('type', 'Outgoing')
 
-              this.$store.dispatch('numberCalled', payload.phone_number)
-              this.onCallTrue = true
-              this.dialTrue = false
-              // this.deleteCallback(number)
-        }).catch(error => {
-          console.log(error)
-        })
+                this.$store.dispatch('numberCalled', payload.phone_number)
+                this.onCallTrue = true
+                this.dialTrue = false
+                // this.deleteCallback(number)
+          }).catch(error => {
+            console.log(error)
+          })
       },
-      // deleteCallback(index) {
-      //   this.callbacks.splice(index, 1);
-      // },
       toggleTab: function(tabNumber){
         this.openTab = tabNumber
       },
       deleteCallback(item) {
 
+          console.log(item)
           let payload = { "username":localStorage.getItem('user'), "phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign,"callbackID" : item.CallbackID};
           return this.$http
             .post("/api/v1/dial/deleteCallback",payload, { headers: {  "Content-Type": "application/json","Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}` } })
             .then((response) => {
                 console.log(response.data)
+                if (this.callbacks.length == 1){
+                  this.$store.dispatch("clearCallbacks")
+                }
 
               })
             .catch(error => {
@@ -1432,9 +1419,9 @@ export default {
               this.isDisable = false
              })
       },
-    
+
   },
-  
+
 }
 </script>
 
@@ -1484,10 +1471,10 @@ export default {
    overflow: scroll;
  }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 </style>

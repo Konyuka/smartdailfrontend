@@ -73,7 +73,7 @@ const mutations = {
     let userState = data.user_status;
 
     //console.log(call_details)
-    //console.log(callLogs)
+    //console.log(callbacks)
 
     if (users != null || users != undefined) {
       state.activeUsers = users;
@@ -82,6 +82,8 @@ const mutations = {
     if (callbacks != null || callbacks != undefined) {
       state.callbacks = callbacks;
     }
+
+    //state.callbacks  = []
 
     // if(callLogs != null       || callLogs != undefined){
     //     state.callLogs = callLogs
@@ -282,6 +284,9 @@ const mutations = {
     } else {
       state.callLogs = data;
     }
+  },
+  clearCallbacks(state) {
+    state.callbacks = [];
   },
 };
 

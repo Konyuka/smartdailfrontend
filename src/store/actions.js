@@ -111,6 +111,9 @@ const actions = {
   callDetails({ commit }, data) {
     commit("callDetails", data);
   },
+  clearCallbacks({ commit }) {
+    commit("clearCallbacks");
+  }
 };
 
 export default actions
