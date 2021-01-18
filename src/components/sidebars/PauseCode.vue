@@ -12,17 +12,18 @@
         </div>
         <nav  class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
           <div class="">
-            
+
           </div>
           <h4 class="text-xl tracking-tight font-bold text-white sm:text-xl ml-7 pb-5">
             Pause Code Selection
-          </h4>  
+          </h4>
+          <!--this.$store.state.pause_code-->
           <div class="">
             <div class="mt-4 grid">
               <div class="mt-2 justify-between px-8 grid">
                 <div class="py-2 grid-cols-2 gap-2"  v-for="option in options" :value="option.pause_code" :key="option.pause_code">
                 <label class="inline-flex items-center">
-                  <input  v-model="selectedPauseCode" :value="option.pause_code" type="radio" class="form-radio text-indigo-600" name="accountType" >
+                  <input  v-model="selectedPauseCode" :value="option.pause_code" type="radio" class="form-radio text-indigo-600">
                   <span class="ml-2 text-white text-sm">{{ option.name }}</span>
                 </label>
                 </div>
@@ -63,6 +64,9 @@ export default {
   name: 'PauseCode',
   props: {
   },
+  created () {
+    this.selectedPauseCode = this.$store.state.pause_code
+  },
   data(){
     return {
      selectedPauseCode: '',
@@ -96,6 +100,9 @@ export default {
             console.log(error)
           })
     },
+    selectedCod () {
+      return this.$store.state.pause_code
+    },
   },
   watch: {
 
@@ -107,15 +114,8 @@ export default {
     options(){
       return this.$store.state.codeOptions
     },
-    // selectedPauseCode () {
-    //   return this.$store.state.userState
-    // },
     selectedCode () {
-      // let selectedPauseCode = localStorage.getItem('pauseSelect')
-      // return selectedPauseCode
-      // return  localStorage.getItem('pauseSelect')
       return this.$store.state.pause_code
-      //  return this.options.filter(option => selectedPauseCode).map(option => option.name)
     },
   }
 }
