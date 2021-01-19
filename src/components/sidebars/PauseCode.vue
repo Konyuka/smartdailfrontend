@@ -1,9 +1,9 @@
 <template>
-  <div class="">
+  <div class="fixed z-10 inset-0 overflow-y-auto">
     <div class="absolute md:flex flex-col md:flex-row md:min-h-screen w-full">
       <div class="flex flex-col w-full md:w-84 text-gray-700 bg-indigo-900 dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" x-data="{ open: false }">
         <div class="flex-shrink-0 px-2 py-2 flex flex-row-reverse">
-          <button  @click="close" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <button  :disabled="isDisable(selectedPauseCode)" @click="close" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <span class="sr-only">Close sidebar</span>
             <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -31,7 +31,7 @@
             </div>
 
             <div class="py-14 ml-16">
-              <button @click="submitPause" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button  :disabled="isDisable(selectedPauseCode)" @click="submitPause" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Submit
               </button>
             </div>
@@ -73,6 +73,9 @@ export default {
     }
   },
   methods:{
+    isDisable(selectedPauseCode) {
+      return selectedPauseCode === 'LOGIN';
+    },
     close(){
       this.$parent.sideP = false
     },

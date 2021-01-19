@@ -121,6 +121,7 @@ export default {
     // this.callback = false
     // },
     pauseAfter(){
+      this.$parent.sideP = true
       this.pauseInready = true
      // this.dispositions = false
       let payload = { 

@@ -27,7 +27,7 @@
                       <option>🇰🇪</option>
                     </select>
                   </div>
-                  <input v-model="number" type="number" name="phone_number" id="phone_number" class="focus:ring-gray-500 focus:border-gray-500 block w-full pl-16 sm:text-sm border-gray-300 rounded-md" placeholder="722 200 200">
+                  <input @keyup.enter="dial" v-model="number" type="number" name="phone_number" id="phone_number" class="focus:ring-gray-500 focus:border-gray-500 block w-full pl-16 sm:text-sm border-gray-300 rounded-md" placeholder="722 200 200">
                 </div>
               </div>
             </div>
@@ -395,7 +395,6 @@ export default {
 
         //Set the call to parked in the parent state
         this.$parent.callParked = true
-
         //Create the payload to send to the park endpoint
         let payload = { "username":localStorage.getItem('user'), "phone": localStorage.getItem('phone'), "campaign": this.$store.state.campaign, "callerid": localStorage.getItem('callerid'),"lead_id": localStorage.getItem('lead_id')};
         console.log(payload)

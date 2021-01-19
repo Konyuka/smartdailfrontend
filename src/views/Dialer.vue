@@ -472,7 +472,7 @@
                     <a v-on:click="toggleTab(3)" v-bind:class="{'text-black': openTab !== 3, 'text-black border-indigo-700': openTab === 3}" class="whitespace-nowrap py-2 px-1 border-b-4   border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Agents
                     </a>
-                    <a v-on:click="toggleTab(4)" v-bind:class="{'text-black': openTab !== 4, 'text-black border-indigo-700': openTab === 4}" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTab(4)" v-bind:class="{'text-black': openTab !== 4, 'text-black border-indigo-700': openTab === 4, 'bg-indigo-100 border-indigo-300': callbacks != 0 }" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Backs
                     </a>
                   </nav>
@@ -665,7 +665,7 @@
 
                         <!-- Ready Status -->
                         <li v-bind:class="tableStrip(index)" v-for="(item, index) in activeAgents" :key="item.user" id="listbox-item-0" role="option" class="py-1 px-4 text-black cursor-default select-none relative">
-                          <div class="flex items-center">
+                          <div class="flex items-center justify-between">
                             <!-- Status Color -->
                             <span v-bind:class="userStatus(item.status)" class="flex-shrink-0 inline-block h-3 w-3 rounded-full" aria-hidden="true"></span>
 
@@ -676,7 +676,7 @@
                               <span class="sr-only"> is online</span>
                             </span>
 
-                            <span class="ml-8 inset-y-0 justify-center uppercase flex items-center pr-6">
+                            <span class="inset-y-0 uppercase flex items-center pr-6">
                               <span class="ml-2"> {{ item.campaign }}  </span>
                             </span>
 
@@ -876,7 +876,7 @@
 
         <div class="py-0">
 
-          <div class=" mx-auto px-0 sm:px-0 md:px-0">
+          <div v-bind:class="{'invisible': sideP === true, 'visible': sideP === false}" class="mx-auto px-0 sm:px-0 md:px-0">
             <!-- IFRAME -->
               <div class="h-screen">
                 <iframe :src='iframe' id="iframe" width="100%" height="100%"  title="File details"></iframe>
@@ -1082,6 +1082,9 @@ export default {
     //     this.setPages();
     //   }
     // },
+    callBackDue(){
+
+    },
     autodialValue(newCount){
       if(newCount == true){
         this.sideD = true
@@ -1161,6 +1164,7 @@ export default {
       },
       toggle(event){
         if(event == 'PAUSED'){
+          this.sideP = true
           let payload = { "username":localStorage.getItem('user'),"phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign,"state": 'PAUSED', "pause_code" : 'BREAK'};
           console.log(payload)
           return this.$http
@@ -1434,6 +1438,16 @@ export default {
 @keyframes blink {
   from { background-color: #34D399; }
   to { background-color: #EF4444; }
+}
+
+.cssselector {
+    background: linear-gradient(261deg, #EEF2FF, #D1D5DB, #EFF6FF);
+    background-size: 600% 600%;
+
+    -webkit-animation: AnimationName 3s ease infinite;
+    -moz-animation: AnimationName 3s ease infinite;
+    -o-animation: AnimationName 3s ease infinite;
+    animation: AnimationName 3s ease infinite;
 }
 
 .css-selector {
