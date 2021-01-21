@@ -18,6 +18,9 @@
               </svg>
             </div>
 
+            <h3 v-if="callBackDateMessage" class="flex justify-center mt-6 text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+              Select the pause code
+            </h3>
 
             <div v-if="!callback" class="mt-3 text-center sm:mt-5">
               <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
@@ -65,7 +68,7 @@
             </div>
 
             <!-- Call Back Modal -->
-            <div v-if="callback" class="mt-3 text-center sm:mt-5">
+            <div v-if="callBackDate" class="mt-3 text-center sm:mt-5">
               <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                 Call Back
               </h3>
@@ -116,14 +119,10 @@ export default {
     }
   },
   methods: {
-    // closeCalender(){
-    //  this.$parent.dispositionModal = false
-    // this.callback = false
-    // },
+    
     pauseAfter(){
       this.$parent.sideP = true
       this.pauseInready = true
-     // this.dispositions = false
       let payload = { 
         "username":localStorage.getItem('user'),
         "phone":localStorage.getItem('phone'),
@@ -138,11 +137,7 @@ export default {
       }
 
       if(this.selectDisposition  == "CALLBK"){
-        // payload["recipient"]  =  (this.mineOnly) ? "USERONLY" : "ANYONE"
-        // payload["callback_time"]  =  this.$store.state.pause_code
-        // payload["comment"]  =  this.$store.state.pause_code
-        // this.$parent.showcalendarModal = true
-        // this.$parent.dispositionModal = false
+
         this.callMe()
       }else{
         return this.$http
@@ -228,6 +223,12 @@ export default {
     },
   },
   computed: {
+    callBackDateMessage(){
+        return (this.callback == true && this.$parent.sideP == true  ) ? true : false;  
+    },
+    callBackDate(){
+        return (this.callback == true && this.$parent.sideP == false  ) ? true : false;
+    },
     options() {
       return this.$store.state.dispositionOptions;
     },

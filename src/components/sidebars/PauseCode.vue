@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed z-10 inset-0 overflow-y-auto">
+  <div class="fixed z-50 inset-0 overflow-y-auto">
     <div class="absolute md:flex flex-col md:flex-row md:min-h-screen w-full">
       <div class="flex flex-col w-full md:w-84 text-gray-700 bg-indigo-900 dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" x-data="{ open: false }">
         <div class="flex-shrink-0 px-2 py-2 flex flex-row-reverse">

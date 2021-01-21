@@ -472,7 +472,7 @@
                     <a v-on:click="toggleTab(3)" v-bind:class="{'text-black': openTab !== 3, 'text-black border-indigo-700': openTab === 3}" class="whitespace-nowrap py-2 px-1 border-b-4   border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Agents
                     </a>
-                    <a v-on:click="toggleTab(4)" v-bind:class="{'text-black': openTab !== 4, 'text-black border-indigo-700': openTab === 4, 'bg-indigo-100 border-indigo-300': callbacks != 0 }" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
+                    <a v-on:click="toggleTab(4)" v-bind:class="{'text-black': openTab !== 4, 'text-black border-indigo-700': openTab === 4, 'css-selector text-white': dueCallBacks === true, 'text-black': dueCallBacks !== false && callbacks !== null ,  }" class="whitespace-nowrap py-2 px-1 border-b-4 border-transparent font-medium text-sm hover:text-black hover:text-gray-500 hover:border-indigo-500">
                       Backs
                     </a>
                   </nav>
@@ -531,7 +531,7 @@
                           </tbody>
 
                         </table>
-                        <p v-else class="text-gray-800 font-semibold text-sm py-44 px-14">You have no calls in queue</p>
+                        <p v-else class="text-gray-800 font-semibold text-xs py-44 px-14">You have no calls in queue</p>
                         <!-- Pagination -->
 
                       </div>
@@ -586,7 +586,7 @@
                         </table>
 
                         </div>
-                        <p v-else class="text-gray-800 font-semibold text-sm py-44 px-10">You have made no calls today</p>
+                        <p v-else class="text-gray-800 font-semibold text-xs py-44 px-10">You have made no calls today</p>
                       </div>
 
                       <!-- Pagination -->
@@ -603,18 +603,7 @@
                               Previous
                             </a>
                           </div>
-
-                          <!-- <div class="flex flex-row w-full rounded-lg relative justify-center bg-transparent mt-3 mr-8">
-                            <button data-action="decrement" class="bg-white text-gray-600 h-8 w-8 rounded-r cursor-pointer focus:outline-none">
-                              <svg class="w-6 h-6 ml-1 text-indigo-300 hover:text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
-                            </button>
-
-                            <input type="number" class="focus:outline-none text-center w-10 h-7 bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700" name="custom-input-number" value="0">
-
-                            <button data-action="increment" class=" bg-white text-gray-600 h-8 w-8 rounded-l cursor-pointer focus:outline-none">
-                              <svg class="w-6 h-6 ml-1 text-indigo-300 hover:text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                            </button>
-                          </div> -->
+                     
                           <div class="flex justify-center">
                             <!-- <p>page 1 of 5</p> -->
                           <!-- <button type="button" class="justify-center btn text-sm btn-sm btn-outline-secondary" v-for="pageNumber in pages.slice(page-1, page+5)" v-bind:key="pageNumber" @click="page = pageNumber"> {{pageNumber}} </button> -->
@@ -735,7 +724,7 @@
                           </tbody>
                         </table>
                         </div>
-                        <p v-else class="text-gray-800 font-semibold text-sm py-44 px-12">You have no callbacks today</p>
+                        <p v-else class="text-gray-800 font-semibold text-xs py-44 px-12">You have no callbacks today</p>
                       </div>
 
                       <!-- Pagination -->
@@ -939,6 +928,7 @@ export default {
   },
   data() {
     return{
+      dueCallBacks: false,
       posts: '',
       postsCallback: '',
 
@@ -999,7 +989,8 @@ export default {
       camp: false
     }
   },
-  mounted () {
+  created() {
+      this.interval = setInterval(() => this.callbackTimes(), 1000);
   },
   computed: {
     autodialValue(){
@@ -1074,20 +1065,20 @@ export default {
     },
     queue(){
       return  this.$store.state.callQueue
+    },
+    callbackLength(){
+      return  this.callbacks.length
     }
   },
   watch:{
-    // nonPaginatedCalllogs(newCount){
-    //   if(newCount++){
-    //     this.setPages();
-    //   }
-    // },
-    callBackDue(){
-
-    },
     autodialValue(newCount){
       if(newCount == true){
         this.sideD = true
+      }
+    },
+    callbackLength(newCount){
+      if(newCount < 1 || newCount == 0 ){
+        this.dueCallBacks = false
       }
     },
     disposition (newCount) {
@@ -1123,10 +1114,38 @@ export default {
         this.postsCallback = this.callbacks
         this.setPagesCallback();
       }
-    },
 
+      if(this.callbacks.length < 0){
+        this.dueCallBacks = false
+      }
+    },
   },
   methods: {
+      moment: function (time) {
+        return moment(time);
+      },
+      callbackTimes(){
+        let timeArrs = []
+        for (const i in  this.nonPaginatedCallbacks) {
+          timeArrs.push(this.nonPaginatedCallbacks[i].CustomerTime)
+        }
+
+        for (let t = 0; t < timeArrs.length; t++){
+
+          
+          // var time = moment.duration("00:03:15");
+          var callBackTime = this.moment(timeArrs[t++]);
+          var currentTime = this.moment().add(180, 'seconds');
+ console.log(currentTime)
+          if (callBackTime < currentTime) {
+            this.dueCallBacks = true
+          } else if(callBackTime > currentTime) {
+            this.dueCallBacks = false
+          }else {
+            console.log("usiblink")
+          }
+        }
+      },   
       paginate (callLogs) {
         let page = this.page;
         let perPage = this.perPage;
@@ -1261,7 +1280,7 @@ export default {
           .then((response) => {
               this.$store.dispatch("callLogs", response.data.logs);
               //console.log(this.nonPaginatedCalllogs.length)
-             // this.posts = response.data.logs
+             console.log(response.data.logs)
               this.postsCallback = this.nonPaginatedCallbacks
               localStorage.setItem('postsCallback', this.postsCallback)
               this.setPages();
@@ -1425,7 +1444,6 @@ export default {
       },
 
   },
-
 }
 </script>
 

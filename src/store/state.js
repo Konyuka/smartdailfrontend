@@ -1,4 +1,5 @@
 const state = {
+    // callBackTimes: null,
     user: null,
     token: '',
     onCall: false,

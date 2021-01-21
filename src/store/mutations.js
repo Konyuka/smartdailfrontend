@@ -5,7 +5,9 @@ const mutations = {
     localStorage.setItem("user", user.user);
     localStorage.setItem("token", user.token);
   },
-
+  // setCallBackTimes(state, callBackTime) {
+  //   state.callBackTimes = callBackTime;
+  // },
   clearUserData(state) {
     (state.user = null), (state.token = "");
     state.onCall = false;

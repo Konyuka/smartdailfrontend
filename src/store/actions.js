@@ -2,7 +2,9 @@ const actions = {
   login({ commit }, user) {
     commit("setUserData", user);
   },
-
+  // callBackTimeData({ commit }, value) {
+  //   commit("setCallBackTimes", value);
+  // },
   switchCampaign({ commit }, data) {
     commit("changeCampaign", data);
   },
