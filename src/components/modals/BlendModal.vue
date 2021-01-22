@@ -88,6 +88,8 @@ export default {
             this.$parent.ingroupModal = false
             this.$parent.ingroupShow = false
             this.$store.dispatch("setSelectedingroups", this.checkedOptions);
+            this.$store.dispatch("autoDialValue", this.autodialValue);
+            console.log(this.autodialValue)
             this.$vs.notification({progress: 'auto', duration : 4000,color : "success",position : 'top-center',title: 'Inbound groups added!',text: "You have Successfully Changed the ingroups"})
             //this.$parent.switchTab('activity')
             this.$emit('close')

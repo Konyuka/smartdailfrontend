@@ -815,7 +815,7 @@
                     <button @click="logout" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-black bg-blue-400 hover:text-black hover:bg-white focus:outline-none">
 
                       <span class="flex">
-                        <svg  class="mr-1 h-4 w-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg  class="mr-2 h-4 w-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                         </svg>
                         Logout
@@ -1132,11 +1132,9 @@ export default {
 
         for (let t = 0; t < timeArrs.length; t++){
 
-          
-          // var time = moment.duration("00:03:15");
           var callBackTime = this.moment(timeArrs[t++]);
           var currentTime = this.moment().add(180, 'seconds');
- console.log(currentTime)
+
           if (callBackTime < currentTime) {
             this.dueCallBacks = true
           } else if(callBackTime > currentTime) {
@@ -1144,6 +1142,7 @@ export default {
           }else {
             console.log("usiblink")
           }
+          
         }
       },   
       paginate (callLogs) {

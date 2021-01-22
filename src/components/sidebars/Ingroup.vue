@@ -23,7 +23,13 @@
                   <input disabled type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span class="ml-2 text-white text-sm">Agent Direct</span>
                 </label>
                 <label v-for="(item, index) in options" :key="index" class="inline-flex items-center mt-3">
-                  <input  :id="item.name" v-model="item.checked" :value="item" type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span class="ml-2 text-white text-sm">{{ item.name }}</span>
+                  <input  :id="item.name" v-model="item.checked" :value="item" type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span class="ml-2 text-white text-sm capitalize">{{ item.name }}</span>
+                </label>
+              </div>
+
+              <div v-if="noAutoDial" class="grid grid-cols-2 text-center pt-20 pl-14">
+                <label  class="inline-flex items-center mt-3">
+                  <input v-model="autoDialCheck" type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span class="ml-2 text-white text-sm">Auto Dial</span>
                 </label>
               </div>
               
@@ -64,8 +70,8 @@ export default {
       options: [],
       checkedIngroups: [],
       checkedAllIngroups: [],
-      autodial : false
-    }
+      autoDialCheck: false,    
+      }
   },
   mounted() {
     this.options = JSON.parse(JSON.stringify(this.$store.state.ingroups))
@@ -78,11 +84,17 @@ export default {
     this.options = options
   },
   computed: {
+    noAutoDial(){
+      return (this.autoDial == 0) ? true : false
+    },
+    autoDial(){
+      return this.$store.state.autoDialValue
+    },
     checkedOptions () {
       return this.options.filter(item => item.checked).map(item => item.name)
     },
     autodialValue(){
-        return (this.autodial == true) ? '1' : '0'
+        return (this.autoDialCheck == true) ? '1' : '0'
     },
     ratio(){
       return (this.$store.state.dial_method == 'RATIO') ? true : false
@@ -91,6 +103,7 @@ export default {
   methods:{
     close(){
       this.$parent.sideG = false
+      console.log(this.noAutoDial)
     },
     submit() {
       let payload = { "username": localStorage.getItem('user'), "groups": this.checkedOptions,"phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign ,'blended' : this.autodialValue}
@@ -98,6 +111,7 @@ export default {
       .post("/api/v1/closer/inbound", payload, { headers: { "Content-Type": "application/json","Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}` },}).then((response) => {
           this.$store.dispatch("setIngroups", response.data.inbound);
           this.$store.dispatch("setSelectedingroups", this.checkedOptions);
+          this.$store.dispatch("autoDialValue", this.autodialValue);
           if(this.$store.state.selectedIngroups.length++){
             Toast.fire({
               type: 'success',

@@ -2,9 +2,9 @@ const actions = {
   login({ commit }, user) {
     commit("setUserData", user);
   },
-  // callBackTimeData({ commit }, value) {
-  //   commit("setCallBackTimes", value);
-  // },
+  autoDialValue({ commit }, value) {
+    commit("setAutoDialValue", value);
+  },
   switchCampaign({ commit }, data) {
     commit("changeCampaign", data);
   },
@@ -115,7 +115,7 @@ const actions = {
   },
   clearCallbacks({ commit }) {
     commit("clearCallbacks");
-  }
+  },
 };
 
 export default actions
