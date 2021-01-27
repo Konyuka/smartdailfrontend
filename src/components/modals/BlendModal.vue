@@ -19,16 +19,7 @@
 
     <!-- This element is to trick the browser into centering the modal contents. -->
     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-    <!--
-      Modal panel, show/hide based on modal state.
-
-      Entering: "ease-out duration-300"
-        From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-        To: "opacity-100 translate-y-0 sm:scale-100"
-      Leaving: "ease-in duration-200"
-        From: "opacity-100 translate-y-0 sm:scale-100"
-        To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-    -->
+   
     <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
       <div>
         <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100">
@@ -89,6 +80,13 @@ export default {
             this.$parent.ingroupShow = false
             this.$store.dispatch("setSelectedingroups", this.checkedOptions);
             this.$store.dispatch("autoDialValue", this.autodialValue);
+            let pause_code = this.$store.state.pause_code;
+            let autoDialValue = this.$store.state.autoDialValue;
+            if (pause_code == "LOGIN" && autoDialValue == "1") {
+              this.$store.dispatch("userState", "PAUSED");
+              // state.pause_code == 'PAUSED';
+            }
+
             console.log(this.autodialValue)
             this.$vs.notification({progress: 'auto', duration : 4000,color : "success",position : 'top-center',title: 'Inbound groups added!',text: "You have Successfully Changed the ingroups"})
             //this.$parent.switchTab('activity')

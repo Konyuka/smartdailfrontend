@@ -479,7 +479,7 @@
                 </div>
               </div>
 
-              <div class="flex flex-col w-84 px-1">
+              <div class="flex flex-col min-w-full px-1">
 
 
               <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
@@ -487,7 +487,7 @@
                 <div class="flex flex-col pt-2">
                   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                      <div class="shadow overflow-hidden border-b border-transparent sm:rounded-lg">
+                      <div class="overflow-hidden sm:rounded-lg">
                         <table v-if="showQueueTable" class="min-w-full divide-y divide-gray-200">
 
                           <thead>
@@ -531,7 +531,7 @@
                           </tbody>
 
                         </table>
-                        <p v-else class="text-gray-800 font-semibold text-xs py-44 px-14">You have no calls in queue</p>
+                        <p v-else class="text-gray-800 font-semibold text-xs flex justify-center mt-40">You have no calls in queue</p>
                         <!-- Pagination -->
 
                       </div>
@@ -546,7 +546,7 @@
                 <div class="flex flex-col pt-2">
                   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="relative py-2 align-middle inline-block min-w-full sm:px-8 lg:px-8">
-                      <div class="shadow overflow-hidden border-b h-96 border-gray-200 sm:rounded-lg">
+                      <div class="overflow-hidden sm:rounded-lg">
                         <div class="" v-if="showLogTable" >
                         <table class="min-w-full divide-y divide-blue-200">
 
@@ -586,7 +586,7 @@
                         </table>
 
                         </div>
-                        <p v-else class="text-gray-800 font-semibold text-xs py-44 px-10">You have made no calls today</p>
+                        <p v-else class="text-gray-800 font-semibold text-xs flex justify-center mt-40">You have made no calls today</p>
                       </div>
 
                       <!-- Pagination -->
@@ -650,7 +650,7 @@
                         In-Call
                         </div>
                       </div>
-                      <ul tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-item-3" class="max-h-96 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                      <ul tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-item-3" class="max-h-96 rounded-md py-1 text-base overflow-auto focus:outline-none sm:text-sm">
 
                         <!-- Ready Status -->
                         <li v-bind:class="tableStrip(index)" v-for="(item, index) in activeAgents" :key="item.user" id="listbox-item-0" role="option" class="py-1 px-4 text-black cursor-default select-none relative">
@@ -685,7 +685,7 @@
                  <div class="flex flex-col pt-2">
                   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="relative py-2 align-middle inline-block min-w-full sm:px-8 lg:px-8">
-                      <div class="shadow overflow-hidden border-b h-96 border-gray-200 sm:rounded-lg">
+                      <div class="overflow-hidden sm:rounded-lg">
                         <div v-if="showCallBackTable" class="">
                         <table class="min-w-full divide-y divide-blue-200">
 
@@ -724,7 +724,7 @@
                           </tbody>
                         </table>
                         </div>
-                        <p v-else class="text-gray-800 font-semibold text-xs py-44 px-12">You have no callbacks today</p>
+                        <p v-else class="text-gray-800 font-semibold text-xs flex justify-center mt-40">You have no callbacks today</p>
                       </div>
 
                       <!-- Pagination -->
@@ -991,8 +991,12 @@ export default {
   },
   created() {
       this.interval = setInterval(() => this.callbackTimes(), 1000);
+      // this.interval = setInterval(() => this.logs(), 1000);
   },
   computed: {
+    openSideG(){
+      return (this.$store.state.pause_code != 'LOGIN') ? true : false
+    },
     autodialValue(){
         return (this.$store.state.userState == 'READY' && this.$store.state.callStatus == 'livecall'  ) ? '1' : '0'
     },
@@ -1071,6 +1075,11 @@ export default {
     }
   },
   watch:{
+    openTab(newCount){
+      if(newCount === 2 || newCount === 4){
+        this.logs();
+      }
+    },
     autodialValue(newCount){
       if(newCount == true){
         this.sideD = true
@@ -1121,6 +1130,17 @@ export default {
     },
   },
   methods: {
+      sideGroup(){
+        if(this.openSideG == false){
+          Toast.fire({
+              type: 'success',
+              title: 'Kindly change your Pause Code from LOGIN to select an InGroup',
+              icon: 'success',
+            });
+        }else {
+          this.sideG = true
+        }
+      },
       moment: function (time) {
         return moment(time);
       },
@@ -1279,9 +1299,11 @@ export default {
           .then((response) => {
               this.$store.dispatch("callLogs", response.data.logs);
               //console.log(this.nonPaginatedCalllogs.length)
-             console.log(response.data.logs)
+              // console.log(response.data.logs)
               this.postsCallback = this.nonPaginatedCallbacks
               localStorage.setItem('postsCallback', this.postsCallback)
+              this.pages = [];
+              this.pagesCallBack = [],
               this.setPages();
               this.setPagesCallback();
             })

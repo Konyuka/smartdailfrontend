@@ -15,7 +15,7 @@
               
             </div>
             <h4 class="text-xl tracking-tight font-bold text-white sm:text-xl ml-10 pb-5">
-              Ingroup Selection
+              InGroup Selection
             </h4>  
             <div class="ml-4">
               <div class="grid grid-cols-2 gap-6 text-center">
@@ -27,14 +27,14 @@
                 </label>
               </div>
 
-              <div v-if="noAutoDial" class="grid grid-cols-2 text-center pt-20 pl-14">
+              <div v-if="!noAutoDial" class="grid grid-cols-2 text-center pt-20 pl-14">
                 <label  class="inline-flex items-center mt-3">
                   <input v-model="autoDialCheck" type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span class="ml-2 text-white text-sm">Auto Dial</span>
                 </label>
               </div>
               
               <div class="py-14 ml-14">
-                <button  @click="submit" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button   @click="submit" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-white hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   Submit
                 </button>
               </div>
@@ -66,12 +66,42 @@ window.Toast = Toast;
 export default {
   name: 'Ingroup',
   data(){
+    // let value = this.noAutoDial
+
     return{
       options: [],
       checkedIngroups: [],
       checkedAllIngroups: [],
-      autoDialCheck: false,    
+      autoDialCheck: '',    
       }
+  },
+  watch:{
+    //  async checkedOptions(newCount){
+    //    if(newCount.length){
+
+    //      console.log('we on')
+
+    //     const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    //     await delay(5000)
+    //     this.revertState()
+    //     console.log('state reverted');
+
+    //     await delay(5000);
+    //     this.revertState()
+    //     console.log("Waited an additional 5s");
+
+    //   }
+    // },
+    // autoDialValue(){
+    //   const revertState = async () => {
+    //     await delay(5000);
+    //     console.log('state reverted');
+        
+    //     await delay(5000);
+    //     console.log("Waited an additional 5s");
+    //   };
+    // },
   },
   mounted() {
     this.options = JSON.parse(JSON.stringify(this.$store.state.ingroups))
@@ -84,8 +114,11 @@ export default {
     this.options = options
   },
   computed: {
+    // disabled(){
+    //   return (this.checkedOptions == '' && this.autoDialCheck == '') ? true : false
+    // },
     noAutoDial(){
-      return (this.autoDial == 0) ? true : false
+      return (this.autoDial == 1) ? true : false
     },
     autoDial(){
       return this.$store.state.autoDialValue
@@ -105,28 +138,54 @@ export default {
       this.$parent.sideG = false
       console.log(this.noAutoDial)
     },
+    revertState(){
+
+      // console.log('revert state')
+
+      let currentState = this.$store.state.userState
+      // let socketChange = this.$store.state.fromWebsockets
+      if(currentState == 'READY'   )
+      this.$store.dispatch("userState", "PAUSED")
+    },
     submit() {
       let payload = { "username": localStorage.getItem('user'), "groups": this.checkedOptions,"phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign ,'blended' : this.autodialValue}
       return this.$http
       .post("/api/v1/closer/inbound", payload, { headers: { "Content-Type": "application/json","Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}` },}).then((response) => {
           this.$store.dispatch("setIngroups", response.data.inbound);
           this.$store.dispatch("setSelectedingroups", this.checkedOptions);
-          this.$store.dispatch("autoDialValue", this.autodialValue);
-          if(this.$store.state.selectedIngroups.length++){
+          if(this.noAutoDial == true){
+            this.$store.dispatch("autoDialValue", '1');
+          }else{
+            this.$store.dispatch("autoDialValue", this.autodialValue)
+            // this.$store.dispatch("userState", "PAUSED")
+            // this.$store.dispatch("setPausecode", "BREAK")
+
+          }
+          // this.$store.dispatch("userState", "PAUSED")
+          if(this.$store.state.selectedIngroups.length++ && this.autoDialCheck == false){
             Toast.fire({
               type: 'success',
-              title: this.checkedOptions + ' added to Ingroups',
+              title: this.checkedOptions + ' added to InGroups',
+              icon: 'success',
+            });
+          }else if(this.autoDialCheck == true ){
+            Toast.fire({
+              type: 'success',
+              title: 'Auto Dial Activated',
               icon: 'success',
             });
           }else{
             Toast.fire({
               type: 'success',
-              title: 'Option removed from Ingroups',
+              title: 'Option(s) removed from InGroups',
               icon: 'success',
             });
           }
           this.close()
-          })
+          // .then(
+          // ) 
+          }
+          )
       .catch((error) => {
           // if (error.response.data.status == "Unauthorized") {
           //     this.$store.dispatch("logout");

@@ -193,11 +193,16 @@ export default {
         // this.$parent.showcalendarModal = true
         // this.$parent.dispositionModal = false
         this.callMe()
+
       }else{
         return this.$http
           .post("/api/v1/dial/dispose",payload, { headers:  {  "Content-Type": "application/json", "Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` } })
           .then(response => {
               if(response){
+                // let code = this.$store.state.pause_code
+                  this.$store.dispatch("setPausecode", '');
+                // if(code == 'LOGIN' ){
+                // }
                 //this.$store.dispatch('userState', 'PAUSED')
                 true
               }

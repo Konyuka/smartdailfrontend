@@ -75,7 +75,7 @@ const mutations = {
     let userState = data.user_status;
 
     //console.log(call_details)
-    //console.log(callbacks)
+    // console.log(data)
 
     if (users != null || users != undefined) {
       state.activeUsers = users;
@@ -114,7 +114,7 @@ const mutations = {
       state.userState = userState;
       //console.log(userState)
     }
-
+    
     if (queue == null || queue == undefined) {
       state.callQueue = [];
     }
