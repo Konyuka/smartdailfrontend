@@ -49,22 +49,14 @@
                       </label>
                     </div>
 
-                    <!-- <div class="relative border rounded-tl-md rounded-tr-md p-2 flex">
-                      <div class="flex items-center h-5">
-                        <input v-on:change="callMe" id="settings-option-0" name="privacy_setting" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                      </div>
-                      <label for="settings-option-0" class="ml-3 flex flex-col cursor-pointer">
-                        <span class="block text-sm font-medium">
-                          Call Back
-                        </span>
-                      </label>
-                    </div> -->
 
                   </div>
 
                 </div>
                 </fieldset>
               </div>
+
+
             </div>
 
             <!-- Call Back Modal -->
@@ -80,18 +72,20 @@
             </div>
 
           </div>
-          <!-- <div v-if="callback" class="mt-5 sm:mt-6 sm:grid justify-center">
-            <button :disabled="disabled" type="button" class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-              Submit Call Back
+          
+          <div class="flex justify-center mt-5">
+            <label class="inline-flex items-center mt-3">
+              <input v-model="pauseInready" type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"><span class="ml-2 text-gray-600 font-bold text-sm">pause on submit</span>
+            </label>
+          </div>  
+          <div v-if="!callback" class="mt-5 flex justify-center">
+
+            <button :disabled="disabled" @click="checkMethod" type="button" class="w-40 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
+              Submit
             </button>
-          </div> -->
-          <div v-if="!callback" class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-            <button :disabled="disabled" @click="submit" type="button" class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
-              Submit & Resume
-            </button>
-            <button :disabled="disabled" @click="pauseAfter" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
+            <!-- <button :disabled="disabled" @click="pauseAfter" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
               Submit & Pause
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -101,7 +95,20 @@
 
 <script>
 import Date from '@/components/others/Date.vue';
-
+import Swal from 'sweetalert2';
+window.Swal = Swal;
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: false,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+window.Toast = Toast;
 
 export default {
   name: 'DipositionModal',
@@ -119,10 +126,58 @@ export default {
     }
   },
   methods: {
-    
+    checkMethod(){
+      if(this.pauseInready == true){
+        this.pauseAfter()
+      }else{
+        this.submit()
+      }
+    },
+    toggle(event){
+        if(event == 'PAUSED'){
+          this.sideP = true
+          let payload = { "username":localStorage.getItem('user'),"phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign,"state": 'PAUSED', "pause_code" : 'BREAK'};
+          console.log(payload)
+          return this.$http
+            .post("/api/v1/dial/status",payload, { headers: { "Content-Type": "application/json", "Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}`} })
+            .then((response) => {
+                if(response){
+                  this.$store.dispatch('userState', 'PAUSED')
+                  Toast.fire({
+                    type: 'success',
+                    title: 'You are now Paused',
+                    icon: 'success',
+                  });
+                }
+              })
+            .catch(error => {
+                console.log(error)
+              })
+        }
+        else{
+          let payload = { "username":localStorage.getItem('user'), "phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign, "state": 'READY'};
+          return this.$http
+            .post("/api/v1/dial/status",payload, { headers: { "Content-Type": "application/json", "Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}`} })
+            .then((response) => {
+                if(response){
+                  this.$store.dispatch('userState', 'READY') //payload.state
+                  Toast.fire({
+                    type: 'success',
+                    title: 'You are now Active',
+                    icon: 'success',
+                  });
+                }
+              })
+            .catch(error => {
+                console.log(error)
+              })
+        }
+      },
     pauseAfter(){
+      // this.$store.dispatch("setPausecode", 'CODE');
+      // this.toggle('PAUSED')
       this.$parent.sideP = true
-      this.pauseInready = true
+      // this.pauseInready = true
       let payload = { 
         "username":localStorage.getItem('user'),
         "phone":localStorage.getItem('phone'),
@@ -133,7 +188,9 @@ export default {
       localStorage.setItem('disposition' , this.selectDisposition)
 
       if(this.pauseInready){
-        payload["pause_code"]  =  this.$store.state.pause_code
+        payload["pause_code"]  =  'BLANK'
+        this.$store.state.pause_code = ''
+        console.log(payload)
       }
 
       if(this.selectDisposition  == "CALLBK"){
@@ -144,7 +201,6 @@ export default {
           .post("/api/v1/dial/dispose",payload, { headers:  {  "Content-Type": "application/json", "Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` } })
           .then(response => {
               if(response){
-                //this.$store.dispatch('userState', 'PAUSED')
                 true
               }
               localStorage.removeItem('disposition')
@@ -182,28 +238,22 @@ export default {
       }
       localStorage.setItem('disposition' , this.selectDisposition)
 
-      if(this.pauseInready){
+      if(this.pauseInready == true){
+        // this.$store.dispatch('userState', 'PAUSED')
+        // this.$parent.sideP = true
         payload["pause_code"]  =  this.$store.state.pause_code
+        // console.log(payload)
       }
-
+        
       if(this.selectDisposition  == "CALLBK"){
-        // payload["recipient"]  =  (this.mineOnly) ? "USERONLY" : "ANYONE"
-        // payload["callback_time"]  =  this.$store.state.pause_code
-        // payload["comment"]  =  this.$store.state.pause_code
-        // this.$parent.showcalendarModal = true
-        // this.$parent.dispositionModal = false
         this.callMe()
-
       }else{
         return this.$http
           .post("/api/v1/dial/dispose",payload, { headers:  {  "Content-Type": "application/json", "Accept": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}` } })
           .then(response => {
-              if(response){
-                // let code = this.$store.state.pause_code
-                  this.$store.dispatch("setPausecode", '');
-                // if(code == 'LOGIN' ){
-                // }
-                //this.$store.dispatch('userState', 'PAUSED')
+            if(response){
+              this.$store.dispatch('userState', 'PAUSED')
+                //this.$store.dispatch("setPausecode", '');               
                 true
               }
               localStorage.removeItem('disposition')

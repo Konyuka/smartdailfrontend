@@ -66,7 +66,7 @@ window.Toast = Toast;
 export default {
   name: 'Ingroup',
   data(){
-    // let value = this.noAutoDial
+    //  let value = this.noAutoDial
 
     return{
       options: [],
@@ -131,6 +131,9 @@ export default {
     },
     ratio(){
       return (this.$store.state.dial_method == 'RATIO') ? true : false
+    },
+    userState () {
+      return this.$store.state.userState
     }
   },
   methods:{
@@ -138,14 +141,24 @@ export default {
       this.$parent.sideG = false
       console.log(this.noAutoDial)
     },
-    revertState(){
+   async revertState(){
 
-      // console.log('revert state')
+     const delay = ms => new Promise(res => setTimeout(res, ms));
 
-      let currentState = this.$store.state.userState
+        await delay(5000)
+        if(this.userState === 'READY'   ){
+          this.$store.dispatch("userState", "PAUSED")
+          console.log('state reverted');
+        }
+
+        await delay(5000);
+        if(this.userState == 'READY'   ){
+          this.$store.dispatch("userState", "PAUSED")
+          console.log("Waited an additional 5s");
+        }
+
+
       // let socketChange = this.$store.state.fromWebsockets
-      if(currentState == 'READY'   )
-      this.$store.dispatch("userState", "PAUSED")
     },
     submit() {
       let payload = { "username": localStorage.getItem('user'), "groups": this.checkedOptions,"phone": localStorage.getItem('phone'),"campaign": this.$store.state.campaign ,'blended' : this.autodialValue}
@@ -153,13 +166,13 @@ export default {
       .post("/api/v1/closer/inbound", payload, { headers: { "Content-Type": "application/json","Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}` },}).then((response) => {
           this.$store.dispatch("setIngroups", response.data.inbound);
           this.$store.dispatch("setSelectedingroups", this.checkedOptions);
+          // this.revertState()
           if(this.noAutoDial == true){
             this.$store.dispatch("autoDialValue", '1');
           }else{
             this.$store.dispatch("autoDialValue", this.autodialValue)
             // this.$store.dispatch("userState", "PAUSED")
             // this.$store.dispatch("setPausecode", "BREAK")
-
           }
           // this.$store.dispatch("userState", "PAUSED")
           if(this.$store.state.selectedIngroups.length++ && this.autoDialCheck == false){

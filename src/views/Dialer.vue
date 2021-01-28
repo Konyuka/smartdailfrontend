@@ -638,15 +638,15 @@
                     <div class="absolute mt-1 w-full rounded-md bg-white">
                       <div class="justify-between flex mb-6 mt-3 px-4">
                         <div class="text-xs">
-                        <span class="bg-green-400 flex-shrink-0 inline-block h-4 w-4 rounded-full" aria-hidden="true"></span>
+                        <span class="bg-green-400 flex-shrink-0 inline-block h-3 w-3 rounded-full mr-1" aria-hidden="true"></span>
                         Ready
                         </div>
                         <div class="text-xs">
-                        <span class="bg-yellow-400 flex-shrink-0 inline-block h-4 w-4 rounded-full " aria-hidden="true"></span>
+                        <span class="bg-yellow-400 flex-shrink-0 inline-block h-3 w-3 rounded-full mr-1" aria-hidden="true"></span>
                         Paused
                         </div>
                         <div class="text-xs">
-                        <span class="bg-blue-400 flex-shrink-0 inline-block h-4 w-4 rounded-full " aria-hidden="true"></span>
+                        <span class="bg-blue-400 flex-shrink-0 inline-block h-3 w-3 rounded-full mr-1" aria-hidden="true"></span>
                         In-Call
                         </div>
                       </div>
