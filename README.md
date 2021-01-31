@@ -1,5 +1,3 @@
-# user
-
 ## Project setup
 ```
 npm install
@@ -18,6 +16,11 @@ npm run build
 ### Lints and fixes files
 ```
 npm run lint
+```
+
+### Using Docker for Development
+```
+docker-compose up
 ```
 
 ### Customize configuration
