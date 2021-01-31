@@ -1,15 +1,15 @@
 const getters = {
 
-  loggedIn :state => {
-    return !!state.user
-  },
-  campaign :state => {
-    return state.campaign
-  },
+    loggedIn: state => {
+        return !!state.user
+    },
+    campaign: state => {
+        return state.campaign
+    },
 
-  dtmfTrue:state => {
-    return state.dtmfTrue
-  }
+    dtmfTrue: state => {
+        return state.dtmfTrue
+    }
 }
 
 export default getters

@@ -10,12 +10,12 @@ import store from '@/store'
 
 export default {
   name: 'App',
-  created () {
+  created() {
     this.webSocket()
   },
   methods: {
     webSocket() {
-      let connection = new WebSocket("ws://" + this.$socket +"/api/v1/ws")
+      let connection = new WebSocket("ws://" + this.$socket + "/api/v1/ws")
 
       console.log("Connecting to the websocket server...")
 
@@ -26,39 +26,47 @@ export default {
       }
 
       connection.onopen = () => {
-        
-          connection.send(JSON.stringify({ "username": localStorage.getItem('user'), "phone": localStorage.getItem('phone') ,"campaign": localStorage.getItem('campaign')}))
-          console.log(JSON.stringify(    { "username": localStorage.getItem('user'), "phone": localStorage.getItem('phone') ,"campaign": localStorage.getItem('campaign')}))
-          store.dispatch("websocket", 'ON');
-          console.log("connected successfully")
-          
+
+        connection.send(JSON.stringify({
+          "username": localStorage.getItem('user'),
+          "phone": localStorage.getItem('phone'),
+          "campaign": localStorage.getItem('campaign')
+        }))
+        console.log(JSON.stringify({
+          "username": localStorage.getItem('user'),
+          "phone": localStorage.getItem('phone'),
+          "campaign": localStorage.getItem('campaign')
+        }))
+        store.dispatch("websocket", 'ON');
+        console.log("connected successfully")
+
       };
-      
+
       connection.onmessage = (message) => {
-          let data = JSON.parse(message.data);
-          store.dispatch("websocket", 'ON');
-          store.dispatch("fromWebsocket", data);
+        let data = JSON.parse(message.data);
+        store.dispatch("websocket", 'ON');
+        store.dispatch("fromWebsocket", data);
       };
 
       connection.onclose = () => { //event
-          console.log("Socket closed: ON CLOSE"); //, event
-          this.$parent.showcampaignModal = true
-          store.dispatch("websocket", 'OFF');
+        console.log("Socket closed: ON CLOSE"); //, event
+        this.$parent.showcampaignModal = true
+        store.dispatch("websocket", 'OFF');
       };
 
       connection.onerror = () => { //evt
-          console.log("Socket closed : ON ERROR");
+        console.log("Socket closed : ON ERROR");
       };
     },
   },
   computed: {
-    socket () {
-        return  store.state.socket
+    socket() {
+      return store.state.socket
     },
   },
   watch: {
-    socket(newValue){
-      if(newValue == 'OFF'){
+    socket(newValue) {
+      if (newValue == 'OFF') {
         console.log('Socket off!')
         this.webSocket()
         true

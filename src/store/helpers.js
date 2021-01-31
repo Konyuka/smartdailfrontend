@@ -1,6 +1,6 @@
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 
 const authComputed = {
-  ...mapGetters(['loggedIn'])
+    ...mapGetters(['loggedIn'])
 }
 export default authComputed
