@@ -66,7 +66,7 @@ export default {
   },
   watch: {
     socket(newValue) {
-      if (newValue == 'OFF') {
+      if (newValue === 'OFF') {
         console.log('Socket off!')
         this.webSocket()
         true
