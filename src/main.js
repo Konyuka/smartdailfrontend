@@ -32,11 +32,11 @@ axios.interceptors.response.use(function (response) {
 })
 
 //Global variables to be used to collected from the environment settings
-Vue.prototype.$iframe = process.env.EMBEDING_URL
-Vue.prototype.$socket = process.env.API_URL
+Vue.prototype.$iframe = process.env.VUE_APP_EMBEDING_URL;
+Vue.prototype.$socket = process.env.VUE_APP_API_URL;
 Vue.prototype.$http = axios;
 
-let iframeUrl = process.env.EMBEDING_URL
+let iframeUrl = process.env.VUE_APP_EMBEDING_URL;
 store.dispatch("iframe", iframeUrl);
 
 Vue.use(Vuex);

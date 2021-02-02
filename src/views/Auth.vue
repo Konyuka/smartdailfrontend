@@ -70,7 +70,6 @@ export default {
       }
       this.error = false
       this.errors = []
-      console.log(payload)
       return this.$http.post("/api/v1/login", payload)
           .then(response => {
             this.$store.dispatch('login', response.data)
