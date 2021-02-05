@@ -150,6 +150,7 @@ export default {
 
     },
     webSocket() {
+      console.log(this.$socket)
       let connection = new WebSocket("ws://" + this.$socket + "/api/v1/ws")
       connection.onopen = () => {
         console.log("Successfully connected to the  websocket server")
