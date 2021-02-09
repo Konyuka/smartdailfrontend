@@ -35,15 +35,9 @@ const actions = {
     setSelectedingroups({commit}, data) {
         commit("setselectedingroups", data);
     },
-    // endcall({commit}){
-    //   commit('endcall')
-    // },
     fromWebsocket({commit}, data) {
         commit("fromWebsockets", data);
     },
-    // resetCallstatus({ commit }) {
-    //   commit('resetCallstatus')
-    // },
     pauseStatus({commit}) {
         commit("pauseStatus");
     },

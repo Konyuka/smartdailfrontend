@@ -30,7 +30,8 @@ router.beforeEach((to, from, next) => {
         to.matched.some((record) => record.meta.auth) &&
         loggedIn == null &&
         token == null
-    ) {
+    )
+    {
         next({
             path: "/",
             query: {redirect: to.fullPath},
@@ -38,14 +39,5 @@ router.beforeEach((to, from, next) => {
     }
     next();
 });
-/*
-    router.afterEach(() => {
-      // Remove initial loading
-      const appLoading = document.getElementById('loading-bg')
-      if (appLoading) {
-        appLoading.style.display = 'none'
-      }
-      console.log("After each route ")
 
-    })  */
 export default router;
