@@ -1,15 +1,27 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <CampaignModal v-if="showcampaignModal" @close="showcampaignModal   = false"/>
   </div>
 </template>
 
 <script>
 import store from '@/store'
+import CampaignModal from '@/components/modals/CampaignModal.vue';
+
+
 
 
 export default {
   name: 'App',
+  components:{
+    CampaignModal,
+  },
+  data(){
+    return{
+      showcampaignModal: false
+    }
+  },
   created() {
     this.webSocket()
   },
@@ -39,7 +51,6 @@ export default {
         }))
         store.dispatch("websocket", 'ON');
         console.log("connected successfully")
-
       };
 
       connection.onmessage = (message) => {

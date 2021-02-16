@@ -550,10 +550,9 @@ export default {
     },
     hangUp() {
       this.call = false,
-          this.transfer = false,
-
-          //Create the payload to be sent
-          this.$parent.clicked = true
+      this.transfer = false,
+      //Create the payload to be sent
+      this.$parent.clicked = true
       let payload = {
         "campaign": this.$store.state.campaign,
         "username": localStorage.getItem('user'),

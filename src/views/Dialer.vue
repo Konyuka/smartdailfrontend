@@ -756,7 +756,7 @@
                               class="max-h-96 rounded-md py-1 text-base overflow-auto focus:outline-none sm:text-sm">
 
                             <!-- Ready Status -->
-                            <li v-bind:class="tableStrip(index)" v-for="(item, index) in activeAgents" :key="item.user"
+                            <li v-bind:class="tableStrip(index)" v-for="(item, index) in activeAgents" :key="index"
                                 id="listbox-item-0" role="option"
                                 class="py-1 px-4 text-black cursor-default select-none relative">
                               <div class="flex items-center justify-between">

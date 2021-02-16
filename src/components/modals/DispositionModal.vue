@@ -138,8 +138,14 @@ export default {
   methods: {
     checkMethod() {
       if (this.pauseInready == true) {
+        if(this.pause_code == 'LOGIN'){
+          this.$store.dispatch('setPausecode', '')
+        }
         this.pauseAfter()
       } else {
+        if(this.pause_code == 'LOGIN'){
+          this.$store.dispatch('setPausecode', '')
+        }
         this.submit()
       }
     },
@@ -283,6 +289,8 @@ export default {
         // console.log(payload)
       }
 
+
+
       if (this.selectDisposition == "CALLBK") {
         this.callMe()
       } else {
@@ -322,6 +330,9 @@ export default {
     },
   },
   computed: {
+    pause_code(){
+      return this.$store.state.pause_code;
+    },
     callBackDateMessage() {
       return (this.callback == true && this.$parent.sideP == true) ? true : false;
     },

@@ -495,8 +495,8 @@ export default {
     },
     hangUp() {
       this.call = false,
-          this.transfer = false,
-          this.$parent.dispositionModal = true
+      this.transfer = false,
+      this.$parent.dispositionModal = true
       //Create the payload to be sent
       this.$parent.clicked = true
       let payload = {

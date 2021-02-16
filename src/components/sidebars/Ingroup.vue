@@ -34,12 +34,12 @@
               </label>
             </div>
 
-            <div v-if="!noAutoDial" class="grid grid-cols-2 text-center pt-20 pl-14">
+            <!-- <div v-if="!noAutoDial" class="grid grid-cols-2 text-center pt-20 pl-14">
               <label class="inline-flex items-center mt-3">
                 <input v-model="autoDialCheck" type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"
                        checked><span class="ml-2 text-white text-sm">Auto Dial</span>
               </label>
-            </div>
+            </div> -->
 
             <div class="py-14 ml-14">
               <button @click="submit" type="button"

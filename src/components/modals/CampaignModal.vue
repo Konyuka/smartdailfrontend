@@ -58,11 +58,14 @@
 
       </div>
     </div>
+    <CampaignModal v-if="showcampaignModal" @close="showcampaignModal   = false"/>
   </div>
 </template>
 
 <script>
 import Swal from 'sweetalert2';
+import CampaignModal from '@/components/modals/CampaignModal.vue';
+
 
 window.Swal = Swal;
 const Toast = Swal.mixin({
@@ -80,12 +83,17 @@ window.Toast = Toast;
 
 export default {
   name: 'CampaignModal',
+  components:{
+    CampaignModal,
+  },
   data() {
     return {
+      showcampaignModal: false,
       modal: true,
       options: [],
       selectedCampaign: null,
       seen: false,
+      select: true,
     }
   },
   mounted() {
@@ -95,16 +103,16 @@ export default {
     isDisable() {
       return this.selectedCampaign == null;
     },
-    select() {
-      return this.$parent.select
-    },
+    // select() {
+    //   return this.$parent.select
+    // },
     campaigns() {
       return this.$store.state.campaigns;
     }
   },
   methods: {
     async submitCampaign() {
-      console.log(this.selectedCampaign)
+      // console.log(this.selectedCampaign)
       try {
         let payload = {username: localStorage.getItem('user'), campaign: this.selectedCampaign}
         localStorage.setItem('campaignTemp', this.selectedCampaign)
@@ -117,8 +125,8 @@ export default {
           }
         });
         console.log(response)
-        this.afterLogin()
         response.data.campaign = this.selectedCampaign
+        this.afterLogin()
         console.log(response.data)
         this.$store.dispatch("setPhoneCamps", response.data);
         if (this.$store.state.dial_method == 'RATIO') {
@@ -147,10 +155,8 @@ export default {
     afterLogin() {
       this.$parent.select = false
       this.webSocket()
-
     },
     webSocket() {
-      console.log(this.$socket)
       let connection = new WebSocket("ws://" + this.$socket + "/api/v1/ws")
       connection.onopen = () => {
         console.log("Successfully connected to the  websocket server")
@@ -161,7 +167,6 @@ export default {
         }
         connection.send(JSON.stringify(payload))
         Toast.fire({
-          type: 'success',
           title: 'Successful Login',
           icon: 'success',
         });
@@ -169,13 +174,16 @@ export default {
       connection.onmessage = (message) => {
         let data = JSON.parse(message.data);
         this.$store.dispatch("fromWebsocket", data);
+        this.select = false
       };
       connection.onclose = function (e) {
         console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
-        this.$parent.showcampaignModal = true
-        setTimeout(function () {
-          this.webSocket();
-        }, 2000);
+        setTimeout(() => this.webSocket, 2000);
+        Toast.fire({
+          title: 'Login Error',
+          icon: 'error',
+        });
+        this.select = true
       };
       connection.onerror = (evt) => {
         console.log("Socket closed: ", evt);
