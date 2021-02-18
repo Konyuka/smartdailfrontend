@@ -172,7 +172,6 @@ export default {
               if (response) {
                 this.$store.dispatch('userState', 'PAUSED')
                 Toast.fire({
-                  type: 'success',
                   title: 'You are now Paused',
                   icon: 'success',
                 });
@@ -200,7 +199,6 @@ export default {
               if (response) {
                 this.$store.dispatch('userState', 'READY') //payload.state
                 Toast.fire({
-                  type: 'success',
                   title: 'You are now Active',
                   icon: 'success',
                 });
@@ -221,8 +219,10 @@ export default {
         "phone": localStorage.getItem('phone'),
         "campaign": this.$store.state.campaign,
         "lead_id": localStorage.getItem('lead_id'),
-        "status": this.selectDisposition
+        "status": this.selectDisposition,
+        "call_type": localStorage.getItem('callType')
       }
+      console.log(payload)
       localStorage.setItem('disposition', this.selectDisposition)
 
       if (this.pauseInready) {
@@ -278,18 +278,11 @@ export default {
         "phone": localStorage.getItem('phone'),
         "campaign": this.$store.state.campaign,
         "lead_id": localStorage.getItem('lead_id'),
-        "status": this.selectDisposition
+        "status": this.selectDisposition,
+        "call_type": localStorage.getItem('callType')
       }
+      console.log(payload)
       localStorage.setItem('disposition', this.selectDisposition)
-
-      if (this.pauseInready == true) {
-        // this.$store.dispatch('userState', 'PAUSED')
-        // this.$parent.sideP = true
-        payload["pause_code"] = this.$store.state.pause_code
-        // console.log(payload)
-      }
-
-
 
       if (this.selectDisposition == "CALLBK") {
         this.callMe()

@@ -149,7 +149,7 @@ export default {
   methods: {
     close() {
       this.$parent.sideG = false
-      console.log(this.noAutoDial)
+      // console.log(this.noAutoDial)
     },
     async revertState() {
 
@@ -199,19 +199,16 @@ export default {
                 // this.$store.dispatch("userState", "PAUSED")
                 if (this.$store.state.selectedIngroups.length++ && this.autoDialCheck == false) {
                   Toast.fire({
-                    type: 'success',
                     title: this.checkedOptions + ' added to InGroups',
                     icon: 'success',
                   });
                 } else if (this.autoDialCheck == true) {
                   Toast.fire({
-                    type: 'success',
                     title: 'Auto Dial Activated',
                     icon: 'success',
                   });
                 } else {
                   Toast.fire({
-                    type: 'success',
                     title: 'Option(s) removed from InGroups',
                     icon: 'success',
                   });

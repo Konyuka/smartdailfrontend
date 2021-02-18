@@ -74,8 +74,8 @@ const mutations = {
         let callbacks = data.callbacks;
         let userState = data.user_status;
 
-        //console.log(call_details)
-        console.log(data)
+        // console.log(call_details)
+        // console.log(data)
 
         if (users != null || users != undefined) {
             state.activeUsers = users;
@@ -135,8 +135,14 @@ const mutations = {
             // console.log("livecall");
             // console.log(call_details);
             localStorage.setItem("lead_id", call_details.lead_id),
-                localStorage.setItem("callerid", call_details.callerid),
-                localStorage.setItem("numberCalled", call_details.phone_number);
+            localStorage.setItem("callerid", call_details.callerid),
+            localStorage.setItem("numberCalled", call_details.phone_number);
+            // localStorage.setItem("callType", call_details.call_type);
+            if (call_details.call_type === "INBOUND") {
+              localStorage.setItem("callType", "IN");
+            } else {
+              localStorage.setItem("callType", "OUT");
+            }
             // console.log(call_details);
             if (call_details.url == undefined || call_details.url == null) {
                 true;

@@ -142,7 +142,6 @@ export default {
         let payload = {"username": localStorage.getItem('user'),"phone":localStorage.getItem('phone'), "campaign": localStorage.getItem('campaign')}
         connection.send(JSON.stringify(payload))
         Toast.fire({
-            type: 'success',
             title: 'Successful Login',
             icon: 'success',
           });

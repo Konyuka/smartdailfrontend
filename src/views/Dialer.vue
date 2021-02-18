@@ -488,19 +488,19 @@
 
             <span class="relative z-0 inline-flex shadow-sm rounded-md">
               <button @click="sideG = true" type="button"
-                      class="relative inline-flex items-center font-semibold px-3 py-2 rounded-l-md border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                      class="relative inline-flex items-center font-semibold px-3 py-2 rounded-l-md border border-gray-300 bg-white text-xs  text-black hover:bg-blue-900 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                 InGroups
               </button>
               <button @click="sideP = true" type="button"
-                      class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                      class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-blue-900 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                 PCode
               </button>
               <button @click="dialNext" v-if="!ratio" type="button"
-                      class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                      class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 border border-gray-300 bg-white text-xs  text-black hover:bg-blue-900 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                 DNext
               </button>
               <button @click="manualDial" type="button"
-                      class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 rounded-r-md border border-gray-300 bg-white text-xs text-black hover:bg-gray-800 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                      class="-ml-px relative inline-flex items-center font-semibold px-3 py-2 rounded-r-md border border-gray-300 bg-white text-xs text-black hover:bg-blue-900 hover:text-white focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
                 MDial
               </button>
 
@@ -1272,7 +1272,6 @@ export default {
     sideGroup() {
       if (this.openSideG == false) {
         Toast.fire({
-          type: 'success',
           title: 'Kindly change your Pause Code from LOGIN to select an InGroup',
           icon: 'success',
         });
@@ -1349,7 +1348,7 @@ export default {
           "state": 'PAUSED',
           "pause_code": 'BREAK'
         };
-        console.log(payload)
+        // console.log(payload)
         return this.$http
             .post("/api/v1/dial/status", payload, {
               headers: {
@@ -1362,7 +1361,6 @@ export default {
               if (response) {
                 this.$store.dispatch('userState', 'PAUSED')
                 Toast.fire({
-                  type: 'success',
                   title: 'You are now Paused',
                   icon: 'success',
                 });
@@ -1390,7 +1388,6 @@ export default {
               if (response) {
                 this.$store.dispatch('userState', 'READY') //payload.state
                 Toast.fire({
-                  type: 'success',
                   title: 'You are now Active',
                   icon: 'success',
                 });
@@ -1428,7 +1425,6 @@ export default {
         this.side = true
       } else {
         Toast.fire({
-          type: 'success',
           title: 'Switch to Pause to Dial',
           icon: 'warning',
         });
@@ -1551,16 +1547,16 @@ export default {
     },
     takeCall(call) {
       console.log(call)
-
       let payload = {
         "username": localStorage.getItem('user'),
         "phone": localStorage.getItem('phone'),
         "campaign": this.$store.state.campaign,
         "lead_id": call.lead_id,
         "call_id": call.call_id,
-        "phone_number": call.caller //.substring(1)
+        "phone_number": call.caller
       };
-
+      localStorage.setItem('callType', call.call_type)
+      localStorage.setItem('leadId', call.lead_id)
       this.sideD = true
       this.onCallTrue = true
 

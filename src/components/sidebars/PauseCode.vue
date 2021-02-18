@@ -95,7 +95,7 @@ export default {
         "state": 'PAUSED',
         "pause_code": this.selectedPauseCode
       };
-      console.log(payload)
+      // console.log(payload)
       return this.$http
           .post("/api/v1/dial/status", payload, {
             headers: {
@@ -111,7 +111,6 @@ export default {
               //this.$parent.switchTab('activity')
               // this.$emit('close')
               Toast.fire({
-                type: 'success',
                 title: 'Switched Pause Code to: ' + this.selectedPauseCode,
                 icon: 'success',
               });

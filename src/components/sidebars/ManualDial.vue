@@ -294,7 +294,7 @@ export default {
   methods: {
     closePanel() {
       this.$parent.side = false
-      console.log(this.disabled)
+      // console.log(this.disabled)
     },
     closeSidebarPanel() {
       this.isPanelOpen = false
@@ -326,9 +326,9 @@ export default {
               localStorage.setItem('numberCalled', this.number)
               this.$store.dispatch('numberCalled', this.number)
               localStorage.setItem('type', 'Outgoing')
-              console.log(response.data.url)
+              // console.log(response.data.url)
               this.$store.dispatch('iframe', response.data.url)
-              console.log(response.data)
+              // console.log(response.data)
 
               this.$parent.onCallTrue = true
               this.$parent.dialTrue = false
@@ -371,7 +371,6 @@ export default {
             if (response) {
               true
               Toast.fire({
-                type: 'success',
                 title: 'You have resumed the call',
                 icon: 'success',
               });
@@ -506,7 +505,7 @@ export default {
       this.transfer = !this.transfer
       this.$parent.transferTrue = true
       //this.$parent.onCallTrue = false
-      console.log('Transfer call')
+      // console.log('Transfer call')
     },
     parkCall() {
 
@@ -520,7 +519,7 @@ export default {
         "callerid": localStorage.getItem('callerid'),
         "lead_id": localStorage.getItem('lead_id')
       };
-      console.log(payload)
+      // console.log(payload)
       //Hit the park endpoint with the payload data you just created above
       return this.$http.post("/api/v1/dial/park", payload, {
         headers: {
@@ -533,7 +532,6 @@ export default {
             if (response) {
               true
               Toast.fire({
-                type: 'success',
                 title: 'You have paused the call',
                 icon: 'success',
               });
