@@ -70,12 +70,13 @@ const mutations = {
         let users = data.agents;
         let call_details = data.call_details;
         let dialable_leads = data.dialable_leads;
-        //let callLogs = dta.call_logs
+        // let callLogs = data.call_logs
         let callbacks = data.callbacks;
         let userState = data.user_status;
 
-        // console.log(call_details)
+        console.log(call_details);
         // console.log(data)
+        // console.log(callbacks)
 
         if (users != null || users != undefined) {
             state.activeUsers = users;
@@ -121,7 +122,7 @@ const mutations = {
 
         if (loggedin == false) {
             //logout()
-            // state.campaign = null;
+            state.campaign = null;
         }
 
         if (status == "calling") {
@@ -139,9 +140,12 @@ const mutations = {
             localStorage.setItem("numberCalled", call_details.phone_number);
             // localStorage.setItem("callType", call_details.call_type);
             if (call_details.call_type === "INBOUND") {
-              localStorage.setItem("callType", "IN");
-            } else {
-              localStorage.setItem("callType", "OUT");
+              localStorage.setItem("callType", "INBOUND");
+            }else if(call_details.call_type === "AUTO"){
+              localStorage.setItem("callType", "AUTO");                  
+            }
+            else {
+              localStorage.setItem("callType", "MANUAL");
             }
             // console.log(call_details);
             if (call_details.url == undefined || call_details.url == null) {

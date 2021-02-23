@@ -6,13 +6,15 @@
         <div class="fixed inset-0 transition-opacity" aria-hidden="true">
           <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
-
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
         <div
             class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
             role="dialog" aria-modal="true" aria-labelledby="modal-headline">
           <div>
+            <span @click="closeCalender" v-if="callBackDate" class="flex justify-end">
+            <svg class="w-8 h-8 text-indigo-400 hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"></path></svg>
+            </span>
             <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-200">
               <svg class="h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                    fill="currentColor">
@@ -43,18 +45,13 @@
                     <div class="grid grid-cols-3 gap-1">
 
 
-                      <div v-for="option in options" :key="option.value"
-                           class="relative border border-gray-200 p-2 flex">
-                        <div class="flex items-center h-5">
-                          <input v-model="selectDisposition" :value="option.value" id="settings-option-1"
-                                 name="privacy_setting" type="radio"
-                                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300">
-                        </div>
-                        <label for="settings-option-1" class="ml-3 flex flex-col cursor-pointer">
-                        <span class="block text-xs font-medium lowercase">
-                          {{ option.name }}
-                        </span>
+                      <div v-for="option in options" :key="option.value" class="relative border border-gray-200 p-2 flex">
+
+                        <label class="inline-flex items-center ml-6 cursor-pointer">
+                          <input v-model="selectDisposition" :value="option.value" type="radio" class="form-radio focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300" name="accountType">
+                          <span class="ml-2 block text-xs font-thin lowercase">{{option.name}}</span>
                         </label>
+
                       </div>
 
 
@@ -66,6 +63,7 @@
 
 
             </div>
+
 
             <!-- Call Back Modal -->
             <div v-if="callBackDate" class="mt-3 text-center sm:mt-5">
@@ -136,6 +134,9 @@ export default {
     }
   },
   methods: {
+    closeCalender(){
+      this.callback = false
+    },
     checkMethod() {
       if (this.pauseInready == true) {
         if(this.pause_code == 'LOGIN'){

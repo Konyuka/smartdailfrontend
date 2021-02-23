@@ -653,12 +653,13 @@
                                     v-bind:class="tableStrip(index)">
                                   <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                                     <a @click="dial(stripNumber(log.phone_number))">
-                                      <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600"
+                                      <!-- <svg v-if="icon == true" class="mr-1 h-5 w-5 text-green-600 hover:text-green-800"
                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                            stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                               d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"/>
-                                      </svg>
+                                      </svg> -->
+                                      <!-- <svg v-if="icon == false" class="mr-1 h-5 w-5 text-indigo-600 hover:text-indigo-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 3l-6 6m0 0V4m0 5h5M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"></path></svg> -->
                                     </a>
                                   </td>
                                   <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
@@ -679,8 +680,7 @@
 
                           <!-- Pagination -->
                           <div class="static bottom-0 pt-2">
-                            <div>
-
+                            <div class="relative">
                               <nav id="pagination-app" class="px-4 flex items-center justify-center sm:px-0">
                                 <div v-if="page != 1" class="-mt-px w-0 flex-1 flex">
                                   <a @click="page--" href="#"
@@ -697,9 +697,26 @@
                                   </a>
                                 </div>
 
-                                <div class="flex justify-center">
-                                  <!-- <p>page 1 of 5</p> -->
-                                  <!-- <button type="button" class="justify-center btn text-sm btn-sm btn-outline-secondary" v-for="pageNumber in pages.slice(page-1, page+5)" v-bind:key="pageNumber" @click="page = pageNumber"> {{pageNumber}} </button> -->
+                                <div v-if="yesterday" @click="yesterdayLogs" class="-mt-px w-0 flex-1 flex">
+                                  <a href="#"
+                                     class="border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
+                                    <!-- Heroicon name: arrow-narrow-left -->
+                                    <svg class="mr-1 h-5 w-5 text-indigo-400 hover:text-indigo-900"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                         aria-hidden="true">
+                                      <path fill-rule="evenodd"
+                                            d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+                                            clip-rule="evenodd"/>
+                                    </svg>
+                                    Yesterday
+                                  </a>
+                                </div>
+
+      
+
+                                <div class="absolute w-0 flex-1 flex ml-3 justify-center">
+                                  
+                                  <button type="button" class="transform transition hover:scale-125 duration-300 ease-in-out mt-2 justify-center btn text-sm btn-sm btn-outline-secondary font-semibold tracking-widest text-gray-400" v-for="pageNumber in pages.slice(page-1, page+5)" v-bind:key="pageNumber" @click="page = pageNumber"> <span class="hover:text-indigo-600 tracking-widest px-0.5">{{pageNumber}}</span> </button>
                                 </div>
 
 
@@ -829,7 +846,7 @@
                                     {{ item.PhoneNumber }}
                                   </td>
                                   <td class="px-2 py-2 whitespace-nowrap text-sm text-black">
-                                    {{ getHumanDate(item.CustomerTime) }}
+                                    {{ getHumanDate(item.CallbackTime) }}
                                   </td>
                                 </tr>
 
@@ -1127,9 +1144,13 @@ export default {
   },
   created() {
     this.interval = setInterval(() => this.callbackTimes(), 1000);
+    this.interval = setInterval(() => this.dataCheck(), 3000);
     // this.interval = setInterval(() => this.logs(), 1000);
   },
   computed: {
+    yesterday(){
+      return (this.page == 1 && this.pages != '') ? true : false
+    },
     openSideG() {
       return (this.$store.state.pause_code != 'LOGIN') ? true : false
     },
@@ -1269,6 +1290,12 @@ export default {
     },
   },
   methods: {
+    dataCheck(){
+      console.log(this.callLogs)
+    },
+    yesterdayLogs(){
+      console.log("yesterday logs")
+    },
     sideGroup() {
       if (this.openSideG == false) {
         Toast.fire({
@@ -1285,9 +1312,9 @@ export default {
     callbackTimes() {
       let timeArrs = []
       for (const i in this.nonPaginatedCallbacks) {
-        timeArrs.push(this.nonPaginatedCallbacks[i].CustomerTime)
+        timeArrs.push(this.nonPaginatedCallbacks[i].CallbackTime)
       }
-
+      // console.log(timeArrs)
       for (let t = 0; t < timeArrs.length; t++) {
 
         var callBackTime = this.moment(timeArrs[t++]);

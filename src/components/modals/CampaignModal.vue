@@ -180,7 +180,7 @@ export default {
         console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
         setTimeout(() => this.webSocket, 2000);
         Toast.fire({
-          title: 'Login Error',
+          title: 'Logged Out',
           icon: 'error',
         });
         this.select = true
