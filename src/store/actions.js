@@ -1,4 +1,7 @@
 const actions = {
+    logDate({commit}, date) {
+        commit("setLogDate", date);
+    },
     login({commit}, user) {
         commit("setUserData", user);
     },

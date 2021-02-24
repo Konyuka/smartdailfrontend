@@ -649,17 +649,12 @@
 
                                 <tbody>
 
-                                <tr v-for="(log, index) in callLogs" :key="log.call_log_id"
-                                    v-bind:class="tableStrip(index)">
-                                  <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                <tr v-for="(log, index) in callLogs" :key="log.call_log_id" v-bind:class="tableStrip(index)">
+                                  <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900 transform transition hover:scale-125  duration-300 ease-in-out">
                                     <a @click="dial(stripNumber(log.phone_number))">
-                                      <!-- <svg v-if="icon == true" class="mr-1 h-5 w-5 text-green-600 hover:text-green-800"
-                                           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                           stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"/>
-                                      </svg> -->
-                                      <!-- <svg v-if="icon == false" class="mr-1 h-5 w-5 text-indigo-600 hover:text-indigo-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 3l-6 6m0 0V4m0 5h5M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"></path></svg> -->
+                                      <svg v-if="logType(log)" class="mr-1 h-5 w-5 text-indigo-600"  fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5m0 0v5m0-5l-6 6M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"/></svg>
+                                      <svg v-else v-bind:class="inboundColor(log)" class="mr-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 3l-6 6m0 0V4m0 5h5M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"></path></svg>
+                                      <!-- <svg v-bind:class="{'hidden':  }" class="mr-1 h-5 w-5 hover:text-red-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 3l-6 6m0 0V4m0 5h5M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"></path></svg> -->
                                     </a>
                                   </td>
                                   <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-500">
@@ -697,26 +692,22 @@
                                   </a>
                                 </div>
 
-                                <div v-if="yesterday" @click="yesterdayLogs" class="-mt-px w-0 flex-1 flex">
-                                  <a href="#"
-                                     class="border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
-                                    <!-- Heroicon name: arrow-narrow-left -->
-                                    <svg class="mr-1 h-5 w-5 text-indigo-400 hover:text-indigo-900"
-                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                         aria-hidden="true">
-                                      <path fill-rule="evenodd"
-                                            d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
-                                            clip-rule="evenodd"/>
-                                    </svg>
-                                    Yesterday
-                                  </a>
+                                <div v-bind:class="{'hidden': iconType == 'hideYester', 'block': iconType == 'showYester',}" @click="yesterdayLogs" class="-mt-px w-0 flex-1 flex">
+                                  <a href="#" class="border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
+                                    <svg class="mr-1 h-5 w-5 text-indigo-400 hover:text-indigo-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"></path></svg>
+                                    Yesterday</a>
+                                </div>
+
+                                <div  v-bind:class="{'hidden': iconTypeToday !== 'showToday', 'block': iconTypeToday === 'showToday',}" @click="logs" class="-mt-px w-0 flex-1 flex justify-end">
+                                  <a href="#" class="border-transparent pt-3 pr-1 inline-flex items-center text-sm font-medium text-black hover:text-indigo-400">
+                                    <svg class="mr-1 h-5 w-5 text-indigo-400 hover:text-indigo-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Today</a>
                                 </div>
 
       
 
                                 <div class="absolute w-0 flex-1 flex ml-3 justify-center">
-                                  
-                                  <button type="button" class="transform transition hover:scale-125 duration-300 ease-in-out mt-2 justify-center btn text-sm btn-sm btn-outline-secondary font-semibold tracking-widest text-gray-400" v-for="pageNumber in pages.slice(page-1, page+5)" v-bind:key="pageNumber" @click="page = pageNumber"> <span class="hover:text-indigo-600 tracking-widest px-0.5">{{pageNumber}}</span> </button>
+                                  <button type="button" class="transform transition hover:scale-125 duration-300 ease-in-out mt-2 justify-center btn text-sm btn-sm btn-outline-secondary font-semibold tracking-widest text-gray-400" v-bind:class="{'text-indigo-600 text-lg': pageNumber === page}" v-for="pageNumber in pages.slice(page-1, page+5)" v-bind:key="pageNumber" @click="page = pageNumber"> <span class="hover:text-indigo-600 tracking-widest px-0.5">{{pageNumber}}</span> </button>
                                 </div>
 
 
@@ -1081,6 +1072,8 @@ export default {
   },
   data() {
     return {
+      iconTypeToday: '',
+      iconType: '',
       dueCallBacks: false,
       posts: '',
       postsCallback: '',
@@ -1144,12 +1137,12 @@ export default {
   },
   created() {
     this.interval = setInterval(() => this.callbackTimes(), 1000);
-    this.interval = setInterval(() => this.dataCheck(), 3000);
-    // this.interval = setInterval(() => this.logs(), 1000);
+    this.interval = setInterval(() => this.getDate(), 1000);
+    this.interval = setInterval(() => this.logType(), 1000);
   },
   computed: {
-    yesterday(){
-      return (this.page == 1 && this.pages != '') ? true : false
+    logDate() {
+      return this.$store.state.logDate
     },
     openSideG() {
       return (this.$store.state.pause_code != 'LOGIN') ? true : false
@@ -1232,6 +1225,17 @@ export default {
     }
   },
   watch: {
+    // yesterday(newCount){
+    //   let today = new Date();
+    //   if(newCount == true && this.page != this.pages.length){
+    //     console.log(this.page)
+    //     this.iconType = 'showYester'
+    //   }else if(newCount == false && this.logDate != this.formatDate(today) ){
+    //     this.iconType = 'showToday'
+    //   }else{
+    //     this.iconType == 'hide'
+    //   }
+    // },
     openTab(newCount) {
       if (newCount === 2 || newCount === 4) {
         this.logs();
@@ -1290,11 +1294,41 @@ export default {
     },
   },
   methods: {
-    dataCheck(){
-      console.log(this.callLogs)
+    inboundColor(log){
+      if(log.status == 'U0FMRQ==' ){
+        return 'text-green-600'
+      }else{
+        return 'text-red-600'
+      }
     },
-    yesterdayLogs(){
-      console.log("yesterday logs")
+    logType(log){
+      // console.log(this.nonPaginatedCalllogs)
+      if(log.call_type == 'outbound'){
+        return true
+      }
+      else if(log.call_type == 'inbound'){
+        return false
+      }
+    },
+    getDate(){
+      let today = new Date();
+      let yester = new Date();
+      yester.setDate(yester.getDate() - 1)
+      if(this.page == 1 && this.logDate == today.toISOString().slice(8,10)){
+        this.iconType = 'showYester'
+        }
+      else if(this.page > 1 && this.logDate == today.toISOString().slice(8,10)){
+        this.iconType = 'hideYester'
+        }
+      else if(this.page == 1 && this.logDate !== today.toISOString().slice(8,10)){
+          this.iconType = 'hideYester'
+        }
+      else if(this.page == this.pages.length && this.logDate !== today.toISOString().slice(8,10)){
+          this.iconTypeToday = 'showToday'
+        }
+      else if(this.logDate !== today.toISOString().slice(8,10)){
+          this.iconType = 'hideYester'
+      }  
     },
     sideGroup() {
       if (this.openSideG == false) {
@@ -1355,6 +1389,9 @@ export default {
       for (let index = 1; index <= numberOfPagesCallback; index++) {
         this.pagesCallBack.push(index);
       }
+    },
+    formatDate(date){
+      return moment(date).format("MMM Do YY");
     },
     getHumanDate(date) {
       return moment(date).format('h:mm a');
@@ -1474,11 +1511,46 @@ export default {
       this.$store.dispatch('numberCalled', response.data.phone_number)
       //this.onCallTrue = true
     },
+    yesterdayLogs(){
+      this.iconType = 'hideYester'
+      let date = new Date();
+      date.setDate(date.getDate() - 1); //yesterday date
+      let payload = {
+        "username": localStorage.getItem('user'),
+        "phone":localStorage.getItem('phone'),
+        "campaign": this.$store.state.campaign,
+        "date" : date.toISOString().slice(0,10)
+      };
+      this.$http.post("/api/v1/dial/logs", payload, { headers:{ "Content-Type": "application/json", "Accept": "application/json","Authorization": `Bearer ${localStorage.getItem('token')}` } })
+      .then((response)=> {
+        this.$store.dispatch("callLogs", response.data.logs);
+        this.postsCallback = this.nonPaginatedCallbacks
+        localStorage.setItem('postsCallback', this.postsCallback)
+        this.pages = [];
+        this.pagesCallBack = [],
+        this.setPages(); this.setPagesCallback();
+        this.$store.dispatch("logDate", date.toISOString().slice(8,10));
+        console.log(payload)
+      })
+      .catch(error => {
+        let payload = {
+          title: 'Getting Logs failed',
+          text: error.response.data,
+        }
+        this.$store.dispatch("resetError", payload);
+        this.tryAgain= false
+        this.errorModal = true
+      })
+    },
     logs() {
+      this.iconTypeToday = ''
+      this.page = 1
+      let date = new Date();
       let payload = {
         "username": localStorage.getItem('user'),
         "phone": localStorage.getItem('phone'),
         "campaign": this.$store.state.campaign,
+        "date": date.toISOString().slice(0,10)
       };
       //console.log(payload)
       this.$http.post("/api/v1/dial/logs", payload, {
@@ -1490,14 +1562,14 @@ export default {
       })
           .then((response) => {
             this.$store.dispatch("callLogs", response.data.logs);
-            //console.log(this.nonPaginatedCalllogs.length)
-            // console.log(response.data.logs)
             this.postsCallback = this.nonPaginatedCallbacks
             localStorage.setItem('postsCallback', this.postsCallback)
             this.pages = [];
             this.pagesCallBack = [],
-                this.setPages();
+            this.setPages();
             this.setPagesCallback();
+            this.$store.dispatch("logDate", date.toISOString().slice(8,10));
+            console.log(payload)
           })
           .catch(error => {
             let payload = {title: 'Getting Logs failed', text: error.response.data,}

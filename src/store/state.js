@@ -1,4 +1,5 @@
 const state = {
+    logDate: null,
     autoDialValue: 0,
     user: null,
     token: "",
