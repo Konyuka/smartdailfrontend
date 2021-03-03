@@ -1302,13 +1302,15 @@ export default {
       }
     },
     logType(log){
-      // console.log(this.nonPaginatedCalllogs)
-      if(log.call_type == 'outbound'){
-        return true
-      }
-      else if(log.call_type == 'inbound'){
-        return false
-      }
+
+    
+        if(log.call_type == 'outbound'){
+          return true
+        }
+        else if(log.call_type == 'inbound'){
+          return false
+        }
+      
     },
     getDate(){
       let today = new Date();
