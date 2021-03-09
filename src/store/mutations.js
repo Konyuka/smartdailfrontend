@@ -78,8 +78,8 @@ const mutations = {
     let userState = data.user_status;
 
     // console.log(call_details);
-    // console.log(data)
-    // console.log(callbacks)
+     //console.log(loggedin);
+    console.log(data.error)
 
     if (users != null || users != undefined) {
       state.activeUsers = users;

@@ -773,7 +773,7 @@
                                       class="flex-shrink-0 inline-block h-3 w-3 rounded-full" aria-hidden="true"></span>
 
                                 <span class="ml-3 font-normal block truncate pl-1">
-                              <span class="capitalize">
+                              <span class="lowercase italic ">
                               {{ item.user }}
                               </span>
                               <span class="sr-only"> is online</span>
@@ -825,7 +825,7 @@
                                 <tr v-for="(item,index) in callbacks" :key="index" v-bind:class="tableStrip(index)">
                                   <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                                     <a @click="dial(stripNumber(item.PhoneNumber)) && deleteCallback(item)">
-                                      <svg class="mr-1 h-5 w-5 text-black hover:text-indigo-600"
+                                      <svg class="mr-1 h-5 w-5 text-indigo-600 hover:text-indigo-600"
                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                            stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1202,7 +1202,8 @@ export default {
       return this.callbacks.length > 0
     },
     activeAgents() {
-      return this.$store.state.activeAgents
+      const unorderedAgents = this.$store.state.activeAgents
+      return unorderedAgents.slice().sort( (a, b) => {return (a.user > b.user) ? 1 : -1;} )
     },
     callLogs() {
       return this.paginate(this.$store.state.callLogs);
@@ -1212,10 +1213,14 @@ export default {
       // return this.$store.state.callbacks
     },
     nonPaginatedCalllogs() {
-      return this.$store.state.callLogs
+      const unorderedLogs = this.$store.state.callLogs 
+      return unorderedLogs.sort((a, b) => new Date(b.call_date) - new Date(a.call_date))
+      // return this.sortCalllogs(this.$store.state.callLogs)
     },
     nonPaginatedCallbacks() {
-      return this.$store.state.callbacks
+      const unorderedCallBacks = this.$store.state.callbacks
+      return unorderedCallBacks.sort((a, b) => new Date(b.callback_time) - new Date(a.callback_time))
+      // return this.$store.state.callbacks
     },
     queue() {
       return this.$store.state.callQueue
@@ -1294,22 +1299,27 @@ export default {
     },
   },
   methods: {
+    consoleData(){
+      console.log(this.nonPaginatedCallbacks)
+    },
     inboundColor(log){
-      if(log.status == 'U0FMRQ==' ){
+      if(log.status == 'Tkk=' ){
         return 'text-green-600'
       }else{
         return 'text-red-600'
       }
     },
     logType(log){
-
-    
+        // console.log(this.nonPaginatedCalllogs)       
+    // console.log(log)
+    if(log != ''){
         if(log.call_type == 'outbound'){
           return true
         }
         else if(log.call_type == 'inbound'){
           return false
         }
+    }
       
     },
     getDate(){
@@ -1486,6 +1496,7 @@ export default {
       }
     },
     manualDial() {
+      this.consoleData()
       if (!this.ready) {
         // this.dialTrue = true
         this.side = true
@@ -1563,6 +1574,7 @@ export default {
         }
       })
           .then((response) => {
+
             this.$store.dispatch("callLogs", response.data.logs);
             this.postsCallback = this.nonPaginatedCallbacks
             localStorage.setItem('postsCallback', this.postsCallback)
