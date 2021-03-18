@@ -6,14 +6,14 @@
           class="flex flex-col w-full md:w-84 text-gray-700 bg-indigo-900 dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0"
           x-data="{ open: false }">
         <div class="flex-shrink-0 px-2 py-2 flex flex-row-reverse">
-          <button @click="closePanel"
+          <!-- <button @click="closePanel"
                   class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <span class="sr-only">Close sidebar</span>
             <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
-          </button>
+          </button> -->
         </div>
         <nav class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto static">
 
@@ -276,6 +276,7 @@ export default {
               }
             })
             .then((response) => {
+              localStorage.setItem('unique_id', response.data.unique_id)
               localStorage.setItem('lead_id', response.data.lead_id)
               localStorage.setItem('callerid', response.data.callerid)
               localStorage.setItem('numberCalled', this.number)
@@ -496,7 +497,7 @@ export default {
     hangUp() {
       this.call = false,
       this.transfer = false,
-      this.$parent.dispositionModal = true
+      // this.$parent.dispositionModal = true
       //Create the payload to be sent
       this.$parent.clicked = true
       let payload = {

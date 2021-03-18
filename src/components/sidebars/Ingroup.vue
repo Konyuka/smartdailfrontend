@@ -24,13 +24,13 @@
           <div class="ml-4">
             <div class="grid grid-cols-2 gap-6 text-center">
               <label class="inline-flex items-center mt-3">
-                <input disabled type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" checked><span
-                  class="ml-2 text-white text-sm">Agent Direct</span>
+                <input disabled type="checkbox" class="form-checkbox h-3 w-3 text-indigo-600" checked><span
+                  class="ml-1 text-white text-sm">Agent Direct</span>
               </label>
               <label v-for="(item, index) in options" :key="index" class="inline-flex items-center mt-3">
                 <input :id="item.name" v-model="item.checked" :value="item" type="checkbox"
-                       class="form-checkbox h-5 w-5 text-indigo-600" checked><span
-                  class="ml-2 text-white text-sm capitalize">{{ item.name }}</span>
+                       class="form-checkbox h-3 w-3 text-indigo-600" checked><span
+                  class="ml-1 text-white text-xs capitalize">{{ item.name }}</span>
               </label>
             </div>
 

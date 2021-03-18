@@ -79,7 +79,7 @@
 
           </div>
 
-          <div class="flex justify-center mt-5">
+          <div v-if="!forcePause" class="flex justify-center mt-5">
             <label class="inline-flex items-center mt-3">
               <input v-model="pauseInready" type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600"><span
                 class="ml-2 text-gray-600 font-bold text-sm">pause on submit</span>
@@ -221,7 +221,8 @@ export default {
         "campaign": this.$store.state.campaign,
         "lead_id": localStorage.getItem('lead_id'),
         "status": this.selectDisposition,
-        "call_type": localStorage.getItem('callType')
+        "call_type": localStorage.getItem('callType'),
+        "unique_id": localStorage.getItem('unique_id')
       }
       console.log(payload)
       localStorage.setItem('disposition', this.selectDisposition)
@@ -280,7 +281,8 @@ export default {
         "campaign": this.$store.state.campaign,
         "lead_id": localStorage.getItem('lead_id'),
         "status": this.selectDisposition,
-        "call_type": localStorage.getItem('callType')
+        "call_type": localStorage.getItem('callType'),
+        "unique_id": localStorage.getItem('unique_id')
       }
       console.log(payload)
       localStorage.setItem('disposition', this.selectDisposition)
@@ -298,7 +300,12 @@ export default {
             })
             .then(response => {
               if (response) {
-                this.$store.dispatch('userState', 'PAUSED')
+                if(this.pauseafterCall == "Y"){
+                   this.$parent.sideP = true 
+                   this.pauseInready = true
+                  //  this.$store.dispatch('userState', 'PAUSED')
+                }
+
                 //this.$store.dispatch("setPausecode", '');               
                 true
               }
@@ -324,6 +331,15 @@ export default {
     },
   },
   computed: {
+    pauseafterCall(){
+      return this.$store.state.pauseafterCall 
+    },
+    forcePause(){
+      return (this.$store.state.pauseafterCall == "Y") ? true : false; 
+    },
+    agent_pause_after_each_call(){
+      return this.$store.state.agent_pause_after_each_call; 
+    },
     pause_code(){
       return this.$store.state.pause_code;
     },

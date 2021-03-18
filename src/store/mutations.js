@@ -39,6 +39,7 @@ const mutations = {
     state.agent_log_id = data.agent_log_id;
     state.dial_method = data.dial_method;
     state.userState = data.state;
+    state.agent_pause_after_each_call = data.agent_pause_after_each_call;
 
     localStorage.setItem("phone", data.phone);
     localStorage.setItem("campaign", data.campaign);
@@ -77,9 +78,9 @@ const mutations = {
     let callbacks = data.callbacks;
     let userState = data.user_status;
 
-    // console.log(call_details);
+    //console.log(call_details);
      //console.log(loggedin);
-    console.log(data.error)
+    //console.log(data)
 
     if (users != null || users != undefined) {
       state.activeUsers = users;
@@ -103,7 +104,7 @@ const mutations = {
 
     if (queue != null || queue != undefined) {
       if (queue.length > 0) {
-        console.log(queue);
+        //console.log(queue);
         state.callQueue = queue;
       } else {
         state.callQueue = [];
@@ -125,7 +126,8 @@ const mutations = {
 
     if (loggedin == false) {
       //logout()
-      state.campaign = null;
+      //state.campaign = null;
+      true
     }
 
     if (status == "calling") {

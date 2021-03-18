@@ -5,8 +5,8 @@
       <div
           class="flex flex-col w-full md:w-84 text-gray-700 bg-indigo-900 dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0"
           x-data="{ open: false }">
-        <div class="flex-shrink-0 px-2 py-2 flex flex-row-reverse">
-          <button @click="closePanel"
+        <div v-if="!call" class="flex-shrink-0 px-2 py-2 flex flex-row-reverse">
+          <button  @click="closePanel"
                   class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
             <span class="sr-only">Close sidebar</span>
             <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -205,8 +205,8 @@ export default {
       call: false,
       transfer: false,
       park: false,
-      // openTabs: 1,
       disposition: false,
+      showIcon: true
 
     }
   },
@@ -219,6 +219,12 @@ export default {
     }
   },
   computed: {
+    agent_pause_after_each_call(){
+      return this.$store.state.agent_pause_after_each_call; 
+    },
+    // showIcon(){
+    //   return ( this.callStatus == 'livecall') ? false : true
+    // },
     disabled() {
       return (this.number.length < '9') ? true : false
     },
@@ -266,6 +272,13 @@ export default {
     }
   },
   watch: {
+    call(newCount){
+      if(newCount == false){
+        if(this.callStatus == "livecall" || this.callStatus == "calling"){
+          this.call = true
+        }
+      }
+    },
     callStatus(newCount) {
       if (newCount == 'hangup' && !this.$parent.transferred) {  //&& !this.$parent.callParked
         this.stop()
@@ -281,15 +294,6 @@ export default {
 
       }
     },
-    // disabled(status){
-    //   if(status === 'true'){
-    //     Toast.fire({
-    //       type: 'success',
-    //       title: 'You have resumed the call',
-    //       icon: 'success',
-    //     });
-    //   }
-    // }
   },
   methods: {
     closePanel() {
@@ -300,11 +304,12 @@ export default {
       this.isPanelOpen = false
     },
     dial() {
-      this.call = true,
+          this.call = true,
           this.transfer = false,
+          this.showIcon = false,
 
           this.$store.dispatch('resetDisposition')
-      this.$store.dispatch('beforeCall')
+          this.$store.dispatch('beforeCall')
       if (this.number !== null && /^\d+$/.test(this.number)) {
         let payload = {
           "phone_number": this.number,
@@ -321,6 +326,8 @@ export default {
               }
             })
             .then((response) => {
+              this.call = true,
+              localStorage.setItem('unique_id', response.data.unique_id)
               localStorage.setItem('lead_id', response.data.lead_id)
               localStorage.setItem('callerid', response.data.callerid)
               localStorage.setItem('numberCalled', this.number)

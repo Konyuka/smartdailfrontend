@@ -50,7 +50,21 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 
+window.Swal = Swal;
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: false,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+window.Toast = Toast;
 
 export default {
   name: "Auth",
@@ -75,7 +89,7 @@ export default {
             this.$store.dispatch('login', response.data)
             localStorage.setItem('token', response.data.token)
             console.log(response)
-            this.$router.push('/dialer');
+              this.$router.push('/dialer');
           })
           .catch(error => {
             console.log(error)

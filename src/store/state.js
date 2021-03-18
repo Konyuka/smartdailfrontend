@@ -21,6 +21,7 @@ const state = {
     codeOptions: [],
     pauseCode: "LoggedIn",
     pauseafterCall: "",
+    agent_pause_after_each_call: "",
     numberCalled: null,
     hangupError: false,
     hangupReason: "",
